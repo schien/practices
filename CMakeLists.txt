@@ -1,0 +1,5 @@
+cmake_minimum_required (VERSION 3.10)
+project(practices)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
