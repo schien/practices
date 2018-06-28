@@ -3,3 +3,5 @@ project(practices)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+
+add_subdirectory(src/fizzbuzz)
