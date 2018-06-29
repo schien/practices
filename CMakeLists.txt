@@ -6,3 +6,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 
 add_subdirectory(src/fizzbuzz)
 add_subdirectory(src/autocomplete)
+add_subdirectory(src/reverse-string)
