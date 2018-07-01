@@ -1,4 +1,6 @@
-#!bin/sh
+#!/bin/sh
+
+git submodule init
 
 if [ ! -d build ]; then
   mkdir build
