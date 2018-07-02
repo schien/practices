@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git submodule init
+git submodule update --init --recursive
 
 if [ ! -d build ]; then
   mkdir build
