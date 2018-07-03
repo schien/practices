@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/reverse-linked-list/
+// https://leetcode.com/problems/delete-node-in-a-linked-list/
 
 /**
  * Definition for singly-linked list.
@@ -20,5 +21,22 @@ public:
       head = next;
     }
     return newHead;
+  }
+  void deleteNode(ListNode* node) {
+    if (!node) {
+      return;
+    }
+    ListNode* next = node->next;
+    if (!next) {
+      return;
+    }
+    swap(node->val, next->val);
+    node->next = next->next;
+    next->next = nullptr;
+  }
+  static inline void swap(int& a, int& b) {
+    int tmp = a;
+    a = b;
+    b = tmp;
   }
 };

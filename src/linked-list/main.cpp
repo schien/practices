@@ -3,6 +3,47 @@
 
 #include "solution.cpp"
 
+void printList(ListNode* head) {
+  while (head) {
+    std::cout << head->val << ' ';
+    head = head->next;
+  }
+  std::cout << std::endl;
+}
+
+void runReverseList(std::vector<ListNode>& nodes) {
+  Solution solution;
+  auto output = solution.reverseList(&nodes[0]);
+
+  printList(output);
+}
+
+void runDeleteNode(std::vector<ListNode>& nodes) {
+  int deleteVal;
+  std::cin >> deleteVal;
+
+  ListNode* toBeDeleted = nullptr;
+  for (int i = 0; i < nodes.size()-1; ++i) {
+    if (nodes[i].val == deleteVal) {
+      toBeDeleted = &nodes[i];
+      break;
+    }
+  }
+
+  Solution solution;
+  if (toBeDeleted != nullptr) {
+    solution.deleteNode(toBeDeleted);
+  }
+
+  printList(&nodes[0]);
+}
+
+void usage() {
+  std::cerr << "N v[1] ... v[N]" << std::endl
+            << "r" << std::endl
+            << "d v[x] (where x < N)" << std::endl;
+}
+
 int main() {
   uint32_t n;
   std::cin >> n;
@@ -22,15 +63,19 @@ int main() {
     }
   }
 
-  Solution solution;
-  auto output = solution.reverseList(&nodes[0]);
+  char op;
+  std::cin >> op;
 
-  ListNode* current = output;
-  while (current) {
-    std::cout << current->val << ' ';
-    current = current->next;
+  switch (op) {
+    case 'r':
+      runReverseList(nodes);
+      break;
+    case 'd':
+      runDeleteNode(nodes);
+      break;
+    default:
+      usage();
   }
-  std::cout << std::endl;
 
   return 0;
 }
