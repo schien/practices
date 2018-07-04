@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/power-of-three/
+// https://leetcode.com/problems/power-of-two/
 
 #include <cmath>
 #include <limits>
@@ -32,5 +33,9 @@ public:
   bool isPowerOfThree(int n) {
     //return naive(n);
     return useIntegerLimit(n);
+  }
+
+  bool isPowerOfTwo(int n) {
+    return n > 0 && (n & n-1) == 0;
   }
 };
