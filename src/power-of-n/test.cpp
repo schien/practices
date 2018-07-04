@@ -33,7 +33,7 @@ TEST(PowerOfThreeTest, all_non_power_of_3_less_than_1m) {
   Solution solution;
 
   int next_po3 = 1;
-  for (int i = 0; i < 100000000; ++i) {
+  for (int i = 0; i < 1000000; ++i) {
     if (i == next_po3) {
       next_po3 *= 3;
       continue;
@@ -41,6 +41,11 @@ TEST(PowerOfThreeTest, all_non_power_of_3_less_than_1m) {
 
     EXPECT_FALSE(solution.isPowerOfThree(i));
   }
+}
+
+TEST(PowerOfThreeTest, int_min) {
+  Solution solution;
+  EXPECT_FALSE(solution.isPowerOfThree(INT_MIN));
 }
 
 TEST(PowerOfTwoTest, zero) {
