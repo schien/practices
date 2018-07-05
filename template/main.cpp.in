@@ -1,0 +1,8 @@
+#include <iostream>
+
+#include "solution.cpp"
+
+int main() {
+  Solution solution;
+  return 0;
+}
