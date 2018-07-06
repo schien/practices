@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/happy-number/
+// https://leetcode.com/problems/add-digits/
 
 #include <unordered_set>
 
@@ -26,5 +27,20 @@ public:
             n = digitsum(n);
         }
         return n == 1;
+    }
+    int addDigits(int num) {
+      auto digitsum = [](int n) {
+        int sum = 0;
+        while(n) {
+          sum += n%10;
+          n /= 10;
+        }
+        return sum;
+      };
+
+      while(num >= 10) {
+        num = digitsum(num);
+      }
+      return num;
     }
 };

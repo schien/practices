@@ -7,9 +7,11 @@ int main() {
   std::cin >> n;
 
   Solution solution;
-  auto output = solution.isHappy(n);
+  auto happy = solution.isHappy(n);
+  auto digit = solution.addDigits(n);
 
-  std::cout << output << std::endl;
+  std::cout << "happy: " << happy << std::endl;
+  std::cout << "digit: " << digit << std::endl;
 
   return 0;
 }
