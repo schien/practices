@@ -1,5 +1,6 @@
 // https://leetcode.com/problems/happy-number/
 // https://leetcode.com/problems/add-digits/
+// https://leetcode.com/problems/ugly-number/
 
 #include <unordered_set>
 
@@ -42,5 +43,20 @@ public:
         num = digitsum(num);
       }
       return num;
+    }
+    bool isUgly(int num) {
+      if (num < 0) {
+        return false;
+      }
+      while (num > 1 && num % 2 == 0) {
+        num /= 2;
+      }
+      while (num > 1 && num%3 == 0) {
+        num /= 3;
+      }
+      while (num > 1 && num%5 == 0) {
+        num /= 5;
+      }
+      return num == 1;
     }
 };
