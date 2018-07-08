@@ -5,6 +5,8 @@ enable_testing()
 ## Setup for GTest
 add_subdirectory(lib/googletest EXCLUDE_FROM_ALL)
 
+add_subdirectory(lib/input_helper EXCLUDE_FROM_ALL)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 

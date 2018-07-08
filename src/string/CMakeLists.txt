@@ -4,6 +4,8 @@ project(string CXX)
 # cmdline executable
 add_executable(string main.cpp)
 target_compile_features(string PRIVATE cxx_std_14)
+target_include_directories(string PRIVATE "${inputhelper_SOURCE_DIR}/include")
+target_link_libraries(string input_helper)
 
 # test case for GTest
 add_executable(test_string test.cpp)
