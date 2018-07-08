@@ -7,9 +7,8 @@ int main() {
   std::cin >> s >> t;
 
   Solution solution;
-  auto output = solution.isAnagram(s, t);
-
-  std::cout << output << std::endl;
+  std::cout << "isAnagram: " << solution.isAnagram(s, t) << std::endl;
+  std::cout << "strStr: " << solution.strStr(s, t) << std::endl;
 
   return 0;
 }

@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/valid-anagram/
+// https://leetcode.com/problems/implement-strstr/
 
 #include <string>
 #include <array>
@@ -22,5 +23,15 @@ class Solution {
       }
 
       return all_of(table.begin(), table.end(), [](int n) { return !n; });
+    }
+    int strStr(string haystack, string needle) {
+      const int sz_h = haystack.size();
+      const int sz_n = needle.size();
+      for (int i = 0; i < sz_h - sz_n + 1; ++i) {
+        if (haystack.compare(i, sz_n, needle) == 0) {
+          return i;
+        }
+      }
+      return -1;
     }
 };

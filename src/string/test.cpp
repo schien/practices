@@ -44,4 +44,53 @@ TEST(AnagramTest, long_string) {
   EXPECT_TRUE(solution.isAnagram(s, s));
 }
 
+TEST(StrStrTest, simple) {
+  string haystack{"hello"};
+  string needle{"ll"};
+  Solution solution;
+
+  EXPECT_EQ(2, solution.strStr(haystack, needle));
+}
+
+TEST(StrStrTest, not_found) {
+  string haystack{"hello"};
+  string needle{"llz"};
+  Solution solution;
+
+  EXPECT_EQ(-1, solution.strStr(haystack, needle));
+}
+
+TEST(StrStrTest, long_string) {
+  string haystack(2000000, 'a');
+  string needle(1000000, 'b');
+  Solution solution;
+
+  EXPECT_EQ(-1, solution.strStr(haystack, needle));
+  EXPECT_EQ(0, solution.strStr(haystack, haystack));
+}
+
+TEST(StrStrTest, long_needle) {
+  string haystack{"hello"};
+  string needle{"helloworld"};
+  Solution solution;
+
+  EXPECT_EQ(-1, solution.strStr(haystack, needle));
+}
+
+TEST(StrStrTest, empty_needle) {
+  string haystack{"hello"};
+  string needle{""};
+  Solution solution;
+
+  EXPECT_EQ(0, solution.strStr(haystack, needle));
+}
+
+TEST(StrStrTest, empty_haystack) {
+  string haystack{""};
+  string needle{"world"};
+  Solution solution;
+
+  EXPECT_EQ(-1, solution.strStr(haystack, needle));
+}
+
 }
