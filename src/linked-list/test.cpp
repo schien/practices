@@ -114,4 +114,69 @@ TEST(DeleteNodeTest, multi_elements) {
   }
   EXPECT_EQ(nullptr, current);
 }
+
+TEST(PalindromeTest, one_element) {
+  const int val = 1;
+  ListNode head(val);
+
+  Solution solution;
+  EXPECT_TRUE(solution.isPalindrome(&head));
+}
+
+TEST(PalindromeTest, empty_list) {
+  Solution solution;
+  EXPECT_TRUE(solution.isPalindrome(nullptr));
+}
+
+TEST(PalindromeTest, two_elements) {
+  ListNode nodes[2] = {
+    ListNode(1),
+    ListNode(2),
+  };
+
+  nodes[0].next = &nodes[1];
+
+  Solution solution;
+  EXPECT_FALSE(solution.isPalindrome(&nodes[0]));
+
+  nodes[1].val = nodes[0].val;
+  EXPECT_TRUE(solution.isPalindrome(&nodes[0]));
+}
+
+TEST(PalindromeTest, odd_elements) {
+  ListNode nodes[5] = {
+    ListNode(1),
+    ListNode(2),
+    ListNode(3),
+    ListNode(4),
+    ListNode(5)
+  };
+
+  for (int i = 0; i < 4; ++i) {
+    nodes[i].next = &nodes[i+1];
+  }
+
+  Solution solution;
+  EXPECT_FALSE(solution.isPalindrome(&nodes[0]));
+
+  nodes[3].val = nodes[1].val;
+  nodes[4].val = nodes[0].val;
+  EXPECT_TRUE(solution.isPalindrome(&nodes[0]));
+}
+
+TEST(PalindromeTest, 1m_elements) {
+  std::vector<ListNode> nodes(1000000, ListNode(1));
+
+  for (int i = 0; i < 1000000-1; ++i) {
+    nodes[i].next = &nodes[i+1];
+  }
+
+  Solution solution;
+  EXPECT_TRUE(solution.isPalindrome(&nodes[0]));
+
+  nodes[1000000/2].val = 0;
+
+  EXPECT_FALSE(solution.isPalindrome(&nodes[0]));
+}
+
 }

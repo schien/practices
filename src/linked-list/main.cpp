@@ -38,6 +38,13 @@ void runDeleteNode(std::vector<ListNode>& nodes) {
   printList(&nodes[0]);
 }
 
+void runPalindrome(std::vector<ListNode>& nodes) {
+  Solution solution;
+  auto output = solution.isPalindrome(&nodes[0]);
+
+  std::cout << output << std::endl;
+}
+
 void usage() {
   std::cerr << "N v[1] ... v[N]" << std::endl
             << "r" << std::endl
@@ -72,6 +79,9 @@ int main() {
       break;
     case 'd':
       runDeleteNode(nodes);
+      break;
+    case 'p':
+      runPalindrome(nodes);
       break;
     default:
       usage();
