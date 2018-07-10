@@ -4,6 +4,8 @@ project(##PROJECT_NAME## CXX)
 # cmdline executable
 add_executable(##UNDERSCORE_NAME## main.cpp)
 target_compile_features(##UNDERSCORE_NAME## PRIVATE cxx_std_14)
+target_include_directories(##UNDERSCORE_NAME## PRIVATE "${inputhelper_SOURCE_DIR}/include")
+target_link_libraries(##UNDERSCORE_NAME## input_helper)
 
 # test case for GTest
 add_executable(test_##UNDERSCORE_NAME## test.cpp)
