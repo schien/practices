@@ -93,4 +93,28 @@ TEST(ArrayMultiIntersectTest, subset) {
   EXPECT_EQ(all, solution.intersection(double_all, all));
 }
 
+TEST(TopKFrequentTest, large) {
+  unordered_set<int> expected;
+  vector<int> input;
+  input.reserve(2001*1000);
+  for (int i = 1; i <= 2000; ++i) {
+    expected.insert(i);
+    for (int j = 0; j < i; ++j) {
+      input.push_back(i);
+    }
+  }
+
+  Solution solution;
+
+  auto output = solution.topKFrequent(input, 1);
+  EXPECT_EQ(vector<int>{2000}, output);
+
+  output = solution.topKFrequent(input, 1000);
+  unordered_set<int> expected_1k;
+  for (int i = 1001; i <= 2000; ++i) {
+    expected_1k.insert(i);
+  }
+  EXPECT_EQ(expected_1k, unordered_set<int>(output.begin(), output.end()));
+}
+
 }
