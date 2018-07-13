@@ -179,4 +179,114 @@ TEST(PalindromeTest, 1m_elements) {
   EXPECT_FALSE(solution.isPalindrome(&nodes[0]));
 }
 
+TEST(SortTest, empty) {
+  Solution solution;
+
+  EXPECT_EQ(nullptr, solution.sortList(nullptr));
+}
+
+TEST(SortTest, one_element) {
+  Solution solution;
+
+  ListNode n(1);
+
+  auto output = solution.sortList(&n);
+  EXPECT_EQ(n.val, output->val);
+  EXPECT_EQ(nullptr, output->next);
+}
+
+TEST(SortTest, small) {
+  Solution solution;
+
+  std::vector<ListNode> nodes(10, ListNode(0));
+
+  // ascending order
+  for (int i = 1; i < 10; ++i) {
+    nodes[i].val = i;
+    nodes[i-1].next = &nodes[i];
+  }
+
+  auto output = solution.sortList(&nodes[0]);
+
+  for (int i = 0; i < 10; ++i, output = output->next) {
+    EXPECT_EQ(i, output->val);
+  }
+
+  // all equals
+  for (int i = 1; i < 10; ++i) {
+    nodes[i].val = 0;
+    nodes[i].next = nullptr;
+    nodes[i-1].next = &nodes[i];
+  }
+
+  output = solution.sortList(&nodes[0]);
+
+  for (int i = 0; i < 10; ++i, output = output->next) {
+    EXPECT_EQ(0, output->val);
+  }
+
+  // descending order
+  for (int i = 1; i < 10; ++i) {
+    nodes[i].val = -i;
+    nodes[i].next = nullptr;
+    nodes[i-1].next = &nodes[i];
+  }
+
+  output = solution.sortList(&nodes[0]);
+
+  int v = -10;
+  while(output) {
+    EXPECT_EQ(++v, output->val);
+    output = output->next;
+  }
+
+}
+
+TEST(SortTest, large) {
+  Solution solution;
+
+  std::vector<ListNode> nodes(1000000, ListNode(0));
+
+  // ascending order
+  for (int i = 1; i < 1000000; ++i) {
+    nodes[i].val = i;
+    nodes[i-1].next = &nodes[i];
+  }
+
+  auto output = solution.sortList(&nodes[0]);
+
+  for (int i = 0; i < 1000000; ++i, output = output->next) {
+    EXPECT_EQ(i, output->val);
+  }
+
+  // all equals
+  for (int i = 1; i < 1000000; ++i) {
+    nodes[i].val = 0;
+    nodes[i].next = nullptr;
+    nodes[i-1].next = &nodes[i];
+  }
+
+  output = solution.sortList(&nodes[0]);
+
+  for (int i = 0; i < 1000000; ++i, output = output->next) {
+    EXPECT_EQ(0, output->val);
+  }
+
+  // descending order
+  for (int i = 1; i < 1000000; ++i) {
+    nodes[i].val = -i;
+    nodes[i].next = nullptr;
+    nodes[i-1].next = &nodes[i];
+  }
+
+  output = solution.sortList(&nodes[0]);
+
+  int v = -1000000;
+  while(output) {
+    EXPECT_EQ(++v, output->val);
+    output = output->next;
+  }
+
+}
+
 }

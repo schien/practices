@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/reverse-linked-list/
 // https://leetcode.com/problems/delete-node-in-a-linked-list/
 // https://leetcode.com/problems/palindrome-linked-list/
+// https://leetcode.com/problems/sort-list/
 
 /**
  * Definition for singly-linked list.
@@ -82,6 +83,110 @@ static bool palindrome_reverse_half(ListNode* head) {
   return result;
 }
 
+ListNode* insertion_sort(ListNode* head) {
+  if (!head) {
+    return nullptr;
+  }
+
+  ListNode* result = head;
+  head = head->next;
+  result->next = nullptr;
+
+  while (head) {
+    const int h_v = head->val;
+    ListNode** prev = &result;
+    ListNode* curr = result;
+    while (curr && h_v > curr->val) {
+      prev = &curr->next;
+      curr = curr->next;
+    }
+    auto tmp = head->next;
+    head->next = curr;
+    *prev = head;
+    head = tmp;
+  }
+  return result;
+}
+
+ListNode* quick_sort(ListNode* head) {
+  if (!head) {
+    return nullptr;
+  }
+  ListNode* pivot = head;
+  ListNode* l = nullptr;
+  ListNode* h = nullptr;
+
+  ListNode* curr = head->next;
+  const int p_v = pivot->val;
+  while (curr) {
+    ListNode** n = (p_v>curr->val) ? &l : &h;
+    auto tmp = curr->next;
+    curr->next = *n;
+    *n = curr;
+    curr = tmp;
+  }
+
+  pivot->next = quick_sort(h);
+  if (!l) {
+    return pivot;
+  }
+
+  l = quick_sort(l);
+  curr = l;
+  while(curr->next) {
+    curr = curr->next;
+  }
+  curr->next = pivot;
+  return l;
+}
+
+ListNode* merge_sort(ListNode* head) {
+  if (!head) {
+    return nullptr;
+  }
+  // split
+  ListNode* split = head->next;
+  ListNode* curr = head;
+  while (curr) {
+    auto next = curr->next;
+    if (next) {
+      curr->next = next->next;
+    }
+    curr = next;
+  }
+
+  if (!split) {
+    return head;
+  }
+
+  ListNode* a = merge_sort(head);
+  ListNode* b = merge_sort(split);
+
+  // merge
+  static auto merge = [](ListNode* a, ListNode* b) {
+    ListNode head(0);
+    ListNode* tail = &head;
+    while (a && b) {
+      if (a->val < b->val) {
+        tail->next = a;
+        a = a->next;
+      } else {
+        tail->next = b;
+        b = b->next;
+      }
+      tail = tail->next;
+    }
+    if (a) {
+      tail->next = a;
+    }
+    if (b) {
+      tail->next = b;
+    }
+    return head.next;
+  };
+  return merge(a, b);
+}
+
 class Solution {
 public:
   ListNode* reverseList(ListNode* head) {
@@ -114,5 +219,10 @@ public:
   bool isPalindrome(ListNode* head) {
     //return palindrome_reverse_all(head);
     return palindrome_reverse_half(head);
+  }
+  ListNode* sortList(ListNode* head) {
+    return merge_sort(head);
+    //return insertion_sort(head);
+    //return quick_sort(head);
   }
 };
