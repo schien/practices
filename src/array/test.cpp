@@ -117,4 +117,25 @@ TEST(TopKFrequentTest, large) {
   EXPECT_EQ(expected_1k, unordered_set<int>(output.begin(), output.end()));
 }
 
+TEST(ProductExceptSelfTest, zeros) {
+  vector<int> input(1000000);
+  Solution solution;
+  EXPECT_EQ(input, solution.productExceptSelf(input));
+}
+
+TEST(ProductExceptSelfTest, ones) {
+  vector<int> input(1000000, 1);
+  Solution solution;
+  EXPECT_EQ(input, solution.productExceptSelf(input));
+}
+
+TEST(ProductExceptSelfTest, negative_1) {
+  vector<int> input(1000000, -1);
+  Solution solution;
+  EXPECT_EQ(input, solution.productExceptSelf(input));
+
+  input = vector<int>(999999, -1);
+  EXPECT_EQ(vector<int>(999999, 1), solution.productExceptSelf(input));
+}
+
 }

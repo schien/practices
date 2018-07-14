@@ -4,8 +4,10 @@
 #include "solution.cpp"
 
 void usage() {
-  std::cout << "[usage] i {n x_1 ... x_n} {m y_1 ... y_m}" << std::endl
-            << "        t {n x_1 ... x_n} k" << std::endl;
+  std::cout << "[usage] i {n x_1 ... x_n} {m y_1 ... y_m}\n"
+            << "        t {n x_1 ... x_n} k\n"
+            << "        p {n x_1 ... x_n}\n"
+            << std::flush;
 }
 
 void output_vector(vector<int>& vec) {
@@ -36,6 +38,14 @@ void runTopKFrequent() {
   output_vector(output);
 }
 
+void runProductExceptSelf() {
+  std::vector<int> num = next();
+
+  Solution solution;
+  auto output = solution.productExceptSelf(num);
+  output_vector(output);
+}
+
 int main() {
   char op = next<char>();
 
@@ -45,6 +55,9 @@ int main() {
       break;
     case 't':
       runTopKFrequent();
+      break;
+    case 'p':
+      runProductExceptSelf();
       break;
     default:
       usage();

@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/intersection-of-two-arrays/
 // https://leetcode.com/problems/intersection-of-two-arrays-ii/
 // https://leetcode.com/problems/top-k-frequent-elements/
+// https://leetcode.com/problems/product-of-array-except-self/
 
 #include <vector>
 #include <unordered_set>
@@ -72,6 +73,29 @@ class Solution {
       for (int i = 0; i < k; ++i) {
         result.push_back(pq.top().first);
         pq.pop();
+      }
+      return result;
+    }
+    vector<int> productExceptSelf(vector<int>& nums) {
+      if (nums.empty()) {
+	return {};
+      }
+
+      const int sz = nums.size();
+
+      vector<int> result(sz, 1);
+      // result'[i] = nums[i+1]*...*nums[sz-1]
+      int right_product = nums[sz-1];
+      for (int i = sz-2; i >= 0; --i) {
+	result[i] = right_product;
+	right_product *= nums[i];
+      }
+
+      // result[i] = (nums[0]*...*nums[i-1]) * (nums[i+1]*...*nums[sz-1])
+      int left_product = nums[0];
+      for (int i = 1; i < sz; ++i) {
+	result[i] *= left_product;
+	left_product *= nums[i];
       }
       return result;
     }
