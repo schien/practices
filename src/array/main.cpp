@@ -6,6 +6,7 @@
 void usage() {
   std::cout << "[usage] i {n x_1 ... x_n} {m y_1 ... y_m}\n"
             << "        t {n x_1 ... x_n} k\n"
+            << "        m {n x_1 ... x_n}\n"
             << "        p {n x_1 ... x_n}\n"
             << std::flush;
 }
@@ -46,6 +47,16 @@ void runProductExceptSelf() {
   output_vector(output);
 }
 
+void runPermutation() {
+  std::vector<int> num = next();
+
+  Solution solution;
+  auto output = solution.permute(num);
+  for (auto vec : output) {
+    output_vector(vec);
+  }
+}
+
 int main() {
   char op = next<char>();
 
@@ -56,8 +67,11 @@ int main() {
     case 't':
       runTopKFrequent();
       break;
-    case 'p':
+    case 'm':
       runProductExceptSelf();
+      break;
+    case 'p':
+      runPermutation();
       break;
     default:
       usage();

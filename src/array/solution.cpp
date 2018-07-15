@@ -2,6 +2,7 @@
 // https://leetcode.com/problems/intersection-of-two-arrays-ii/
 // https://leetcode.com/problems/top-k-frequent-elements/
 // https://leetcode.com/problems/product-of-array-except-self/
+// https://leetcode.com/problems/permutations/
 
 #include <vector>
 #include <unordered_set>
@@ -97,6 +98,25 @@ class Solution {
 	result[i] *= left_product;
 	left_product *= nums[i];
       }
+      return result;
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+      const int sz = nums.size();
+      vector<vector<int>> result;
+      function<void(const int)> worker = [&worker, &nums, &result](const int i) {
+        if (i <= 0) {
+          result.push_back(nums);
+          return;
+        }
+
+        worker(i-1);
+        for (int j = 0; j < i; ++j) {
+          swap(nums[i], nums[j]);
+          worker(i-1);
+          swap(nums[i], nums[j]);
+        }
+      };
+      worker(sz-1);
       return result;
     }
 };

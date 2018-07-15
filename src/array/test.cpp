@@ -1,4 +1,6 @@
 #include "gtest/gtest.h"
+#include <algorithm>
+#include <set>
 
 #include "solution.cpp"
 
@@ -136,6 +138,93 @@ TEST(ProductExceptSelfTest, negative_1) {
 
   input = vector<int>(999999, -1);
   EXPECT_EQ(vector<int>(999999, 1), solution.productExceptSelf(input));
+}
+
+TEST(PermutationTest, empty) {
+  vector<int> empty;
+  Solution solution;
+  EXPECT_EQ(vector<vector<int>>{{}}, solution.permute(empty));
+}
+
+TEST(PermutationTest, one) {
+  vector<int> input{1};
+  Solution solution;
+  EXPECT_EQ(vector<vector<int>>{input}, solution.permute(input));
+}
+
+TEST(PermutationTest, small) {
+  vector<int> input{1, 2, 3, 4, 5};
+  Solution solution;
+
+  int expected_size = 1;
+  for (int i = input.size(); i > 1; --i) {
+    expected_size *= i;
+  }
+  auto output = solution.permute(input);
+
+  EXPECT_EQ(expected_size, output.size());
+
+  set<vector<int>> values;
+  for (auto vec : output) {
+    values.insert(vec);
+  }
+
+  set<vector<int>> expected_values;
+  do {
+    expected_values.insert(input);
+  } while (next_permutation(input.begin(), input.end()));
+
+  EXPECT_EQ(expected_values, values);
+}
+
+TEST(PermutationTest, large) {
+  vector<int> input{1, 2, 3, 4, 5, 6, 7, 8, 9};
+  Solution solution;
+
+  int expected_size = 1;
+  for (int i = input.size(); i > 1; --i) {
+    expected_size *= i;
+  }
+  auto output = solution.permute(input);
+
+  EXPECT_EQ(expected_size, output.size());
+
+  set<vector<int>> values;
+  for (auto vec : output) {
+    values.insert(vec);
+  }
+
+  set<vector<int>> expected_values;
+  do {
+    expected_values.insert(input);
+  } while (next_permutation(input.begin(), input.end()));
+
+  EXPECT_EQ(expected_values, values);
+}
+
+TEST(PermutationTest, unordered) {
+  vector<int> input{3, 4, 2, 1};
+  Solution solution;
+
+  int expected_size = 1;
+  for (int i = input.size(); i > 1; --i) {
+    expected_size *= i;
+  }
+  auto output = solution.permute(input);
+
+  EXPECT_EQ(expected_size, output.size());
+
+  set<vector<int>> values;
+  for (auto vec : output) {
+    values.insert(vec);
+  }
+
+  set<vector<int>> expected_values;
+  do {
+    expected_values.insert(input);
+  } while (next_permutation(input.begin(), input.end()), --expected_size);
+
+  EXPECT_EQ(expected_values, values);
 }
 
 }
