@@ -1,0 +1,35 @@
+#include "gtest/gtest.h"
+#include <algorithm>
+
+#include "solution.cpp"
+
+namespace {
+
+TEST(FourSumCountTest, example) {
+  vector<int> A{1,2},
+              B{-2,-1},
+              C{-1,2},
+              D{0,2};
+
+  Solution solution;
+  EXPECT_EQ(2, solution.fourSumCount(A,B,C,D));
+}
+
+TEST(FourSumCountTest, large) {
+  vector<int> input(500);
+  generate(input.begin(), input.end(), [](){ static int g = 0; return ++g; });
+
+  Solution solution;
+  EXPECT_EQ(0, solution.fourSumCount(input, input, input, input));
+}
+
+TEST(FourSumCountTest, large) {
+  vector<int> input(500);
+  generate(input.begin(), input.end(), [](){ static int g = 0; return ++g; });
+  fill_n(input.begin(), 100, 0);
+
+  Solution solution;
+  EXPECT_EQ(100000000, solution.fourSumCount(input, input, input, input));
+}
+
+}
