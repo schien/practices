@@ -3,6 +3,7 @@
 // https://leetcode.com/problems/top-k-frequent-elements/
 // https://leetcode.com/problems/product-of-array-except-self/
 // https://leetcode.com/problems/permutations/
+// https://leetcode.com/problems/find-the-duplicate-number/
 
 #include <vector>
 #include <unordered_set>
@@ -117,6 +118,27 @@ class Solution {
         }
       };
       worker(sz-1);
+      return result;
+    }
+    // time: O(n) + O(n)
+    // space: O(1)
+    int findDuplicate(vector<int>& nums) {
+      // precondition: nums has N+1 elements, value range is [1, N]
+      int result = -1;
+      for (auto n : nums) {
+	auto t = abs(n);
+	if (nums[t] < 0) {
+	  result = t;
+	} else {
+          // use nagative value in index i to remember value i exists.
+	  nums[t] *= -1;
+	}
+      }
+
+      // restore the input array
+      for (size_t i = 0; i < nums.size(); ++i) {
+	nums[i] = abs(nums[i]);
+      }
       return result;
     }
 };

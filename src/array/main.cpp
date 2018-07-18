@@ -8,6 +8,7 @@ void usage() {
             << "        t {n x_1 ... x_n} k\n"
             << "        m {n x_1 ... x_n}\n"
             << "        p {n x_1 ... x_n}\n"
+            << "        d {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -57,6 +58,12 @@ void runPermutation() {
   }
 }
 
+void runFindDuplicate() {
+  std::vector<int> num = next();
+  Solution solution;
+  std::cout << solution.findDuplicate(num) << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -72,6 +79,9 @@ int main() {
       break;
     case 'p':
       runPermutation();
+      break;
+    case 'd':
+      runFindDuplicate();
       break;
     default:
       usage();

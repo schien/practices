@@ -227,4 +227,49 @@ TEST(PermutationTest, unordered) {
   EXPECT_EQ(expected_values, values);
 }
 
+TEST(FindDuplicateTest, small) {
+  vector<int> input(5);
+  Solution solution;
+
+  for (int i = 0; i < 4; ++i) {
+    input[i] = i+1;
+  }
+  for (int i = 1; i < 5; ++i) {
+    input[4] = i;
+    EXPECT_EQ(i, solution.findDuplicate(input));
+  }
+
+  for(int i = 1; i < 5; ++i) {
+    input[i] = i;
+  }
+  for (int i = 1; i < 5; ++i) {
+    input[0] = i;
+    EXPECT_EQ(i, solution.findDuplicate(input));
+  }
+}
+
+TEST(FindDuplicateTest, large) {
+  const int N = 1000000;
+  vector<int> input(N);
+  Solution solution;
+
+  for (int i = 0; i < N-1; ++i) {
+    input[i] = i+1;
+  }
+  for (int i = 1; i < 100; ++i) {
+    auto dup = 1 + rand()%(N-1);
+    input[N-1] = dup;
+    EXPECT_EQ(dup, solution.findDuplicate(input));
+  }
+
+  for(int i = 1; i < N; ++i) {
+    input[i] = i;
+  }
+  for (int i = 1; i < 100; ++i) {
+    auto dup = 1 + rand()%(N-1);
+    input[0] = dup;
+    EXPECT_EQ(dup, solution.findDuplicate(input));
+  }
+}
+
 }
