@@ -1,6 +1,8 @@
 // https://leetcode.com/problems/binary-tree-inorder-traversal/
+// https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 
 #include <vector>
+#include <functional>
 
 using namespace std;
 /**
@@ -53,5 +55,30 @@ class Solution {
       //recursive(root, result);
       iterative(root, result);
       return result;
+    }
+    int kthSmallest(TreeNode* root, int k) {
+      if (!root || k <= 0) {
+        throw range_error("no found");
+      }
+
+      function<int(TreeNode*)> count = [&count](TreeNode* root) {
+	if (!root) {
+	  return 0;
+	}
+	return 1+count(root->left)+count(root->right);
+      };
+
+      auto lcnt = count(root->left);
+
+      if (k <= lcnt) {
+	return kthSmallest(root->left, k);
+      } else  {
+	k -= lcnt;
+	if (k == 1) {
+	  return root->val;
+	} else {
+	  return kthSmallest(root->right, k-1);
+	}
+      }
     }
 };
