@@ -4,6 +4,7 @@
 // https://leetcode.com/problems/product-of-array-except-self/
 // https://leetcode.com/problems/permutations/
 // https://leetcode.com/problems/find-the-duplicate-number/
+// https://leetcode.com/problems/subsets/
 
 #include <vector>
 #include <unordered_set>
@@ -139,6 +140,20 @@ class Solution {
       for (size_t i = 0; i < nums.size(); ++i) {
 	nums[i] = abs(nums[i]);
       }
+      return result;
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+      vector<vector<int>> result{{}};
+      result.reserve(1<<nums.size());
+
+      for (auto n : nums) {
+        auto vec = result;
+        for (auto& v : vec) {
+          v.push_back(n);
+        }
+        result.insert(result.end(), vec.begin(), vec.end());
+      }
+
       return result;
     }
 };

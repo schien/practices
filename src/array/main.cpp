@@ -9,6 +9,7 @@ void usage() {
             << "        m {n x_1 ... x_n}\n"
             << "        p {n x_1 ... x_n}\n"
             << "        d {n x_1 ... x_n}\n"
+            << "        s {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -64,6 +65,15 @@ void runFindDuplicate() {
   std::cout << solution.findDuplicate(num) << std::endl;
 }
 
+void runSubset() {
+  std::vector<int> num = next();
+  Solution solution;
+  auto output = solution.subsets(num);
+  for (auto vec : output) {
+    output_vector(vec);
+  }
+}
+
 int main() {
   char op = next<char>();
 
@@ -82,6 +92,9 @@ int main() {
       break;
     case 'd':
       runFindDuplicate();
+      break;
+    case 's':
+      runSubset();
       break;
     default:
       usage();

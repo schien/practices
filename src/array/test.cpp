@@ -272,4 +272,32 @@ TEST(FindDuplicateTest, large) {
   }
 }
 
+TEST(SubsetTest, empty) {
+  Solution solution;
+  vector<int> input{};
+  EXPECT_EQ(vector<vector<int>>{{}}, solution.subsets(input));
+}
+
+TEST(SubsetTest, one) {
+  Solution solution;
+  vector<int> input{1};
+  EXPECT_EQ((vector<vector<int>>{{}, {1}}), solution.subsets(input));
+}
+
+TEST(SubsetTest, example) {
+  Solution solution;
+  vector<int> input{1,2,3};
+  vector<vector<int>> expected{
+    {}, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3}
+  };
+
+  auto output = solution.subsets(input);
+
+  EXPECT_EQ(expected.size(), output.size());
+
+  for (auto& e : expected) {
+    EXPECT_NE(output.end(), find(output.begin(), output.end(), e));
+  }
+}
+
 }
