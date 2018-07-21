@@ -2,6 +2,7 @@
 // https://leetcode.com/problems/delete-node-in-a-linked-list/
 // https://leetcode.com/problems/palindrome-linked-list/
 // https://leetcode.com/problems/sort-list/
+// https://leetcode.com/problems/odd-even-linked-list/
 
 /**
  * Definition for singly-linked list.
@@ -224,5 +225,30 @@ public:
     return merge_sort(head);
     //return insertion_sort(head);
     //return quick_sort(head);
+  }
+  ListNode* oddEvenList(ListNode* head) {
+    if (!head) {
+      return nullptr;
+    }
+
+    auto curr = head;
+    auto odd = head->next;
+    bool is_even = true;
+    ListNode* even_tail = nullptr;
+    while (curr) {
+      auto next = curr->next;
+      if (next) {
+        curr->next = next->next;
+      }
+      if (is_even && !curr->next) {
+        even_tail = curr;
+      }
+      curr = next;
+      is_even = !is_even;
+    }
+
+    even_tail->next = odd;
+
+    return head;
   }
 };

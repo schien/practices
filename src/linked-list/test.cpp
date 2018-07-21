@@ -289,4 +289,58 @@ TEST(SortTest, large) {
 
 }
 
+TEST(OddEventList, empty) {
+  Solution solution;
+  EXPECT_EQ(nullptr, solution.oddEvenList(nullptr));
+}
+
+TEST(OddEventList, odd) {
+  Solution solution;
+  ListNode node(1);
+
+  auto output = solution.oddEvenList(&node);
+  EXPECT_EQ(&node, output);
+  EXPECT_EQ(node.val, output->val);
+  EXPECT_EQ(nullptr, output->next);
+}
+
+TEST(OddEventList, even) {
+  Solution solution;
+  ListNode nodes[2] { 1, 2 };
+  nodes[0].next = &nodes[1];
+
+  auto output = solution.oddEvenList(&nodes[0]);
+  EXPECT_EQ(&nodes[0], output);
+  EXPECT_EQ(nodes[0].val, output->val);
+  EXPECT_EQ(&nodes[1], output->next);
+  EXPECT_EQ(nodes[1].val, output->next->val);
+  EXPECT_EQ(nullptr, output->next->next);
+}
+
+TEST(OddEventList, large) {
+  Solution solution;
+
+  std::vector<ListNode> nodes(1000000, 0);
+  for (int i = 0; i < 1000000; ++i) {
+    nodes[i].val = i;
+    if (i) {
+      nodes[i-1].next = &nodes[i];
+    }
+  }
+
+  auto output = solution.oddEvenList(&nodes[0]);
+
+  auto curr = output;
+  for (int i = 0; i < 1000000; i+=2) {
+    EXPECT_EQ(nodes[i].val, curr->val);
+    curr = curr->next;
+  }
+
+  for (int i = 1; i < 1000000; i+=2) {
+    EXPECT_EQ(nodes[i].val, curr->val);
+    curr = curr->next;
+  }
+
+}
+
 }

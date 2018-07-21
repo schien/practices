@@ -52,11 +52,19 @@ void runPalindrome(std::vector<ListNode>& nodes) {
   std::cout << output << std::endl;
 }
 
+void runOddEvenList(std::vector<ListNode>& nodes) {
+  Solution solution;
+  auto output = solution.oddEvenList(&nodes[0]);
+  printList(output);
+}
+
 void usage() {
-  std::cerr << "N v[1] ... v[N]" << std::endl
-            << "r" << std::endl
-            << "d v[x] (where x < N)" << std::endl
-            << "s v[1] ... v[N]" << std::endl;
+  std::cerr << "N v[1] ... v[N]\n"
+            << "r\n"
+            << "d v[x] (where x < N)\n"
+            << "s v[1] ... v[N]\n"
+            << "o v[1] ... v[N]\n"
+            << std::flush;
 }
 
 int main() {
@@ -93,6 +101,9 @@ int main() {
       break;
     case 's':
       runSortList(nodes);
+      break;
+    case 'o':
+      runOddEvenList(nodes);
       break;
     default:
       usage();
