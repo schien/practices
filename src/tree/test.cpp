@@ -162,4 +162,47 @@ TEST(KthSmallestTest, all_right) {
   EXPECT_EQ(10000, solution.kthSmallest(&nodes.at(0), 10000));
 }
 
+TEST(LevelOrderTest, empty) {
+  Solution solution;
+  EXPECT_EQ(vector<vector<int>>{}, solution.levelOrder(nullptr));
+}
+
+TEST(LevelOrderTest, all_left) {
+  vector<TreeNode> nodes;
+  nodes.reserve(10000);
+  for (int i = 0; i < 10000; ++i) {
+    nodes.emplace_back(i);
+    if (i > 0) {
+      nodes.at(i-1).left = &nodes.at(i);
+    }
+  }
+
+  Solution solution;
+  auto output = solution.levelOrder(&nodes.at(0));
+
+  int level = 0;
+  for (auto vec : output) {
+    EXPECT_EQ(vector<int>{level++}, vec);
+  }
+}
+
+TEST(LevelOrderTest, all_right) {
+  vector<TreeNode> nodes;
+  nodes.reserve(10000);
+  for (int i = 0; i < 10000; ++i) {
+    nodes.emplace_back(i);
+    if (i > 0) {
+      nodes.at(i-1).right = &nodes.at(i);
+    }
+  }
+
+  Solution solution;
+  auto output = solution.levelOrder(&nodes.at(0));
+
+  int level = 0;
+  for (auto vec : output) {
+    EXPECT_EQ(vector<int>{level++}, vec);
+  }
+}
+
 }

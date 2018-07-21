@@ -81,4 +81,30 @@ class Solution {
 	}
       }
     }
+    vector<vector<int>> levelOrder(TreeNode* root) {
+      vector<vector<int>> result;
+      if (!root) {
+        return result;
+      }
+
+      vector<TreeNode*> next{root};
+      while (!next.empty()) {
+        vector<TreeNode*> curr;
+        curr.swap(next);
+
+        vector<int> level;
+        level.reserve(curr.size());
+        for (auto& node : curr) {
+          level.push_back(node->val);
+          if (node->left) {
+            next.push_back(node->left);
+          }
+          if (node->right) {
+            next.push_back(node->right);
+          }
+        }
+        result.emplace_back(move(level));
+      }
+      return result;
+    }
 };
