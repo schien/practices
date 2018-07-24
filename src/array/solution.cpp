@@ -156,4 +156,39 @@ class Solution {
 
       return result;
     }
+    int findKthLargest(vector<int>& nums, int k) {
+      int l = 0;
+      int h = nums.size()-1;
+      k = nums.size()-k;
+
+      while (l < h) {
+        // pick random pivot
+        int p = rand()%(h-l+1) + l;
+        swap(nums[h], nums[p]);
+
+        // partition according to pivot
+        int i = l, j = h-1;
+        const int pivot = nums[h];
+        while (i <= j) {
+          if (nums[i]<=pivot) {
+            ++i;
+          } else {
+            swap(nums[i], nums[j--]);
+          }
+        }
+        swap(nums[i], nums[h]);
+
+        if (k == i) {
+          // kth idx is determined
+          break;
+        } else if (k < i) {
+          // continue in lower partition
+          h = i-1;
+        } else {
+          // continue in higher partition
+          l = i+1;
+        }
+      }
+      return nums[k];
+    }
 };

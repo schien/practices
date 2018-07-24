@@ -300,4 +300,27 @@ TEST(SubsetTest, example) {
   }
 }
 
+TEST(LargestKthTest, small) {
+  Solution solution;
+  vector<int> input{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+  for (int i = 1; i <= 10; ++i) {
+    random_shuffle(input.begin(), input.end());
+    EXPECT_EQ(i, solution.findKthLargest(input, 10-i+1));
+  }
+}
+
+TEST(LargestKthTest, large) {
+  Solution solution;
+  vector<int> input(1000000);
+  for (int i = 0; i < 1000000; ++i) {
+    input[i] = i;
+  }
+
+  for (int i = 1; i <= 1000000; i*=10) {
+    random_shuffle(input.begin(), input.end());
+    EXPECT_EQ(1000000-i, solution.findKthLargest(input, i));
+  }
+}
+
 }
