@@ -12,7 +12,7 @@ void runRotate() {
   const int n = next<int>();
   vector<vector<int>> matrix;
   for (int i = 0; i < n; ++i) {
-    vector<int> row = next();
+    vector<int> row = next<vector<int>>();
     row.resize(n);
     matrix.push_back(row);
   }

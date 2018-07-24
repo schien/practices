@@ -12,6 +12,7 @@ T next() {
   return val;
 }
 
-std::vector<int> next();
+template<>
+std::vector<int> next<std::vector<int>>();
 
 #endif //__INPUT_HELPER_H__

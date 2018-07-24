@@ -22,8 +22,8 @@ void output_vector(vector<int>& vec) {
 }
 
 void runIntersect() {
-  std::vector<int> num1 = next();
-  std::vector<int> num2 = next();
+  std::vector<int> num1 = next<std::vector<int>>();
+  std::vector<int> num2 = next<std::vector<int>>();
 
   Solution solution;
   auto output = solution.intersection(num1, num2);
@@ -34,7 +34,7 @@ void runIntersect() {
 }
 
 void runTopKFrequent() {
-  std::vector<int> num = next();
+  std::vector<int> num = next<std::vector<int>>();
   int k = next<int>();
 
   Solution solution;
@@ -43,7 +43,7 @@ void runTopKFrequent() {
 }
 
 void runProductExceptSelf() {
-  std::vector<int> num = next();
+  std::vector<int> num = next<std::vector<int>>();
 
   Solution solution;
   auto output = solution.productExceptSelf(num);
@@ -51,7 +51,7 @@ void runProductExceptSelf() {
 }
 
 void runPermutation() {
-  std::vector<int> num = next();
+  std::vector<int> num = next<std::vector<int>>();
 
   Solution solution;
   auto output = solution.permute(num);
@@ -61,13 +61,13 @@ void runPermutation() {
 }
 
 void runFindDuplicate() {
-  std::vector<int> num = next();
+  std::vector<int> num = next<std::vector<int>>();
   Solution solution;
   std::cout << solution.findDuplicate(num) << std::endl;
 }
 
 void runSubset() {
-  std::vector<int> num = next();
+  std::vector<int> num = next<std::vector<int>>();
   Solution solution;
   auto output = solution.subsets(num);
   for (auto vec : output) {
@@ -76,7 +76,7 @@ void runSubset() {
 }
 
 void runKthLargest() {
-  std::vector<int> num = next();
+  std::vector<int> num = next<std::vector<int>>();
   int k = next<int>();
   Solution solution;
   auto output = solution.findKthLargest(num, k);

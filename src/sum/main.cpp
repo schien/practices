@@ -4,10 +4,10 @@
 #include "solution.cpp"
 
 int main() {
-  std::vector<int> A = next();
-  std::vector<int> B = next();
-  std::vector<int> C = next();
-  std::vector<int> D = next();
+  std::vector<int> A = next<std::vector<int>>();
+  std::vector<int> B = next<std::vector<int>>();
+  std::vector<int> C = next<std::vector<int>>();
+  std::vector<int> D = next<std::vector<int>>();
 
   Solution solution;
 

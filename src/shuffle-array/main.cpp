@@ -11,7 +11,7 @@ void output_vector(vector<int>&& vec) {
 }
 
 int main() {
-  vector<int> input = next();
+  vector<int> input = next<vector<int>>();
   Solution solution(input);
 
   char op;

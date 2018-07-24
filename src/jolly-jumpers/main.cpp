@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-  vector<int> nums = next();
+  vector<int> nums = next<vector<int>>();
 
   Solution solution;
   auto output = solution.isJolly(nums);

@@ -1,6 +1,7 @@
 #include "input_helper.h"
 
-std::vector<int> next() {
+template<>
+std::vector<int> next<std::vector<int>>() {
   int n = next<int>();
   std::vector<int> vec;
   vec.reserve(n);
