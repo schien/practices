@@ -12,10 +12,15 @@ T next() {
   return val;
 }
 
-template<>
-std::vector<int> next<std::vector<int>>();
-
-template<>
-std::vector<std::string> next<std::vector<std::string>>();
+template<typename T>
+std::vector<T> next_vector() {
+  int n = next<int>();
+  std::vector<T> vec;
+  vec.reserve(n);
+  for (int i = 0; i < n; ++i) {
+    vec.push_back(next<T>());
+  }
+  return vec;
+}
 
 #endif //__INPUT_HELPER_H__

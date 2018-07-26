@@ -25,7 +25,7 @@ void runStrStr() {
 }
 
 void runGroupAnagram() {
-  std::vector<string> strs = next<vector<string>>();
+  std::vector<string> strs = next_vector<string>();
   Solution solution;
   auto output = solution.groupAnagrams(strs);
   for (auto& vec: output) {
