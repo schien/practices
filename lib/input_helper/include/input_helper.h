@@ -15,4 +15,7 @@ T next() {
 template<>
 std::vector<int> next<std::vector<int>>();
 
+template<>
+std::vector<std::string> next<std::vector<std::string>>();
+
 #endif //__INPUT_HELPER_H__

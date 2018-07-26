@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include <numeric>
 
 #include "solution.cpp"
 
@@ -91,6 +92,60 @@ TEST(StrStrTest, empty_haystack) {
   Solution solution;
 
   EXPECT_EQ(-1, solution.strStr(haystack, needle));
+}
+
+TEST(GroupAnagram, empty) {
+  Solution solution;
+  vector<string> input{};
+  EXPECT_EQ(vector<vector<string>>{}, solution.groupAnagrams(input));
+}
+
+TEST(GroupAnagram, example) {
+  Solution solution;
+  vector<string> input{"eat", "tea", "tan", "ate", "nat", "bat"};
+  auto output = solution.groupAnagrams(input);
+
+  unordered_map<string, int> table;
+  for (auto& vec:output) {
+    for (int i = 0; i < vec.size(); ++i) {
+      EXPECT_TRUE(solution.isAnagram(vec[0], vec[i]));
+      ++table[vec[i]];
+    }
+  }
+
+  for (auto& s:input) {
+    --table[s];
+  }
+
+  for (auto& e:table) {
+    EXPECT_EQ(0, e.second);
+  }
+
+  for (int i = 0; i < output.size(); ++i) {
+    for (int j = i+1; j < output.size(); ++j) {
+      EXPECT_FALSE(solution.isAnagram(output[i][0], output[j][0]));
+    }
+  }
+}
+
+TEST(GroupAnagram, large) {
+  Solution solution;
+  array<char, 512> buf;
+  buf.fill('a');
+
+  vector<string> input;
+  for (int i = 1; i <= 512; ++i) {
+    input.emplace_back(buf.data(), i);
+  }
+
+  auto output = solution.groupAnagrams(input);
+
+  EXPECT_EQ(input.size(), output.size());
+
+  for (auto& vec:output) {
+    EXPECT_EQ(1, vec.size());
+    EXPECT_EQ(input[vec[0].size()-1], vec[0]);
+  }
 }
 
 }
