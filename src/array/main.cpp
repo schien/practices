@@ -12,6 +12,7 @@ void usage() {
             << "        s {n x_1 ... x_n}\n"
             << "        k {n x_1 ... x_n} k\n"
             << "        3 {n x_1 ... x_n}\n"
+            << "        l {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -91,6 +92,13 @@ void runIncreasingTriplet() {
   std::cout << std::boolalpha << output << std::endl;
 }
 
+void runLIS() {
+  std::vector<int> num = next_vector<int>();
+  Solution solution;
+  auto output = solution.lengthOfLIS(num);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -118,6 +126,9 @@ int main() {
       break;
     case '3':
       runIncreasingTriplet();
+      break;
+    case 'l':
+      runLIS();
       break;
     default:
       usage();

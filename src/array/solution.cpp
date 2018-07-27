@@ -7,6 +7,7 @@
 // https://leetcode.com/problems/subsets/
 // https://leetcode.com/problems/kth-largest-element-in-an-array/
 // https://leetcode.com/problems/increasing-triplet-subsequence/
+// https://leetcode.com/problems/longest-increasing-subsequence/
 
 #include <vector>
 #include <unordered_set>
@@ -237,5 +238,25 @@ class Solution {
     bool increasingTriplet(vector<int>& nums) {
       //return increasingTriplet_dp(nums);
       return increasingTriplet_patient_sort(nums);
+    }
+    // time: O(nlogn)
+    // space: O(n)
+    int lengthOfLIS(vector<int>& nums) {
+      const int sz = nums.size();
+      if (!sz) {
+        return 0;
+      }
+      vector<int> seq{nums[0]};
+      seq.reserve(sz);
+      for (int i = 1; i < sz; ++i) {
+        const int n = nums[i];
+        auto j = lower_bound(seq.begin(), seq.end(), n);
+        if (j != seq.end()) {
+          *j = n;
+        } else {
+          seq.emplace_back(n);
+        }
+      }
+      return seq.size();
     }
 };

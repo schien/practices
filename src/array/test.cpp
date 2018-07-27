@@ -385,4 +385,25 @@ TEST(IncreasingTripletTest, large) {
   EXPECT_TRUE(solution.increasingTriplet(input));
 }
 
+TEST(LengthOfLISTest, large) {
+  Solution solution;
+
+  vector<int> input(1000);
+  EXPECT_EQ(1, solution.lengthOfLIS(input));
+
+  for (int i = 0; i < 1000; ++i) {
+    input[i] = i;
+  }
+  EXPECT_EQ(1000, solution.lengthOfLIS(input));
+
+  reverse(input.begin(), input.end());
+  EXPECT_EQ(1, solution.lengthOfLIS(input));
+
+  reverse(input.begin()+500, input.end());
+  EXPECT_EQ(500, solution.lengthOfLIS(input));
+
+  reverse(input.begin(), input.begin()+500);
+  EXPECT_EQ(500, solution.lengthOfLIS(input));
+}
+
 }
