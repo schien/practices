@@ -323,4 +323,66 @@ TEST(LargestKthTest, large) {
   }
 }
 
+TEST(IncreasingTripletTest, small) {
+  Solution solution;
+  vector<vector<int>> inputs {
+    {}, {1}, {1, 2}
+  };
+
+  for (auto& input : inputs) {
+    EXPECT_FALSE(solution.increasingTriplet(input));
+  }
+
+  inputs = {
+    {1, 2, 3},
+    {1000, 1, 2, 3},
+    {1, 1000, 2, 3},
+    {1, 2, 1000, 3},
+    {1, 2, 3, 1000}
+  };
+
+  for (auto& input : inputs) {
+    EXPECT_TRUE(solution.increasingTriplet(input));
+  }
+
+  inputs = {
+    {3000, 2000, 1000},
+    {1, 3000, 2000, 1000},
+    {3000, 1, 2000, 1000},
+    {3000, 2000, 1, 1000},
+    {3000, 2000, 1, 1000, 1}
+  };
+
+  for (auto& input : inputs) {
+    EXPECT_FALSE(solution.increasingTriplet(input));
+  }
+}
+
+TEST(IncreasingTripletTest, large) {
+  Solution solution;
+
+  vector<int> input(1000);
+  for (int i = 1; i < 1000; i+=2) {
+    input[i] = 1000;
+  }
+
+  EXPECT_FALSE(solution.increasingTriplet(input));
+
+  for (int i = 1; i < 999; ++i) {
+    const auto tmp = input[i];
+    input[i] = 1;
+    EXPECT_TRUE(solution.increasingTriplet(input));
+    input[i] = tmp;
+  }
+
+  input = vector<int>(1000000, 1000000);
+  EXPECT_FALSE(solution.increasingTriplet(input));
+
+  input[0] = 1;
+  EXPECT_FALSE(solution.increasingTriplet(input));
+
+  input[1000000-2] = 2;
+  EXPECT_TRUE(solution.increasingTriplet(input));
+}
+
 }

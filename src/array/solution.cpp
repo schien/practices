@@ -6,6 +6,7 @@
 // https://leetcode.com/problems/find-the-duplicate-number/
 // https://leetcode.com/problems/subsets/
 // https://leetcode.com/problems/kth-largest-element-in-an-array/
+// https://leetcode.com/problems/increasing-triplet-subsequence/
 
 #include <vector>
 #include <unordered_set>
@@ -13,6 +14,47 @@
 #include <queue>
 
 using namespace std;
+
+// time: O(n)
+// space: O(n)*2
+bool increasingTriplet_dp(vector<int>& nums) {
+  const int sz = nums.size();
+  vector<int> left_mins(nums);
+  vector<int> right_maxs(nums);
+
+  // compute min between n_first ~ n_i and max between n_i ~ n_last
+  for (int i = 1; i < sz; ++i) {
+    left_mins[i] = min(left_mins[i], left_mins[i-1]);
+    right_maxs[sz-i-1] = max(right_maxs[sz-i], right_maxs[sz-i-1]);
+  }
+
+  // check if any i that min_i < n_i < max_i
+  for (int i = 1; i < sz-1; ++i) {
+    if (left_mins[i] < nums[i] && right_maxs[i] > nums[i]) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// time: O(n)
+// space: O(1)
+bool increasingTriplet_patient_sort(vector<int>& nums) {
+  // we only need two decks since we are look for
+  // any increasing sequence more than 3 elements
+  int d1 = INT_MAX, d2 = INT_MAX;
+  for (auto n : nums) {
+    if (n <= d1) {
+      d1 = n;
+    } else if (n <= d2) {
+      d2 = n;
+    } else {
+      return true;
+    }
+  }
+  return false;
+}
 
 class Solution {
   public:
@@ -191,5 +233,9 @@ class Solution {
         }
       }
       return nums[k];
+    }
+    bool increasingTriplet(vector<int>& nums) {
+      //return increasingTriplet_dp(nums);
+      return increasingTriplet_patient_sort(nums);
     }
 };

@@ -11,6 +11,7 @@ void usage() {
             << "        d {n x_1 ... x_n}\n"
             << "        s {n x_1 ... x_n}\n"
             << "        k {n x_1 ... x_n} k\n"
+            << "        3 {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -83,6 +84,13 @@ void runKthLargest() {
   std::cout << output << std::endl;
 }
 
+void runIncreasingTriplet() {
+  std::vector<int> num = next_vector<int>();
+  Solution solution;
+  auto output = solution.increasingTriplet(num);
+  std::cout << std::boolalpha << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -107,6 +115,9 @@ int main() {
       break;
     case 'k':
       runKthLargest();
+      break;
+    case '3':
+      runIncreasingTriplet();
       break;
     default:
       usage();
