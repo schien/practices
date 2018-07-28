@@ -13,6 +13,7 @@ void usage() {
             << "        k {n x_1 ... x_n} k\n"
             << "        3 {n x_1 ... x_n}\n"
             << "        l {n x_1 ... x_n}\n"
+            << "        c {n [0|1|2]*}\n"
             << std::flush;
 }
 
@@ -99,6 +100,13 @@ void runLIS() {
   std::cout << output << std::endl;
 }
 
+void runSortColors() {
+  std::vector<int> input = next_vector<int>();
+  Solution solution;
+  solution.sortColors(input);
+  output_vector(input);
+}
+
 int main() {
   char op = next<char>();
 
@@ -129,6 +137,9 @@ int main() {
       break;
     case 'l':
       runLIS();
+      break;
+    case 'c':
+      runSortColors();
       break;
     default:
       usage();

@@ -8,6 +8,7 @@
 // https://leetcode.com/problems/kth-largest-element-in-an-array/
 // https://leetcode.com/problems/increasing-triplet-subsequence/
 // https://leetcode.com/problems/longest-increasing-subsequence/
+// https://leetcode.com/problems/sort-colors/
 
 #include <vector>
 #include <unordered_set>
@@ -258,5 +259,27 @@ class Solution {
         }
       }
       return seq.size();
+    }
+    // time: O(n)
+    // space: O(1)
+    void sortColors(vector<int>& nums) {
+      const int sz = nums.size();
+      int i = 0; // current
+      int j = 0; // next zero
+      int k = sz-1; // next two
+
+      while (i <= k) {
+        switch(nums[i]) {
+          case 0:
+            swap(nums[i++], nums[j++]);
+            break;
+          case 1:
+            ++i;
+            break;
+          case 2:
+            swap(nums[i], nums[k--]);
+            break;
+        }
+      }
     }
 };
