@@ -445,4 +445,40 @@ TEST(SortColorsTest, large) {
   }
 }
 
+TEST(FindPeakElementTest, empty) {
+  Solution solution;
+  vector<int> input{};
+  EXPECT_EQ(-1, solution.findPeakElement(input));
+}
+
+TEST(FindPeakElementTest, tiny) {
+  Solution solution;
+  vector<int> input;
+
+  for (auto n : {0, INT_MIN, INT_MAX}) {
+    input = vector<int>{n};
+    EXPECT_EQ(0, solution.findPeakElement(input));
+  }
+
+  input = vector<int>{INT_MIN, INT_MIN};
+  EXPECT_EQ(1, solution.findPeakElement(input));
+  input = vector<int>{INT_MIN, INT_MAX};
+  EXPECT_EQ(1, solution.findPeakElement(input));
+  input = vector<int>{INT_MAX, INT_MAX};
+  EXPECT_EQ(1, solution.findPeakElement(input));
+  input = vector<int>{INT_MAX, INT_MIN};
+  EXPECT_EQ(0, solution.findPeakElement(input));
+}
+
+TEST(FindPeakElementTest, large) {
+  Solution solution;
+  vector<int> input(10000);
+
+  for (int i = 0; i < 10000; ++i) {
+    input[i] = 1;
+    EXPECT_EQ(i, solution.findPeakElement(input));
+    input[i] = 0;
+  }
+}
+
 }

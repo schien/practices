@@ -9,6 +9,7 @@
 // https://leetcode.com/problems/increasing-triplet-subsequence/
 // https://leetcode.com/problems/longest-increasing-subsequence/
 // https://leetcode.com/problems/sort-colors/
+// https://leetcode.com/problems/find-peak-element/
 
 #include <vector>
 #include <unordered_set>
@@ -56,6 +57,47 @@ bool increasingTriplet_patient_sort(vector<int>& nums) {
     }
   }
   return false;
+}
+
+// time: O(n)
+// space: O(1)
+int findPeakElement_linear_search(vector<int>& nums) {
+  const int sz = nums.size();
+  int prev = INT_MIN;
+  for (int i = 0; i < sz; ++i) {
+    if (nums[i] < prev) {
+      return i-1;
+    }
+    prev = nums[i];
+  }
+  return sz-1;
+}
+
+// time: avg O(log n), worst case O(nlogn)
+// space: O(1)
+int findPeakElement_binary_search(vector<int>& nums) {
+  if (nums.empty()) {
+    return -1;
+  }
+
+  function<int(int,int)> worker = [&nums, &worker](int l, int h) {
+    while (l < h) {
+      int m = (l+h)>>1;
+
+      if (nums[m] > nums[m+1]) {
+        h = m;
+      } else if (nums[m] < nums[m+1]) {
+        l = m+1;
+      } else {
+        auto l_peak = worker(l, m);
+        auto r_peak = worker(m+1, h);
+        return (nums[l_peak] > nums[r_peak]?l_peak:r_peak);
+      }
+    }
+    return l;
+  };
+
+  return worker(0, nums.size()-1);
 }
 
 class Solution {
@@ -282,4 +324,9 @@ class Solution {
         }
       }
     }
+    int findPeakElement(vector<int>& nums) {
+      return findPeakElement_linear_search(nums);
+      return findPeakElement_binary_search(nums);
+    }
+
 };

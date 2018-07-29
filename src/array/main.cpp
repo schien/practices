@@ -14,6 +14,7 @@ void usage() {
             << "        3 {n x_1 ... x_n}\n"
             << "        l {n x_1 ... x_n}\n"
             << "        c {n [0|1|2]*}\n"
+            << "        e {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -107,6 +108,13 @@ void runSortColors() {
   output_vector(input);
 }
 
+void runFindPeakElement() {
+  std::vector<int> num = next_vector<int>();
+  Solution solution;
+  auto output = solution.findPeakElement(num);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -140,6 +148,9 @@ int main() {
       break;
     case 'c':
       runSortColors();
+      break;
+    case 'e':
+      runFindPeakElement();
       break;
     default:
       usage();
