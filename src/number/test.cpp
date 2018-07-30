@@ -63,4 +63,21 @@ TEST(UglyNumberTest, negative) {
   EXPECT_FALSE(solution.isUgly(-1));
 }
 
+TEST(NumOfSquaresTest, square) {
+  Solution solution;
+
+  for (int i = 1; i < 1000; ++i) {
+    EXPECT_EQ(1, solution.numSquares(i*i));
+    EXPECT_EQ(2, solution.numSquares((i*i) << 1));
+  }
+}
+
+TEST(NumOfSquaresTest, bound) {
+  Solution solution;
+
+  for (int i = 1; i < 100000; ++i) {
+    EXPECT_GE(4, solution.numSquares(i));
+  }
+}
+
 }

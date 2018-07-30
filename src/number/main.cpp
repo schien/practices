@@ -10,10 +10,12 @@ int main() {
   auto happy = solution.isHappy(n);
   auto digit = solution.addDigits(n);
   auto ugly = solution.isUgly(n);
+  auto numSquares = solution.numSquares(n);
 
   std::cout << "happy: " << happy << std::endl;
   std::cout << "digit: " << digit << std::endl;
   std::cout << "ugly: " << ugly << std::endl;
+  std::cout << "numSquares: " << numSquares << std::endl;
 
   return 0;
 }
