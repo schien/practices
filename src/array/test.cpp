@@ -406,4 +406,79 @@ TEST(LengthOfLISTest, large) {
   EXPECT_EQ(500, solution.lengthOfLIS(input));
 }
 
+TEST(SortColorsTest, empty) {
+  Solution solution;
+  vector<int> input;
+  solution.sortColors(input);
+  EXPECT_EQ(vector<int>{}, input);
+}
+
+TEST(SortColorsTest, same) {
+  Solution solution;
+  vector<int> input;
+
+  for (auto n : {0,1,2}) {
+    input = {n};
+    solution.sortColors(input);
+    EXPECT_EQ(vector<int>{n}, input);
+
+    input = vector<int>(10, n);
+    solution.sortColors(input);
+    EXPECT_EQ(vector<int>(10, n), input);
+  }
+}
+
+TEST(SortColorsTest, large) {
+  Solution solution;
+  vector<int> input(3000);
+  fill_n(input.begin()+1000, 1000, 1);
+  fill_n(input.begin()+2000, 1000, 2);
+
+
+  for (int i = 0; i < 1000; ++i) {
+    random_shuffle(input.begin(), input.end());
+    solution.sortColors(input);
+
+    EXPECT_TRUE(all_of(input.begin(), input.begin()+1000, [](int n){ return n == 0; }));
+    EXPECT_TRUE(all_of(input.begin()+1000, input.begin()+2000, [](int n){ return n == 1; }));
+    EXPECT_TRUE(all_of(input.begin()+2000, input.end(), [](int n){ return n == 2; }));
+  }
+}
+
+TEST(FindPeakElementTest, empty) {
+  Solution solution;
+  vector<int> input{};
+  EXPECT_EQ(-1, solution.findPeakElement(input));
+}
+
+TEST(FindPeakElementTest, tiny) {
+  Solution solution;
+  vector<int> input;
+
+  for (auto n : {0, INT_MIN, INT_MAX}) {
+    input = vector<int>{n};
+    EXPECT_EQ(0, solution.findPeakElement(input));
+  }
+
+  input = vector<int>{INT_MIN, INT_MIN};
+  EXPECT_EQ(1, solution.findPeakElement(input));
+  input = vector<int>{INT_MIN, INT_MAX};
+  EXPECT_EQ(1, solution.findPeakElement(input));
+  input = vector<int>{INT_MAX, INT_MAX};
+  EXPECT_EQ(1, solution.findPeakElement(input));
+  input = vector<int>{INT_MAX, INT_MIN};
+  EXPECT_EQ(0, solution.findPeakElement(input));
+}
+
+TEST(FindPeakElementTest, large) {
+  Solution solution;
+  vector<int> input(10000);
+
+  for (int i = 0; i < 10000; ++i) {
+    input[i] = 1;
+    EXPECT_EQ(i, solution.findPeakElement(input));
+    input[i] = 0;
+  }
+}
+
 }
