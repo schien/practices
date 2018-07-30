@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/rotate-image/
+// https://leetcode.com/problems/search-a-2d-matrix-ii/
 
 #include <vector>
 
@@ -34,5 +35,29 @@ class Solution {
     void rotate(vector<vector<int>>& matrix) {
       direct(matrix);
       //two_step(matrix);
+    }
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+      if (matrix.empty()) {
+        return false;
+      }
+      const int H = matrix.size();
+      const int W = matrix[0].size();
+
+      int i = 0;
+      int j = W-1;
+
+      while (j >= 0 && i < H) {
+        const int n = matrix[i][j];
+        if (n == target) {
+          return true;
+        }
+
+        if (n > target) {
+          --j;
+        } else {
+          ++i;
+        }
+      }
+      return false;
     }
 };

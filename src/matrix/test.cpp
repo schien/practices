@@ -59,4 +59,84 @@ TEST(RotateTest, large) {
   EXPECT_EQ(expected, input);
 }
 
+TEST(SearchMatrixTest, one) {
+  Solution solution;
+
+  vector<vector<int>> input {
+    {1}
+  };
+
+  EXPECT_TRUE(solution.searchMatrix(input, 1));
+  EXPECT_FALSE(solution.searchMatrix(input, 0));
+  EXPECT_FALSE(solution.searchMatrix(input, 2));
+}
+
+TEST(SearchMatrixTest, one_dimension) {
+  Solution solution;
+
+  vector<vector<int>> input {
+    {1, 3, 5, 7, 9}
+  };
+
+  for (int i = 0; i <= 10; ++i) {
+    if (i&1) {
+      EXPECT_TRUE(solution.searchMatrix(input, i));
+    } else {
+      EXPECT_FALSE(solution.searchMatrix(input, i));
+    }
+  }
+
+  input = {
+    {1},
+    {3},
+    {5},
+    {7},
+    {9}
+  };
+
+  for (int i = 0; i <= 10; ++i) {
+    if (i&1) {
+      EXPECT_TRUE(solution.searchMatrix(input, i));
+    } else {
+      EXPECT_FALSE(solution.searchMatrix(input, i));
+    }
+  }
+}
+
+TEST(SearchMatrixTest, large) {
+  Solution solution;
+
+  vector<vector<int>> input(500, vector<int>(500));
+  int n = 1;
+  for (int i = 0; i < 500; ++i) {
+    for (int j = 0; j < 500; ++j) {
+      input[i][j] = n;
+      n += 2;
+    }
+  }
+
+  for (int i = 0; i < n; ++i) {
+    if (i&1) {
+      EXPECT_TRUE(solution.searchMatrix(input, i));
+    } else {
+      EXPECT_FALSE(solution.searchMatrix(input, i));
+    }
+  }
+
+  for (int i = 0; i < 500; ++i) {
+    for (int j = i+1; j < 500; ++j) {
+      swap(input[i][j], input[j][i]);
+    }
+  }
+
+  for (int i = 0; i < n; ++i) {
+    if (i&1) {
+      EXPECT_TRUE(solution.searchMatrix(input, i));
+    } else {
+      EXPECT_FALSE(solution.searchMatrix(input, i));
+    }
+  }
+
+}
+
 }
