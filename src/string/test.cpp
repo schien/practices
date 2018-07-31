@@ -148,4 +148,44 @@ TEST(GroupAnagram, large) {
   }
 }
 
+TEST(RomanToIntTest, basic) {
+  Solution solution;
+
+  vector<pair<string, int>> inputs {
+    {"I", 1},
+    {"IV", 4},
+    {"V", 5},
+    {"IX", 9},
+    {"X", 10},
+    {"XL", 40},
+    {"L", 50},
+    {"XC", 90},
+    {"C", 100},
+    {"CD", 400},
+    {"D", 500},
+    {"CM", 900},
+    {"M", 1000},
+  };
+
+  for (auto& e: inputs) {
+    EXPECT_EQ(e.second, solution.romanToInt(e.first));
+  }
+}
+
+TEST(RomanToIntTest, combined) {
+  Solution solution;
+
+  vector<pair<string, int>> inputs {
+    {"II", 2}, {"III", 3}, {"VI", 6}, {"VII", 7}, {"VIII", 8},
+    {"XX", 20}, {"XXX", 30}, {"LX", 60}, {"LXX", 70}, {"LXXX", 80},
+    {"CC", 200}, {"CCC", 300}, {"DC", 600}, {"DCC", 700}, {"DCCC", 800},
+    {"MM", 2000}, {"MMM", 3000},
+    {"MMMDCCCLXXXVIII", 3888}, {"MMMCMXCIX", 3999},
+  };
+
+  for (auto& e: inputs) {
+    EXPECT_EQ(e.second, solution.romanToInt(e.first));
+  }
+}
+
 }

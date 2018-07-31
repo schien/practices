@@ -7,6 +7,7 @@ void usage() {
   std::cout << "usage: a str1 str2\n"
             << "       s str1 str2\n"
             << "       g n str_1 ... str_n\n"
+            << "       r str1\n"
             << std::flush;
 }
 
@@ -36,6 +37,13 @@ void runGroupAnagram() {
   }
 }
 
+void runRomanToInt() {
+  string s = next<string>();
+
+  Solution solution;
+  std::cout << solution.romanToInt(s) << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -49,6 +57,9 @@ int main() {
       break;
     case 'g':
       runGroupAnagram();
+      break;
+    case 'r':
+      runRomanToInt();
       break;
     default:
       usage();

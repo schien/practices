@@ -72,4 +72,53 @@ class Solution {
 
       return result;
     }
+    int romanToInt(string s) {
+      const int sz = s.size();
+
+      auto special = [sz, &s](const int base, const char five, const char ten, int& i) {
+        if (i+1 < sz) {
+          if (s[i+1] == five) {
+            ++i;
+            return base * 4;
+          } else if (s[i+1] == ten) {
+            ++i;
+            return base * 9;
+          }
+        }
+        return base;
+      };
+
+      int result = 0;
+      int i = 0;
+      while (i < sz) {
+        switch (s[i]) {
+          case 'I':
+            result += special(1, 'V', 'X', i);
+            break;
+          case 'V':
+            result += 5;
+            break;
+          case 'X':
+            result += special(10, 'L', 'C', i);
+            break;
+          case 'L':
+            result += 50;
+            break;
+          case 'C':
+            result += special(100, 'D', 'M', i);
+            break;
+          case 'D':
+            result += 500;
+            break;
+          case 'M':
+            result += 1000;
+            break;
+          default:
+            return -1;
+        }
+        ++i;
+      }
+
+      return result;
+    }
 };
