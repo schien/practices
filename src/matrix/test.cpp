@@ -139,4 +139,108 @@ TEST(SearchMatrixTest, large) {
 
 }
 
+TEST(GameOfLifeTest, under_population) {
+  Solution solution;
+
+  for (int i = 0; i < 2; ++i) {
+    vector<vector<int>> input = {
+      {i}
+    };
+
+    solution.gameOfLife(input);
+    EXPECT_EQ(0, input[0][0]);
+  }
+
+  for (int i = 0; i < 4; ++i) {
+    vector<vector<int>> input = {
+      {i==0, i==1},
+      {i==2, i==3},
+    };
+
+    solution.gameOfLife(input);
+    EXPECT_EQ(0, input[i>>1][i&1]);
+  }
+
+  for (int i = 0; i < 9; ++i) {
+    vector<vector<int>> input = {
+      {i==0, i==1, i==2},
+      {i==3, 1, i==4},
+      {i==5, i==6, i==7},
+    };
+
+    solution.gameOfLife(input);
+    EXPECT_EQ(0, input[1][1]);
+  }
+
+  for (int i = 0; i < 2; ++i) {
+    vector<vector<int>> input = {
+      {i==0, i==1, i==0},
+      {i==1, 1, i==1},
+      {i==0, i==1, i==0},
+    };
+
+    solution.gameOfLife(input);
+    EXPECT_EQ(0, input[1][1]);
+  }
+}
+
+TEST(GameOfLifeTest, over_population) {
+  Solution solution;
+
+  for (int i = 0; i < 9; ++i) {
+    vector<vector<int>> input = {
+      {i!=0, i!=1, i!=2},
+      {i!=3, 1, i!=4},
+      {i!=5, i!=6, i!=7},
+    };
+
+    solution.gameOfLife(input);
+    EXPECT_EQ(0, input[1][1]);
+  }
+}
+
+TEST(GameOfLifeTest, stable) {
+  Solution solution;
+
+  vector<vector<int>> input = {
+    {1, 1},
+    {1, 1},
+  };
+
+  solution.gameOfLife(input);
+
+  for (int i = 0; i < 4; ++i) {
+    EXPECT_EQ(1, input[i>>1][i&1]);
+  }
+
+  input = {
+    {0, 1, 0},
+    {1, 0, 1},
+    {0, 1, 0},
+  };
+
+  solution.gameOfLife(input);
+
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < 3; ++j) {
+      EXPECT_EQ((i+j)&1, input[i][j]);
+    }
+  }
+}
+
+TEST(GameOfLifeTest, grow) {
+  Solution solution;
+
+  for (int i = 0; i < 4; ++i) {
+    vector<vector<int>> input = {
+      {i!=0, i!=1},
+      {i!=2, i!=3},
+    };
+
+    solution.gameOfLife(input);
+    EXPECT_EQ(1, input[i>>1][i&1]);
+  }
+
+}
+
 }

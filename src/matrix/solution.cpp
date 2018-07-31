@@ -1,5 +1,6 @@
 // https://leetcode.com/problems/rotate-image/
 // https://leetcode.com/problems/search-a-2d-matrix-ii/
+// https://leetcode.com/problems/game-of-life/
 
 #include <vector>
 
@@ -59,5 +60,42 @@ class Solution {
         }
       }
       return false;
+    }
+    void gameOfLife(vector<vector<int>>& board) {
+      if (board.empty()) {
+        return;
+      }
+      const int H = board.size();
+      const int W = board[0].size();
+
+      auto is_live = [&board, H, W](int i, int j) {
+        if (i < 0 || j < 0 || i >= H || j >= W) {
+          return 0;
+        }
+        return board[i][j] & 1;
+      };
+      auto next_state = [&is_live](int i, int j) {
+        int count = is_live(i-1, j-1) + is_live(i-1, j) + is_live(i-1, j+1)
+          + is_live(i, j-1) + is_live(i, j+1)
+          + is_live(i+1, j-1) + is_live(i+1, j) + is_live(i+1, j+1);
+        if (count == 2) {
+          return is_live(i, j);
+        }
+        if (count == 3) {
+          return 1;
+        }
+        return 0;
+      };
+      for (int i = 0; i < H; ++i) {
+        for (int j = 0; j < W; ++j) {
+          board[i][j] |= next_state(i, j) << 1;
+        }
+      }
+
+      for (int i = 0; i < H; ++i) {
+        for (int j = 0; j < W; ++j) {
+          board[i][j] >>= 1;
+        }
+      }
     }
 };
