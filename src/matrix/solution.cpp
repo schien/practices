@@ -1,8 +1,11 @@
 // https://leetcode.com/problems/rotate-image/
 // https://leetcode.com/problems/search-a-2d-matrix-ii/
 // https://leetcode.com/problems/game-of-life/
+// https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
 
 #include <vector>
+#include <queue>
+#include <tuple>
 
 using namespace std;
 
@@ -97,5 +100,40 @@ class Solution {
           board[i][j] >>= 1;
         }
       }
+    }
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+      const int sz = matrix.size();
+      if (!sz || k < 1 || k > sz*sz) {
+        return -1;
+      }
+
+      using e_t = tuple<int, int, int>; // (v,i,j)
+      using c_t = vector<e_t>;
+      auto cmp = [](const e_t& a, const e_t&b) {
+        return get<0>(a) > get<0>(b);
+      };
+
+      priority_queue<e_t, c_t, decltype(cmp)> q(cmp);
+
+      for (int i = 0; i < sz; ++i) {
+        q.push({matrix[i][0], i, 0});
+      }
+
+      while (!q.empty()) {
+        if (!--k) {
+          return get<0>(q.top());
+        }
+
+        auto t = q.top();
+        q.pop();
+
+        const int i = get<1>(t);
+        const int j = get<2>(t) + 1;
+        if (j < sz) {
+          q.push({matrix[i][j], i, j});
+        }
+      }
+
+      return -1;
     }
 };

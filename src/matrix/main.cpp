@@ -7,6 +7,7 @@ void usage() {
   std::cout << "usage: r n [n v_1_1 ... v_1_n] ... [n v_n_1 ... v_n_n]\n"
             << "       s n [m v_1_1 ... v_1_m] ... [m v_n_1 ... v_n_m]\n"
             << "       g n [m v_1_1 ... v_1_m] ... [m v_n_1 ... v_n_m]\n"
+            << "       k n [n v_1_1 ... v_1_n] ... [n v_n_1 ... v_n_n] k\n"
             << std::flush;
 }
 
@@ -64,6 +65,23 @@ void runGameOfLife() {
   }
 }
 
+void runKthSmallest() {
+  const int n = next<int>();
+  vector<vector<int>> matrix;
+  for (int i = 0; i < n; ++i) {
+    vector<int> row = next_vector<int>();
+    row.resize(n);
+    matrix.push_back(row);
+  }
+
+  const int k = next<int>();
+
+  Solution solution;
+  auto output = solution.kthSmallest(matrix, k);
+
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -76,6 +94,9 @@ int main() {
       break;
     case 'g':
       runGameOfLife();
+      break;
+    case 'k':
+      runKthSmallest();
       break;
     default:
       usage();

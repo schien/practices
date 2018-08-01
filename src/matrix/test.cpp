@@ -243,4 +243,63 @@ TEST(GameOfLifeTest, grow) {
 
 }
 
+TEST(KthSmallestTest, invalid) {
+  Solution solution;
+  vector<vector<int>> input{};
+  EXPECT_EQ(-1, solution.kthSmallest(input, 1));
+
+  input = {{0}};
+  EXPECT_EQ(-1, solution.kthSmallest(input, 0));
+  EXPECT_EQ(-1, solution.kthSmallest(input, 2));
+}
+
+TEST(KthSmallestTest, one) {
+  Solution solution;
+  vector<vector<int>> input{{0}};
+  EXPECT_EQ(0, solution.kthSmallest(input, 1));
+}
+
+TEST(KthSmallestTest, example) {
+  Solution solution;
+  vector<vector<int>> input{10, vector<int>(10)};
+  int v = 1;
+  for (int i = 0; i < 10; ++i) {
+    for (int j = i; j >= 0; --j) {
+      input[i-j][j] = v++;
+    }
+  }
+  for (int i = 1; i < 10; ++i) {
+    for (int j = 0; j < 10-i; ++j) {
+      input[i+j][9-j] = v++;
+    }
+  }
+
+  for (int i = 1; i <= 100; ++i) {
+    EXPECT_EQ(i, solution.kthSmallest(input, i));
+  }
+
+  v = 1;
+  for (int i = 0; i < 10; ++i) {
+    for (int j = 0; j < 10; ++j) {
+      input[i][j] = v++;
+    }
+  }
+
+  for (int i = 1; i <= 100; ++i) {
+    EXPECT_EQ(i, solution.kthSmallest(input, i));
+  }
+
+  v = 1;
+  for (int i = 0; i < 10; ++i) {
+    for (int j = 0; j < 10; ++j) {
+      input[j][i] = v++;
+    }
+  }
+
+  for (int i = 1; i <= 100; ++i) {
+    EXPECT_EQ(i, solution.kthSmallest(input, i));
+  }
+
+}
+
 }
