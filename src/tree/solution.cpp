@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/binary-tree-inorder-traversal/
 // https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 // https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+// https://leetcode.com/problems/validate-binary-search-tree/
 
 #include <vector>
 #include <functional>
@@ -137,5 +138,16 @@ class Solution {
         zig = !zig;
       }
       return result;
+    }
+    bool isValidBST(TreeNode* root) {
+      if (!root) {
+        return true;
+      }
+      function<bool(TreeNode*,long long, long long)> valid = [&valid](TreeNode* root, long long min, long long max) {
+        if (!root) { return true; }
+        else if (root->val <= min || root->val >= max) { return false; }
+        else { return valid(root->left, min, root->val) && valid(root->right, root->val, max); }
+      };
+      return valid(root->left, LLONG_MIN, root->val) && valid(root->right, root->val, LLONG_MAX);
     }
 };

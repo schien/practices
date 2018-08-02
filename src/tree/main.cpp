@@ -9,6 +9,7 @@ void usage() {
             << "              k n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              l n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              z n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
+            << "              v n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << std::flush;
 }
 
@@ -117,6 +118,22 @@ void runZigZagLevelOrder() {
   }
 }
 
+void runValidBST() {
+  int n = next<int>();
+  std::vector<tuple<int, int, int>> input;
+
+  for (int i = 0; i < n; ++i) {
+    int v = next<int>(), l = next<int>(), r = next<int>();
+    input.emplace_back(v,l,r);
+  }
+
+  std::vector<TreeNode> nodes = tree_from_input(input);
+
+  Solution solution;
+  auto output = solution.isValidBST(&nodes.at(0));
+  std::cout << std::boolalpha << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -132,6 +149,9 @@ int main() {
       break;
     case 'z':
       runZigZagLevelOrder();
+      break;
+    case 'v':
+      runValidBST();
       break;
     default:
       usage();

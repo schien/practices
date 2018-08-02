@@ -277,4 +277,103 @@ TEST(ZigZagLevelOrderTest, complete_tree) {
   }
 }
 
+TEST(ValidBSTTest, empty) {
+  Solution solution;
+  EXPECT_TRUE(solution.isValidBST(nullptr));
+}
+
+TEST(ValidBSTTest, limit) {
+  vector<TreeNode> nodes {
+    TreeNode(0),
+    TreeNode(INT_MIN),
+    TreeNode(INT_MAX),
+  };
+
+  nodes[0].left = &nodes[1];
+  nodes[0].right = &nodes[2];
+
+  Solution solution;
+  EXPECT_TRUE(solution.isValidBST(&nodes[0]));
+
+  nodes[1].right = &nodes[0];
+  nodes[0].left = nullptr;
+  EXPECT_TRUE(solution.isValidBST(&nodes[1]));
+
+  nodes[2].left = &nodes[0];
+  nodes[0].right = nullptr;
+  EXPECT_TRUE(solution.isValidBST(&nodes[1]));
+
+  nodes[1].right = nullptr;
+  nodes[0].left = &nodes[1];
+  EXPECT_TRUE(solution.isValidBST(&nodes[2]));
+
+  nodes[1].right = &nodes[0];
+  nodes[0].left = nullptr;
+  EXPECT_TRUE(solution.isValidBST(&nodes[2]));
+}
+
+TEST(ValidBSTTest, all_left) {
+  vector<TreeNode> nodes;
+  nodes.reserve(10000);
+  for (int i = 0; i < 10000; ++i) {
+    nodes.emplace_back(10000-i);
+    if (i > 0) {
+      nodes.at(i-1).left = &nodes.at(i);
+    }
+  }
+
+  Solution solution;
+  EXPECT_TRUE(solution.isValidBST(&nodes.at(0)));
+
+  TreeNode zero(0);
+  for (int i = 0; i < 10000; ++i) {
+    nodes[i].right = &zero;
+    EXPECT_FALSE(solution.isValidBST(&nodes.at(0)));
+    nodes[i].right = nullptr;
+  }
+}
+
+TEST(ValidBSTTest, all_right) {
+  vector<TreeNode> nodes;
+  nodes.reserve(10000);
+  for (int i = 0; i < 10000; ++i) {
+    nodes.emplace_back(i);
+    if (i > 0) {
+      nodes.at(i-1).right = &nodes.at(i);
+    }
+  }
+
+  Solution solution;
+  EXPECT_TRUE(solution.isValidBST(&nodes.at(0)));
+
+  TreeNode max(10000);
+  for (int i = 0; i < 10000; ++i) {
+    nodes[i].left = &max;
+    EXPECT_FALSE(solution.isValidBST(&nodes.at(0)));
+    nodes[i].right = nullptr;
+  }
+}
+
+TEST(ValidBSTTest, complete_tree) {
+  vector<TreeNode> nodes {
+    TreeNode(4),
+    TreeNode(2),
+    TreeNode(6),
+    TreeNode(1),
+    TreeNode(3),
+    TreeNode(5),
+    TreeNode(7)
+  };
+
+  nodes[0].left = &nodes[1];
+  nodes[0].right = &nodes[2];
+  nodes[1].left = &nodes[3];
+  nodes[1].right = &nodes[4];
+  nodes[2].left = &nodes[5];
+  nodes[2].right = &nodes[6];
+
+  Solution solution;
+  EXPECT_TRUE(solution.isValidBST(&nodes.at(0)));
+}
+
 }
