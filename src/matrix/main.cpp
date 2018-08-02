@@ -8,6 +8,7 @@ void usage() {
             << "       s n [m v_1_1 ... v_1_m] ... [m v_n_1 ... v_n_m]\n"
             << "       g n [m v_1_1 ... v_1_m] ... [m v_n_1 ... v_n_m]\n"
             << "       k n [n v_1_1 ... v_1_n] ... [n v_n_1 ... v_n_n] k\n"
+            << "       p n [m v_1_1 ... v_1_m] ... [m v_n_1 ... v_n_m]\n"
             << std::flush;
 }
 
@@ -82,6 +83,23 @@ void runKthSmallest() {
   std::cout << output << std::endl;
 }
 
+void runSpiralMatrix() {
+  const int n = next<int>();
+  vector<vector<int>> matrix;
+  for (int i = 0; i < n; ++i) {
+    vector<int> row = next_vector<int>();
+    matrix.push_back(row);
+  }
+
+  Solution solution;
+  auto output = solution.spiralOrder(matrix);
+
+  for (auto n:output) {
+    std::cout << n << ' ';
+  }
+  std::cout << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -97,6 +115,9 @@ int main() {
       break;
     case 'k':
       runKthSmallest();
+      break;
+    case 'p':
+      runSpiralMatrix();
       break;
     default:
       usage();

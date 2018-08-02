@@ -2,6 +2,7 @@
 // https://leetcode.com/problems/search-a-2d-matrix-ii/
 // https://leetcode.com/problems/game-of-life/
 // https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
+// https://leetcode.com/problems/spiral-matrix/
 
 #include <vector>
 #include <queue>
@@ -135,5 +136,50 @@ class Solution {
       }
 
       return -1;
+    }
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+      if (matrix.empty() || matrix[0].empty()) {
+        return {};
+      }
+      int b = 0, u = matrix.size();
+      int l = 0, r = matrix[0].size();
+
+
+      vector<int> result;
+      result.reserve(u*r);
+      int d = 0;
+      while (b < u && l < r) {
+        switch (d) {
+          case 0:
+            for (int i = l; i < r; ++i) {
+              result.push_back(matrix[b][i]);
+            }
+            ++b;
+            d = 1;
+            break;
+          case 1:
+            --r;
+            for (int i = b; i < u; ++i) {
+              result.push_back(matrix[i][r]);
+            }
+            d = 2;
+            break;
+          case 2:
+            --u;
+            for (int i = r-1; i >= l; --i) {
+              result.push_back(matrix[u][i]);
+            }
+            d = 3;
+            break;
+          case 3:
+            for (int i = u-1; i >= b; --i) {
+              result.push_back(matrix[i][l]);
+            }
+            ++l;
+            d = 0;
+            break;
+        }
+      }
+      return result;
     }
 };

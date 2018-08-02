@@ -302,4 +302,74 @@ TEST(KthSmallestTest, example) {
 
 }
 
+TEST(SpiralMatrixTest, empty) {
+  Solution solution;
+
+  vector<vector<int>> input{};
+  EXPECT_EQ(vector<int>{}, solution.spiralOrder(input));
+
+  input = {vector<int>{}};
+  EXPECT_EQ(vector<int>{}, solution.spiralOrder(input));
+}
+
+TEST(SpiralMatrixTest, square) {
+  Solution solution;
+
+  vector<vector<int>> input{{1}};
+  EXPECT_EQ(vector<int>{1}, solution.spiralOrder(input));
+
+  input = {
+    {1, 2},
+    {4, 3},
+  };
+  EXPECT_EQ((vector<int>{1,2,3,4}), solution.spiralOrder(input));
+
+  input = {
+    {1, 2, 3},
+    {8, 9, 4},
+    {7, 6, 5},
+  };
+  EXPECT_EQ((vector<int>{1,2,3,4,5,6,7,8,9}), solution.spiralOrder(input));
+
+  input = {
+    {1, 2, 3, 4},
+    {12, 13, 14, 5},
+    {11, 16, 15, 6},
+    {10, 9, 8, 7},
+  };
+  EXPECT_EQ((vector<int>{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}), solution.spiralOrder(input));
+}
+
+TEST(SpiralMatrixTest, not_square) {
+  Solution solution;
+
+  vector<vector<int>> input = {
+    {1, 2},
+    {6, 3},
+    {5, 4},
+  };
+  EXPECT_EQ((vector<int>{1,2,3,4,5,6}), solution.spiralOrder(input));
+
+  input = {
+    {1, 2, 3},
+    {6, 5, 4},
+  };
+  EXPECT_EQ((vector<int>{1,2,3,4,5,6}), solution.spiralOrder(input));
+
+  input = {
+    {1, 2, 3, 4},
+    {10, 11, 12, 5},
+    {9, 8, 7, 6},
+  };
+  EXPECT_EQ((vector<int>{1,2,3,4,5,6,7,8,9,10,11,12}), solution.spiralOrder(input));
+
+  input = {
+    {1, 2, 3},
+    {10, 11, 4},
+    {9, 12, 5},
+    {8, 7, 6},
+  };
+  EXPECT_EQ((vector<int>{1,2,3,4,5,6,7,8,9,10,11,12}), solution.spiralOrder(input));
+}
+
 }
