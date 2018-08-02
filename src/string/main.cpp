@@ -8,6 +8,7 @@ void usage() {
             << "       s str1 str2\n"
             << "       g n str_1 ... str_n\n"
             << "       r str1\n"
+            << "       d str1\n"
             << std::flush;
 }
 
@@ -44,6 +45,17 @@ void runRomanToInt() {
   std::cout << solution.romanToInt(s) << std::endl;
 }
 
+void runLetterCombinations() {
+  string s = next<string>();
+
+  Solution solution;
+  auto output = solution.letterCombinations(s);
+
+  for (auto s : output) {
+    std::cout << s << std::endl;
+  }
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -60,6 +72,9 @@ int main() {
       break;
     case 'r':
       runRomanToInt();
+      break;
+    case 'd':
+      runLetterCombinations();
       break;
     default:
       usage();

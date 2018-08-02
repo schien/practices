@@ -188,4 +188,57 @@ TEST(RomanToIntTest, combined) {
   }
 }
 
+TEST(LetterCombinationsTest, empty) {
+  Solution solution;
+  EXPECT_EQ(vector<string>{}, solution.letterCombinations(""));
+}
+
+TEST(LetterCombinationsTest, one_digit) {
+  Solution solution;
+  vector<pair<string, vector<string>>> tests {
+    {"2", {"a", "b", "c"}},
+    {"3", {"d", "e", "f"}},
+    {"4", {"g", "h", "i"}},
+    {"5", {"j", "k", "l"}},
+    {"6", {"m", "n", "o"}},
+    {"7", {"p", "q", "r", "s"}},
+    {"8", {"t", "u", "v"}},
+    {"9", {"w", "x", "y", "z"}},
+  };
+
+  for (auto& t : tests) {
+    EXPECT_EQ(t.second, solution.letterCombinations(t.first));
+  }
+}
+
+TEST(LetterCombinationsTest, two_digit) {
+  Solution solution;
+  vector<pair<string, vector<string>>> tests {
+    {"2", {"a", "b", "c"}},
+    {"3", {"d", "e", "f"}},
+    {"4", {"g", "h", "i"}},
+    {"5", {"j", "k", "l"}},
+    {"6", {"m", "n", "o"}},
+    {"7", {"p", "q", "r", "s"}},
+    {"8", {"t", "u", "v"}},
+    {"9", {"w", "x", "y", "z"}},
+  };
+
+  for (auto& f : tests) {
+    for (auto& s: tests) {
+      vector<string> expected;
+      for (auto c1: f.second) {
+        for (auto c2: s.second) {
+          expected.push_back(c1+c2);
+        }
+      }
+      sort(expected.begin(), expected.end());
+
+      auto output = solution.letterCombinations(f.first + s.first);
+      sort(output.begin(), output.end());
+      EXPECT_EQ(expected, output);
+    }
+  }
+}
+
 }

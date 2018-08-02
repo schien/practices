@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/valid-anagram/
 // https://leetcode.com/problems/implement-strstr/
 // https://leetcode.com/problems/group-anagrams/
+// https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 
 #include <string>
 #include <array>
@@ -119,6 +120,33 @@ class Solution {
         ++i;
       }
 
+      return result;
+    }
+    vector<string> letterCombinations(string digits) {
+      if (digits.empty()) {
+        return {};
+      }
+
+      static array<string, 10> table {{
+        "", "", "abc", "def","ghi","jkl","mno","pqrs","tuv","wxyz"
+      }};
+
+      vector<string> result;
+
+      function<void(string&, const int)> worker = [&worker, &result](string& prefix, const int i) {
+        const char d = prefix[i];
+        const auto& s = table[d-'0'];
+        for (auto c:s) {
+          prefix[i] = c;
+          if (i) {
+            worker(prefix, i-1);
+          } else {
+            result.push_back(prefix);
+          }
+        }
+        prefix[i] = d;
+      };
+      worker(digits, digits.size()-1);
       return result;
     }
 };
