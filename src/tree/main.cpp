@@ -8,6 +8,7 @@ void usage() {
   std::cout << "[usage]: tree t n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              k n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              l n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
+            << "              z n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << std::flush;
 }
 
@@ -95,6 +96,27 @@ void runLevelOrder() {
   }
 }
 
+void runZigZagLevelOrder() {
+  int n = next<int>();
+  std::vector<tuple<int, int, int>> input;
+
+  for (int i = 0; i < n; ++i) {
+    int v = next<int>(), l = next<int>(), r = next<int>();
+    input.emplace_back(v,l,r);
+  }
+
+  std::vector<TreeNode> nodes = tree_from_input(input);
+
+  Solution solution;
+  auto output = solution.zigzagLevelOrder(&nodes.at(0));
+  for (auto vec : output) {
+    for (auto v : vec) {
+      std::cout << v << ' ';
+    }
+    std::cout << '\n';
+  }
+}
+
 int main() {
   char op = next<char>();
 
@@ -107,6 +129,9 @@ int main() {
       break;
     case 'l':
       runLevelOrder();
+      break;
+    case 'z':
+      runZigZagLevelOrder();
       break;
     default:
       usage();

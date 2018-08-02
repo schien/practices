@@ -1,5 +1,6 @@
 // https://leetcode.com/problems/binary-tree-inorder-traversal/
 // https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+// https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
 
 #include <vector>
 #include <functional>
@@ -104,6 +105,36 @@ class Solution {
           }
         }
         result.emplace_back(move(level));
+      }
+      return result;
+    }
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+      vector<vector<int>> result;
+      if (!root) {
+        return result;
+      }
+
+      vector<TreeNode*> curr{root};
+
+      bool zig = true;
+      vector<TreeNode*> next;
+      while (!curr.empty()) {
+        vector<int> level;
+        level.reserve(curr.size());
+        for (auto n : curr) {
+          level.push_back(n->val);
+          if (n->left) { next.push_back(n->left); }
+          if (n->right) { next.push_back(n->right); }
+        }
+
+        if (!zig) {
+          reverse(level.begin(), level.end());
+        }
+        result.push_back(move(level));
+
+        curr.swap(next);
+        next.clear();
+        zig = !zig;
       }
       return result;
     }

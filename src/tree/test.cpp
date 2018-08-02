@@ -205,4 +205,76 @@ TEST(LevelOrderTest, all_right) {
   }
 }
 
+TEST(ZigZagLevelOrderTest, empty) {
+  Solution solution;
+  EXPECT_EQ(vector<vector<int>>{}, solution.zigzagLevelOrder(nullptr));
+}
+
+TEST(ZigZagLevelOrderTest, all_left) {
+  vector<TreeNode> nodes;
+  nodes.reserve(10000);
+  for (int i = 0; i < 10000; ++i) {
+    nodes.emplace_back(i);
+    if (i > 0) {
+      nodes.at(i-1).left = &nodes.at(i);
+    }
+  }
+
+  Solution solution;
+  auto output = solution.zigzagLevelOrder(&nodes.at(0));
+
+  int level = 0;
+  for (auto vec : output) {
+    EXPECT_EQ(vector<int>{level++}, vec);
+  }
+}
+
+TEST(ZigZagLevelOrderTest, all_right) {
+  vector<TreeNode> nodes;
+  nodes.reserve(10000);
+  for (int i = 0; i < 10000; ++i) {
+    nodes.emplace_back(i);
+    if (i > 0) {
+      nodes.at(i-1).right = &nodes.at(i);
+    }
+  }
+
+  Solution solution;
+  auto output = solution.zigzagLevelOrder(&nodes.at(0));
+
+  int level = 0;
+  for (auto vec : output) {
+    EXPECT_EQ(vector<int>{level++}, vec);
+  }
+}
+
+TEST(ZigZagLevelOrderTest, complete_tree) {
+  vector<TreeNode> nodes {
+    TreeNode(1),
+    TreeNode(3),
+    TreeNode(2),
+    TreeNode(4),
+    TreeNode(5),
+    TreeNode(6),
+    TreeNode(7)
+  };
+
+  nodes[0].left = &nodes[1];
+  nodes[0].right = &nodes[2];
+  nodes[1].left = &nodes[3];
+  nodes[1].right = &nodes[4];
+  nodes[2].left = &nodes[5];
+  nodes[2].right = &nodes[6];
+
+  Solution solution;
+  auto output = solution.zigzagLevelOrder(&nodes.at(0));
+
+  int val = 1;
+  for (auto& vec : output) {
+    for (auto v : vec) {
+      EXPECT_EQ(val++, v);
+    }
+  }
+}
+
 }
