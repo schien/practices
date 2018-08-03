@@ -4,10 +4,12 @@
 // https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
 // https://leetcode.com/problems/spiral-matrix/
 // https://leetcode.com/problems/number-of-islands/
+// https://leetcode.com/problems/max-area-of-island/
 
 #include <vector>
 #include <queue>
 #include <tuple>
+#include <stack>
 
 using namespace std;
 
@@ -260,5 +262,53 @@ class Solution {
         if (label_set[i] == i) { ++count; }
       }
       return count;
+    }
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+      if (grid.empty() || grid[0].empty()) {
+        return 0;
+      }
+      const int H = grid.size();
+      const int W = grid[0].size();
+
+      auto count = [&grid, H, W](const int i, const int j) {
+        stack<pair<int,int>> next;
+        next.push({i,j});
+        int area = 0;
+
+        while(!next.empty()) {
+          auto p = next.top();
+          next.pop();
+          const int x = p.first;
+          const int y = p.second;
+          if (!grid[x][y]) {
+            continue;
+          }
+          ++area;
+          grid[x][y] = 0;
+          if (x > 0 && grid[x-1][y]) {
+            next.push({x-1, y});
+          }
+          if (x < H-1 && grid[x+1][y]) {
+            next.push({x+1, y});
+          }
+          if (y > 0 && grid[x][y-1]) {
+            next.push({x, y-1});
+          }
+          if (y < W-1 && grid[x][y+1]) {
+            next.push({x, y+1});
+          }
+        }
+        return area;
+      };
+
+      int result = 0;
+      for (int i = 0; i < H; ++i) {
+        for (int j = 0; j < W; ++j) {
+          if (grid[i][j]) {
+            result = max(result, count(i, j));
+          }
+        }
+      }
+      return result;
     }
 };

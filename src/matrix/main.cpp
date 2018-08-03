@@ -10,6 +10,7 @@ void usage() {
             << "       k n [n v_1_1 ... v_1_n] ... [n v_n_1 ... v_n_n] k\n"
             << "       p n [m v_1_1 ... v_1_m] ... [m v_n_1 ... v_n_m]\n"
             << "       i n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m]\n"
+            << "       a n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m]\n"
             << std::flush;
 }
 
@@ -115,6 +116,20 @@ void runNumIslands() {
   std::cout << output << std::endl;
 }
 
+void runMaxAreaOfIsland() {
+  const int n = next<int>();
+  vector<vector<int>> matrix;
+  for (int i = 0; i < n; ++i) {
+    vector<int> row = next_vector<int>();
+    matrix.push_back(row);
+  }
+
+  Solution solution;
+  auto output = solution.maxAreaOfIsland(matrix);
+
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -136,6 +151,9 @@ int main() {
       break;
     case 'i':
       runNumIslands();
+      break;
+    case 'a':
+      runMaxAreaOfIsland();
       break;
     default:
       usage();

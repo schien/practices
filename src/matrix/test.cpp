@@ -464,4 +464,130 @@ TEST(NumIslandsTest, two_dimension) {
   EXPECT_EQ(1, solution.numIslands(input));
 }
 
+TEST(MaxAreaOfIslandTest, empty) {
+  Solution solution;
+
+  vector<vector<int>> input{};
+  EXPECT_EQ(0, solution.maxAreaOfIsland(input));
+  input = {{}};
+  EXPECT_EQ(0, solution.maxAreaOfIsland(input));
+}
+
+TEST(MaxAreaOfIslandTest, one_dimension) {
+  Solution solution;
+
+  vector<vector<int>> input{ {0, 0, 0} };
+  for (int i = 0; i < 8; ++i) {
+    input[0][0] = (i&1?1:0);
+    input[0][1] = (i&2?1:0);
+    input[0][2] = (i&4?1:0);
+
+    int expected = (i&2) ? (1+(i&1) + (i>>2)) : ((i&1)|(i>>2));
+    EXPECT_EQ(expected, solution.maxAreaOfIsland(input));
+  }
+
+  input = {
+    {0},
+    {0},
+    {0},
+  };
+  for (int i = 0; i < 8; ++i) {
+    input[0][0] = (i&1?1:0);
+    input[1][0] = (i&2?1:0);
+    input[2][0] = (i&4?1:0);
+
+    int expected = (i&2) ? (1+(i&1) + (i>>2)) : ((i&1)|(i>>2));
+    EXPECT_EQ(expected, solution.maxAreaOfIsland(input));
+  }
+}
+
+TEST(MaxAreaOfIslandTest, two_dimension) {
+  Solution solution;
+
+  vector<vector<int>> input{
+    {1, 0, 1},
+    {0, 1, 0},
+    {1, 0, 1},
+  };
+  EXPECT_EQ(1, solution.maxAreaOfIsland(input));
+  for (int i = 1; i < 9; i+=2) {
+    for (int j = 0; j < 9; ++j) {
+      if (!(j&1)) {
+        input[j/3][j%3] = 1;
+      }
+    }
+    input[i/3][i%3] = 1;
+    EXPECT_EQ(4, solution.maxAreaOfIsland(input));
+  }
+
+  input = {
+    {0, 1, 0},
+    {1, 0, 1},
+    {0, 1, 0},
+  };
+  EXPECT_EQ(1, solution.maxAreaOfIsland(input));
+  for (int i = 0; i < 9; i+=2) {
+    for (int j = 0; j < 9; ++j) {
+      if (j&1) {
+        input[j/3][j%3] = 1;
+      }
+    }
+    input[i/3][i%3] = 1;
+    EXPECT_EQ((i==4?5:3), solution.maxAreaOfIsland(input));
+  }
+
+
+  for (int i = 0; i < 9; ++i) {
+    for (int j = 0; j < 9; ++j) {
+      if (j!=4) {
+        input[j/3][j%3] = 1;
+      }
+    }
+    input[i/3][i%3] = 0;
+    EXPECT_EQ((i==4?8:7), solution.maxAreaOfIsland(input));
+  }
+
+  input = {
+    {1, 1, 1},
+    {1, 0, 0},
+    {1, 0, 0},
+  };
+  EXPECT_EQ(5, solution.maxAreaOfIsland(input));
+
+  input = {
+    {0, 1, 1},
+    {1, 1, 0},
+    {1, 0, 0},
+  };
+  EXPECT_EQ(5, solution.maxAreaOfIsland(input));
+
+  input = {
+    {0, 0, 1},
+    {1, 1, 1},
+    {1, 0, 0},
+  };
+  EXPECT_EQ(5, solution.maxAreaOfIsland(input));
+
+  input = {
+    {0, 0, 1},
+    {0, 1, 1},
+    {1, 1, 0},
+  };
+  EXPECT_EQ(5, solution.maxAreaOfIsland(input));
+
+  input = {
+    {0, 0, 1},
+    {0, 0, 1},
+    {1, 1, 1},
+  };
+  EXPECT_EQ(5, solution.maxAreaOfIsland(input));
+
+  input = {
+    {0, 1, 1},
+    {0, 1, 0},
+    {1, 1, 0},
+  };
+  EXPECT_EQ(5, solution.maxAreaOfIsland(input));
+}
+
 }
