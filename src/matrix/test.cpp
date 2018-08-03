@@ -372,4 +372,96 @@ TEST(SpiralMatrixTest, not_square) {
   EXPECT_EQ((vector<int>{1,2,3,4,5,6,7,8,9,10,11,12}), solution.spiralOrder(input));
 }
 
+TEST(NumIslandsTest, empty) {
+  Solution solution;
+
+  vector<vector<char>> input{};
+  EXPECT_EQ(0, solution.numIslands(input));
+  input = {{}};
+  EXPECT_EQ(0, solution.numIslands(input));
+}
+
+TEST(NumIslandsTest, one_dimension) {
+  Solution solution;
+
+  vector<vector<char>> input{ {'0', '0', '0'} };
+  for (int i = 0; i < 8; ++i) {
+    input[0][0] = '0' + (i&1?1:0);
+    input[0][1] = '0' + (i&2?1:0);
+    input[0][2] = '0' + (i&4?1:0);
+
+    int expected = (i&2) ? 1 : ((i&1) + (i>>2));
+    EXPECT_EQ(expected, solution.numIslands(input));
+  }
+
+  input = {
+    {'0'},
+    {'0'},
+    {'0'},
+  };
+  for (int i = 0; i < 8; ++i) {
+    input[0][0] = '0' + (i&1?1:0);
+    input[1][0] = '0' + (i&2?1:0);
+    input[2][0] = '0' + (i&4?1:0);
+
+    int expected = (i&2) ? 1 : ((i&1) + (i>>2));
+    EXPECT_EQ(expected, solution.numIslands(input));
+  }
+}
+
+TEST(NumIslandsTest, two_dimension) {
+  Solution solution;
+
+  vector<vector<char>> input{
+    {'1', '0', '1'},
+    {'0', '1', '0'},
+    {'1', '0', '1'},
+  };
+  EXPECT_EQ(5, solution.numIslands(input));
+
+  input = {
+    {'0', '1', '0'},
+    {'1', '0', '1'},
+    {'0', '1', '0'},
+  };
+  EXPECT_EQ(4, solution.numIslands(input));
+
+  input = {
+    {'1', '1', '1'},
+    {'1', '0', '1'},
+    {'1', '1', '1'},
+  };
+
+  for (int i = 0; i < 8; ++i) {
+    input[i/3][i%3] = '0';
+    EXPECT_EQ(1, solution.numIslands(input));
+    if (i != 4) {
+      input[i/3][i%3] = '1';
+    }
+  }
+
+  input = {
+    {'1', '1', '1'},
+    {'1', '0', '0'},
+    {'1', '0', '0'},
+  };
+  EXPECT_EQ(1, solution.numIslands(input));
+
+  swap(input[0][0], input[1][1]);
+  EXPECT_EQ(1, solution.numIslands(input));
+
+  swap(input[0][1], input[1][2]);
+  EXPECT_EQ(1, solution.numIslands(input));
+
+  swap(input[1][0], input[2][1]);
+  EXPECT_EQ(1, solution.numIslands(input));
+
+  swap(input[1][1], input[2][2]);
+  EXPECT_EQ(1, solution.numIslands(input));
+
+  swap(input[0][1], input[1][2]);
+  swap(input[1][1], input[2][2]);
+  EXPECT_EQ(1, solution.numIslands(input));
+}
+
 }

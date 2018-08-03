@@ -3,6 +3,7 @@
 // https://leetcode.com/problems/game-of-life/
 // https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
 // https://leetcode.com/problems/spiral-matrix/
+// https://leetcode.com/problems/number-of-islands/
 
 #include <vector>
 #include <queue>
@@ -181,5 +182,83 @@ class Solution {
         }
       }
       return result;
+    }
+    int numIslands(vector<vector<char>>& grid) {
+      if (grid.empty() || grid[0].empty()) {
+        return 0;
+      }
+      const int H = grid.size();
+      const int W = grid[0].size();
+      vector<int> label(H*W, -1);
+      vector<int> label_set;
+
+      int next_l = 0;
+      if (grid[0][0] != '0') {
+        label[0] = next_l;
+        label_set.push_back(next_l);
+        ++next_l;
+      }
+
+      for (int i = 1; i < W; ++i) {
+        if (grid[0][i] == '0') { continue; }
+
+        if (grid[0][i-1] == '0') {
+          label[i] = next_l;
+          label_set.push_back(next_l);
+          ++next_l;
+        } else {
+          label[i] = label[i-1];
+        }
+      }
+
+      auto root = [&label_set](int l) {
+        if (l < 0) { return l; }
+        // traverse and flatten adjoint set
+        while ( l != label_set[l] ) { l = label_set[l] = label_set[label_set[l]]; }
+        return l;
+      };
+
+      for (int i = 1; i < H; ++i) {
+        if (grid[i][0] != '0') {
+          if (grid[i-1][0] == '0') {
+            label[i*W] = next_l;
+            label_set.push_back(next_l);
+            ++next_l;
+          } else {
+            label[i*W] = label[(i-1)*W];
+          }
+        }
+        for (int j = 1; j < W; ++j) {
+          if (grid[i][j] == '0') { continue; }
+
+          const int idx = i*W + j;
+          const int ll = root(label[idx-1]);
+          const int ul = root(label[idx-W]);
+
+          if (ul < 0 || ll < 0) {
+            int l = max(ul, ll);
+            if (l < 0) {
+              label_set.push_back(next_l);
+              l = next_l++;
+            }
+            label[idx] = l;
+          } else if (ul < ll) {
+            label[idx] = ul;
+            label_set[ll] = ul;
+          } else if (ll < ul) {
+            label[idx] = ll;
+            label_set[ul] = ll;
+          } else {
+            label[idx] = ll;
+          }
+        }
+      }
+
+      const int l_sz = label_set.size();
+      int count = 0;
+      for (int i = 0; i < l_sz; ++i) {
+        if (label_set[i] == i) { ++count; }
+      }
+      return count;
     }
 };
