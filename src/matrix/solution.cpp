@@ -5,6 +5,7 @@
 // https://leetcode.com/problems/spiral-matrix/
 // https://leetcode.com/problems/number-of-islands/
 // https://leetcode.com/problems/max-area-of-island/
+// https://leetcode.com/problems/word-search/
 
 #include <vector>
 #include <queue>
@@ -310,5 +311,52 @@ class Solution {
         }
       }
       return result;
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+      if (board.empty() || board[0].empty()) {
+	return false;
+      }
+
+      const int H = board.size();
+      const int W = board[0].size();
+      const int S = word.size();
+
+      if (!S || (S/W + (S%W?1:0)) > H) {
+        return 0;
+      }
+
+      function<bool(int,int,int)> trace = [&trace, &board, &word, H, W, S](int i, int j, int s) {
+	if (s == S) {
+	  return true;
+	}
+	board[i][j] = tolower(board[i][j]);
+
+	bool result = false;
+	const auto nc = word[s];
+	if (i > 0 && nc == board[i-1][j]) {
+	  result = trace(i-1,j,s+1);
+	}
+	if (!result && i < H-1 && nc == board[i+1][j]) {
+	  result = trace(i+1,j,s+1);
+	}
+	if (!result && j > 0 && nc == board[i][j-1]) {
+	  result = trace(i,j-1,s+1);
+	}
+	if (!result && j < W-1 && nc == board[i][j+1]) {
+	  result = trace(i, j+1,s+1);
+	}
+
+	board[i][j] = toupper(board[i][j]);
+	return result;
+      };
+
+      for(int i = 0; i < H; ++i) {
+	for (int j = 0; j < W; ++j) {
+	  if (board[i][j] == word[0] && trace(i,j,1)) {
+	    return true;
+	  }
+	}
+      }
+      return false;
     }
 };

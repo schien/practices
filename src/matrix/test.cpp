@@ -590,4 +590,121 @@ TEST(MaxAreaOfIslandTest, two_dimension) {
   EXPECT_EQ(5, solution.maxAreaOfIsland(input));
 }
 
+TEST(WordSearchTest, invalid) {
+  Solution solution;
+  vector<vector<char>> input{};
+  EXPECT_FALSE(solution.exist(input, "test"));
+
+  input = {{}};
+  EXPECT_FALSE(solution.exist(input, "test"));
+
+  input = {{'a'}};
+  EXPECT_FALSE(solution.exist(input, ""));
+  EXPECT_FALSE(solution.exist(input, "aa"));
+
+  input = {
+    {'a', 'a'},
+    {'a', 'a'},
+  };
+  EXPECT_FALSE(solution.exist(input, "aaaaa"));
+}
+
+TEST(WordSearchTest, one_dimension) {
+  Solution solution;
+  vector<vector<char>> input{{}};
+  for (int i = 0; i < 10; ++i) {
+    for (int j = i; j > 0; --j) {
+      input[0].push_back('A');
+    }
+    input[0].push_back('B');
+  }
+
+  for (int i = 0; i < 10; ++i) {
+    string word(i+1, 'A');
+    if (i != 9) {
+      EXPECT_TRUE(solution.exist(input, word));
+    } else {
+      EXPECT_FALSE(solution.exist(input, word));
+    }
+  }
+
+  input = {};
+  for (int i = 0; i < 10; ++i) {
+    for (int j = i; j > 0; --j) {
+      input.push_back({'A'});
+    }
+    input.push_back({'B'});
+  }
+
+  for (int i = 0; i < 10; ++i) {
+    string word(i+1, 'A');
+    if (i != 9) {
+      EXPECT_TRUE(solution.exist(input, word));
+    } else {
+      EXPECT_FALSE(solution.exist(input, word));
+    }
+  }
+}
+
+TEST(WordSearchTest, two_dimension) {
+  Solution solution;
+  vector<vector<char>> input;
+
+  input = {
+    {'A', 'A', 'A'},
+    {'A', 'A', 'A'},
+    {'A', 'A', 'A'},
+  };
+
+  for (int t = 0; t < 9; ++t) {
+    input[t/3][t%3] = 'B';
+    for (int i = 1; i <= 9; ++i) {
+      string word(i, 'A');
+      if (i < 9 && !(i==8 && (t&1))) {
+        EXPECT_TRUE(solution.exist(input, word));
+      } else {
+        EXPECT_FALSE(solution.exist(input, word));
+      }
+    }
+    input[t/3][t%3] = 'A';
+  }
+
+  input = {
+    {'A', 'B', 'C'},
+    {'D', 'E', 'F'},
+    {'G', 'H', 'I'},
+  };
+
+  vector<string> words {
+    "ABCFEDGHI",
+    "CBADEFIHG",
+    "ABCFIHGDE",
+    "CBADGHIFE",
+    "ABCFIHEDG",
+    "CBADGHEFI",
+  };
+
+  for (auto& word:words) {
+    EXPECT_TRUE(solution.exist(input, word));
+  }
+
+  reverse(input.begin(), input.end());
+  for (auto& word:words) {
+    EXPECT_TRUE(solution.exist(input, word));
+  }
+
+  for (auto& row:input) {
+    reverse(row.begin(), row.end());
+  }
+  for (auto& word:words) {
+    EXPECT_TRUE(solution.exist(input, word));
+  }
+
+  reverse(input.begin(), input.end());
+  for (auto& word:words) {
+    EXPECT_TRUE(solution.exist(input, word));
+  }
+
+}
+
 }
