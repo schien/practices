@@ -707,4 +707,67 @@ TEST(WordSearchTest, two_dimension) {
 
 }
 
+TEST(SetZerosTest, empty) {
+  Solution solution;
+  vector<vector<int>> input{};
+  EXPECT_NO_THROW(solution.setZeroes(input));
+  input = {{}};
+  EXPECT_NO_THROW(solution.setZeroes(input));
+}
+
+TEST(SetZerosTest, one_dimension) {
+  Solution solution;
+  vector<vector<int>> input{
+    vector<int>(10, 1)
+  };
+  solution.setZeroes(input);
+  EXPECT_EQ(vector<vector<int>>{vector<int>(10, 1)}, input);
+
+  for (int i = 0; i < (1<<10)-1; ++i) {
+    for (int j = 0; j < 10; ++j) {
+      input[0][j] = (i>>j)&1;
+    }
+    solution.setZeroes(input);
+    EXPECT_EQ(vector<vector<int>>{vector<int>(10, 0)}, input);
+  }
+
+  input = vector<vector<int>>(10, {1});
+  solution.setZeroes(input);
+  EXPECT_EQ(vector<vector<int>>(10, {1}), input);
+
+  for (int i = 0; i < (1<<10)-1; ++i) {
+    for (int j = 0; j < 10; ++j) {
+      input[j][0] = (i>>j)&1;
+    }
+    solution.setZeroes(input);
+    EXPECT_EQ(vector<vector<int>>(10, {0}), input);
+  }
+}
+
+TEST(SetZerosTest, two_dimension) {
+  Solution solution;
+  vector<vector<int>> input(10, vector<int>(10, 1));
+  solution.setZeroes(input);
+  EXPECT_EQ(vector<vector<int>>(10, vector<int>(10, 1)), input);
+
+  for (int i = 0; i < 100; ++i) {
+    for (int j = i+1; j < 100; ++j) {
+      input[i/10][i%10] = 0;
+      input[j/10][j%10] = 0;
+
+      solution.setZeroes(input);
+      for (int x = 0; x < 100; ++x) {
+        if (x/10 == i/10 || x/10 == j/10 || x%10 == i%10 || x%10 == j%10) {
+          EXPECT_EQ(0, input[x/10][x%10]);
+        } else {
+          EXPECT_EQ(1, input[x/10][x%10]);
+        }
+      }
+      for (auto& vec:input) {
+        fill(vec.begin(), vec.end(), 1);
+      }
+    }
+  }
+}
+
 }

@@ -6,6 +6,7 @@
 // https://leetcode.com/problems/number-of-islands/
 // https://leetcode.com/problems/max-area-of-island/
 // https://leetcode.com/problems/word-search/
+// https://leetcode.com/problems/set-matrix-zeroes/
 
 #include <vector>
 #include <queue>
@@ -358,5 +359,46 @@ class Solution {
 	}
       }
       return false;
+    }
+    void setZeroes(vector<vector<int>>& matrix) {
+      if (matrix.empty() || matrix[0].empty()) {
+        return;
+      }
+      const auto H = matrix.size();
+      const auto W = matrix[0].size();
+
+      auto& r0 = matrix[0];
+      bool zr0 = false;
+      for (size_t j = 0; j < W; ++j) {
+        if (!r0[j]) {
+          zr0 = true;
+          break;
+        }
+      }
+
+      for (size_t i = 1; i < H; ++i) {
+        auto& ri = matrix[i];
+        for (size_t j = 0; j < W; ++j) {
+          if (!ri[j]) {
+            r0[j] = ri[0] = 0;
+          }
+        }
+      }
+
+      for (size_t i = 1; i < H; ++i) {
+        auto& ri = matrix[i];
+        const auto zri = ri[0];
+        for (size_t j = 0; j < W; ++j) {
+          if (!r0[j] || !zri) {
+            ri[j] = 0;
+          }
+        }
+      }
+
+      if (zr0) {
+        for (size_t j = 0; j < W; ++j) {
+          r0[j] = 0;
+        }
+      }
     }
 };

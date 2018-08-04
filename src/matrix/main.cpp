@@ -12,6 +12,7 @@ void usage() {
             << "       i n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m]\n"
             << "       a n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m]\n"
             << "       w n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m] str\n"
+            << "       z n [m v_1_1 ... v_1_m] ... [m v_n_1 ... v_n_m]\n"
             << std::flush;
 }
 
@@ -146,6 +147,25 @@ void runWordSearch() {
   std::cout << output << std::endl;
 }
 
+void runSetZero() {
+  const int n = next<int>();
+  vector<vector<int>> matrix;
+  for (int i = 0; i < n; ++i) {
+    vector<int> row = next_vector<int>();
+    matrix.push_back(row);
+  }
+
+  Solution solution;
+  solution.setZeroes(matrix);
+
+  for (auto& vec:matrix) {
+    for (auto n:vec) {
+      std::cout << n << ' ';
+    }
+    std::cout << std::endl;
+  }
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -173,6 +193,9 @@ int main() {
       break;
     case 'w':
       runWordSearch();
+      break;
+    case 'z':
+      runSetZero();
       break;
     default:
       usage();
