@@ -401,4 +401,64 @@ class Solution {
         }
       }
     }
+    void solve(vector<vector<char>>& board) {
+      if (board.empty() || board[0].empty()) {
+	return;
+      }
+      const int H = board.size();
+      const int W = board[0].size();
+
+      auto flood = [&board, H, W](const int i, const int j) {
+        if (board[i][j] != 'O') {
+          return;
+        }
+	stack<pair<int,int>> next;
+	next.push({i, j});
+	board[i][j] = '*';
+
+	while (!next.empty()) {
+	  auto& t = next.top();
+	  const int x = t.first;
+	  const int y = t.second;
+	  next.pop();
+
+	  if (x > 0 && board[x-1][y] == 'O') {
+	    board[x-1][y] = '*';
+	    next.push({x-1, y});
+	  }
+	  if (x+1 < H && board[x+1][y] == 'O') {
+	    board[x+1][y] = '*';
+	    next.push({x+1, y});
+	  }
+	  if (y > 0 && board[x][y-1] == 'O') {
+	    board[x][y-1] = '*';
+	    next.push({x, y-1});
+	  }
+	  if (y+1 < W && board[x][y+1] == 'O') {
+	    board[x][y+1] = '*';
+	    next.push({x, y+1});
+	  }
+	}
+      };
+      for (int j = 0; j < W; ++j) {
+        flood(0, j);
+        flood(H-1, j);
+      }
+      for (int i = 1; i < H-1; ++i) {
+        flood(i, 0);
+        flood(i, W-1);
+      }
+      for (int i = 0; i < H; ++i) {
+	for (int j = 0; j < W; ++j) {
+	  switch (board[i][j]) {
+	    case 'O':
+	      board[i][j] = 'X';
+	      break;
+	    case '*':
+	      board[i][j] = 'O';
+	      break;
+	  }
+	}
+      }
+    }
 };

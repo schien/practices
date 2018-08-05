@@ -13,6 +13,7 @@ void usage() {
             << "       a n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m]\n"
             << "       w n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m] str\n"
             << "       z n [m v_1_1 ... v_1_m] ... [m v_n_1 ... v_n_m]\n"
+            << "       d n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m]\n"
             << std::flush;
 }
 
@@ -166,6 +167,25 @@ void runSetZero() {
   }
 }
 
+void runSurroundedRegions() {
+  const int n = next<int>();
+  vector<vector<char>> matrix;
+  for (int i = 0; i < n; ++i) {
+    vector<char> row = next_vector<char>();
+    matrix.push_back(row);
+  }
+
+  Solution solution;
+  solution.solve(matrix);
+
+  for (auto& vec:matrix) {
+    for (auto c:vec) {
+      std::cout << c << ' ';
+    }
+    std::cout << std::endl;
+  }
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -196,6 +216,9 @@ int main() {
       break;
     case 'z':
       runSetZero();
+      break;
+    case 'd':
+      runSurroundedRegions();
       break;
     default:
       usage();

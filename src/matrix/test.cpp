@@ -770,4 +770,128 @@ TEST(SetZerosTest, two_dimension) {
   }
 }
 
+TEST(SurroundingRegionsTest, empty) {
+  Solution solution;
+  vector<vector<char>> input{};
+  EXPECT_NO_THROW(solution.solve(input));
+  input = {{}};
+  EXPECT_NO_THROW(solution.solve(input));
+}
+
+TEST(SurroundingRegionsTest, one_dimension) {
+  Solution solution;
+  vector<vector<char>> input{{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}};
+
+  for (int i = 0; i < (1<<10); ++i) {
+    vector<char> expected;
+    for (int j = 0; j < 10; ++j) {
+      input[0][j] = (j&(1<<j))?'O':'X';
+      expected.push_back(input[0][j]);
+    }
+    solution.solve(input);
+    EXPECT_EQ(expected, input[0]);
+  }
+
+  input = {
+    {'X'},
+    {'X'},
+    {'X'},
+    {'X'},
+    {'X'},
+    {'X'},
+    {'X'},
+    {'X'},
+    {'X'},
+    {'X'},
+  };
+
+  for (int i = 0; i < (1<<10); ++i) {
+    vector<vector<char>> expected;
+    for (int j = 0; j < 10; ++j) {
+      input[j][0] = (j&(1<<j))?'O':'X';
+      expected.push_back(input[j]);
+    }
+    solution.solve(input);
+    EXPECT_EQ(expected, input);
+  }
+}
+
+TEST(SurroundingRegionsTest, two_dimension) {
+  Solution solution;
+  vector<vector<char>> input = {
+    {'X','X','X'},
+    {'X','X','X'},
+    {'X','X','X'},
+  };
+
+  for (int i = 0; i < 9; ++i) {
+    input[i/3][i%3] = 'O';
+    solution.solve(input);
+
+    vector<vector<char>> expected = {
+      {'X','X','X'},
+      {'X','X','X'},
+      {'X','X','X'},
+    };
+    if (i != 4) {
+      expected[i/3][i%3] = 'O';
+    }
+    EXPECT_EQ(expected, input);
+    input[i/3][i%3] = 'X';
+  }
+
+  input = {
+    {'X','X','X'},
+    {'X','O','X'},
+    {'X','X','X'},
+  };
+
+  for (int i = 0; i < 9; ++i) {
+    if (i == 4) { continue; }
+    input[i/3][i%3] = 'O';
+    solution.solve(input);
+
+    vector<vector<char>> expected = {
+      {'X','X','X'},
+      {'X','X','X'},
+      {'X','X','X'},
+    };
+    expected[i/3][i%3] = 'O';
+    expected[1][1] = (i&1)?'O':'X';
+
+    EXPECT_EQ(expected, input);
+    input[i/3][i%3] = 'X';
+    input[1][1] = 'O';
+  }
+
+  input = {
+    {'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O'},
+    {'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'},
+    {'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O'},
+    {'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'},
+    {'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O'},
+    {'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'},
+    {'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O'},
+    {'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'},
+    {'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O'},
+    {'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'},
+  };
+
+  solution.solve(input);
+
+  vector<vector<char>> expected = {
+    {'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O'},
+    {'O', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+    {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'O'},
+    {'O', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+    {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'O'},
+    {'O', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+    {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'O'},
+    {'O', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+    {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'O'},
+    {'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'},
+  };
+  EXPECT_EQ(expected, input);
+}
+
 }
