@@ -3,6 +3,52 @@
 
 #include "solution.cpp"
 
+std::vector<ListNode> next_list() {
+  uint32_t n;
+  std::cin >> n;
+
+  std::vector<ListNode> nodes;
+  for (uint32_t i = 0; i < n; ++i) {
+    int val;
+    std::cin >> val;
+
+    nodes.emplace_back(val);
+  }
+
+  for (int i = 0; i < n; ++i) {
+    if (i > 0) {
+      nodes[i-1].next = &nodes[i];
+    }
+  }
+
+  return nodes;
+}
+
+std::vector<RandomListNode> next_random_list() {
+  uint32_t n;
+  std::cin >> n;
+
+  std::vector<RandomListNode> nodes;
+  for (uint32_t i = 0; i < n; ++i) {
+    int val;
+    std::cin >> val;
+
+    nodes.emplace_back(val);
+  }
+
+  for (int i = 0; i < n; ++i) {
+    if (i > 0) {
+      nodes[i-1].next = &nodes[i];
+    }
+    int random;
+    std::cin >> random;
+
+    nodes[i].random = (random>=0&&random<n)?&nodes[random]:nullptr;
+  }
+
+  return nodes;
+}
+
 void printList(ListNode* head) {
   while (head) {
     std::cout << head->val << ' ';
@@ -11,14 +57,27 @@ void printList(ListNode* head) {
   std::cout << std::endl;
 }
 
-void runReverseList(std::vector<ListNode>& nodes) {
+void printRandomList(RandomListNode* head) {
+  while (head) {
+    std::cout << '@' << '[' << std::hex << head << ']'
+              << head->label
+              << '(' << std::hex << head->random << ')'
+              << '\n';
+    head = head->next;
+  }
+  std::cout << std::endl;
+}
+
+void runReverseList() {
+  std::vector<ListNode> nodes = next_list();
   Solution solution;
   auto output = solution.reverseList(&nodes[0]);
 
   printList(output);
 }
 
-void runDeleteNode(std::vector<ListNode>& nodes) {
+void runDeleteNode() {
+  std::vector<ListNode> nodes = next_list();
   int deleteVal;
   std::cin >> deleteVal;
 
@@ -38,72 +97,68 @@ void runDeleteNode(std::vector<ListNode>& nodes) {
   printList(&nodes[0]);
 }
 
-void runSortList(std::vector<ListNode>& nodes) {
+void runSortList() {
+  std::vector<ListNode> nodes = next_list();
   Solution solution;
   auto output = solution.sortList(&nodes[0]);
 
   printList(output);
 }
 
-void runPalindrome(std::vector<ListNode>& nodes) {
+void runPalindrome() {
+  std::vector<ListNode> nodes = next_list();
   Solution solution;
   auto output = solution.isPalindrome(&nodes[0]);
 
   std::cout << output << std::endl;
 }
 
-void runOddEvenList(std::vector<ListNode>& nodes) {
+void runOddEvenList() {
+  std::vector<ListNode> nodes = next_list();
   Solution solution;
   auto output = solution.oddEvenList(&nodes[0]);
   printList(output);
 }
 
+void runCopyRandomList() {
+  std::vector<RandomListNode> nodes = next_random_list();
+  Solution solution;
+  auto output = solution.copyRandomList(&nodes[0]);
+  printRandomList(output);
+}
+
 void usage() {
-  std::cerr << "N v[1] ... v[N]\n"
-            << "r\n"
-            << "d v[x] (where x < N)\n"
-            << "s v[1] ... v[N]\n"
-            << "o v[1] ... v[N]\n"
+  std::cerr << "usage: r N v[1] ... v[N]\n"
+            << "       d N v[1] ... v[N] v[x] (where x < N)\n"
+            << "       p N v[1] ... v[N]\n"
+            << "       s N v[1] ... v[N]\n"
+            << "       o N v[1] ... v[N]\n"
+            << "       c N v[1] ... v[N] r[1] ... r[N] (where -1 == nullptr)\n"
             << std::flush;
 }
 
 int main() {
-  uint32_t n;
-  std::cin >> n;
-
-  std::vector<ListNode> nodes;
-  for (uint32_t i = 0; i < n; ++i) {
-    int val;
-    std::cin >> val;
-
-    ListNode node(val);
-    nodes.push_back(node);
-  }
-
-  for (int i = 0; i < n; ++i) {
-    if (i > 0) {
-      nodes[i-1].next = &nodes[i];
-    }
-  }
-
   char op;
   std::cin >> op;
 
   switch (op) {
     case 'r':
-      runReverseList(nodes);
+      runReverseList();
       break;
     case 'd':
-      runDeleteNode(nodes);
+      runDeleteNode();
       break;
     case 'p':
-      runPalindrome(nodes);
+      runPalindrome();
       break;
     case 's':
-      runSortList(nodes);
+      runSortList();
       break;
     case 'o':
-      runOddEvenList(nodes);
+      runOddEvenList();
+      break;
+    case 'c':
+      runCopyRandomList();
       break;
     default:
       usage();

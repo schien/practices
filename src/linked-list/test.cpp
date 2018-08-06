@@ -343,4 +343,46 @@ TEST(OddEventList, large) {
 
 }
 
+TEST(CopyRandomListTest, empty) {
+  Solution solution;
+  EXPECT_EQ(nullptr, solution.copyRandomList(nullptr));
+}
+
+TEST(CopyRandomListTest, small) {
+  Solution solution;
+  std::vector<RandomListNode> nodes{
+    RandomListNode(0),
+    RandomListNode(1),
+    RandomListNode(2),
+    RandomListNode(3),
+  };
+
+  nodes[0].next = &nodes[1];
+  nodes[0].random = &nodes[1];
+  nodes[1].next = &nodes[2];
+  nodes[1].random = &nodes[0];
+  nodes[2].next = &nodes[3];
+  nodes[2].random = &nodes[2];
+
+  auto output = solution.copyRandomList(&nodes[0]);
+
+  auto curr = output;
+  std::map<RandomListNode*, RandomListNode*> table;
+  for (int i = 0; i < 4; ++i) {
+    EXPECT_EQ(nodes[i].label, curr->label);
+    table[&nodes[i]] = curr;
+    curr = curr->next;
+  }
+
+  curr = output;
+  for (int i = 0; i < 4; ++i) {
+    if (nodes[i].random) {
+      EXPECT_EQ(table[nodes[i].random], curr->random);
+    } else {
+      EXPECT_EQ(nullptr, curr->random);
+    }
+    curr = curr->next;
+  }
+}
+
 }

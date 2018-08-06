@@ -3,6 +3,7 @@
 // https://leetcode.com/problems/palindrome-linked-list/
 // https://leetcode.com/problems/sort-list/
 // https://leetcode.com/problems/odd-even-linked-list/
+// https://leetcode.com/problems/copy-list-with-random-pointer/
 
 /**
  * Definition for singly-linked list.
@@ -11,6 +12,15 @@ struct ListNode {
   int val;
   ListNode *next;
   ListNode(int x) : val(x), next(nullptr) {}
+};
+
+/*
+ * Definition for singly-linked list with a random pointer.
+ */
+struct RandomListNode {
+    int label;
+    RandomListNode *next, *random;
+    RandomListNode(int x) : label(x), next(nullptr), random(nullptr) {}
 };
 
 // time: O(n) + O(n)
@@ -250,5 +260,40 @@ public:
     even_tail->next = odd;
 
     return head;
+  }
+  RandomListNode *copyRandomList(RandomListNode *head) {
+    if (!head) {
+      return nullptr;
+    }
+    auto curr = head;
+    while (curr) {
+      // put copied nodes at even position
+      RandomListNode* cpy = new RandomListNode(curr->label);
+      cpy->next = curr->next;
+      curr->next = cpy;
+      curr = cpy->next;
+    }
+
+    curr = head;
+    while (curr) {
+      // next node of the original is the copied one
+      auto cpy = curr->next;
+      if (curr->random) {
+        cpy->random = curr->random->next;
+      }
+      curr = cpy->next;
+    }
+
+    auto result = head->next;
+    curr = head;
+    while (curr) {
+      // split odd/even nodes
+      auto next = curr->next;
+      if (next) {
+        curr->next = next->next;
+      }
+      curr = next;
+    }
+    return result;
   }
 };
