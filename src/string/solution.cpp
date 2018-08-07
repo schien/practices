@@ -2,6 +2,7 @@
 // https://leetcode.com/problems/implement-strstr/
 // https://leetcode.com/problems/group-anagrams/
 // https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+// https://leetcode.com/problems/word-break/
 
 #include <string>
 #include <array>
@@ -148,5 +149,35 @@ class Solution {
       };
       worker(digits, digits.size()-1);
       return result;
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+      if (s.empty() || wordDict.empty()) {
+        return false;
+      }
+      const int sz = s.size();
+      vector<bool> dp(sz+1);
+      dp[0] = true;
+
+      for (int i = 1; i <= sz; ++i) {
+        for (auto& w:wordDict) {
+          const int wsz = w.size();
+          const int prev = i-wsz;
+          if (prev < 0 || !dp[prev]) {
+            continue;
+          }
+          bool matched = true;
+          for (int j = 0; j < wsz; ++j) {
+            if (w[j] != s[prev+j]) {
+              matched = false;
+              break;
+            }
+          }
+          if (matched) {
+            dp[i] = true;
+            break;
+          }
+        }
+      }
+      return dp[sz];
     }
 };

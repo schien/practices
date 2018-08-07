@@ -241,4 +241,56 @@ TEST(LetterCombinationsTest, two_digit) {
   }
 }
 
+TEST(WordBreakTest, empty) {
+  Solution solution;
+
+  vector<string> wordDict{"a"};
+  EXPECT_FALSE(solution.wordBreak("", wordDict));
+
+  wordDict.clear();
+  EXPECT_FALSE(solution.wordBreak("a", wordDict));
+}
+
+TEST(WordBreakTest, small) {
+  Solution solution;
+
+  vector<string> wordDict {
+    "a", "b", "c"
+  };
+
+  for (int i = 1; i < (1<<3); ++i) {
+    string s{""};
+    for (int j = 0; j < 3; ++j) {
+      if (i&(1<<j)) {
+        s += wordDict[j];
+      }
+    }
+    EXPECT_TRUE(solution.wordBreak(s, wordDict));
+  }
+
+  string input = "abcd";
+  for (int i = 0; i < input.size(); ++i) {
+    swap(input[i], input[3]);
+    EXPECT_FALSE(solution.wordBreak(input, wordDict));
+  }
+}
+
+TEST(WordBreakTest, large) {
+  Solution solution;
+
+  vector<string> wordDict;
+  for (int i = 1; i < 20; ++i) {
+    wordDict.emplace_back(i, 'a');
+  }
+
+  string input(1000, 'a');
+  EXPECT_TRUE(solution.wordBreak(input, wordDict));
+
+  input += 'b';
+  for (int i = 0; i < input.length(); ++i) {
+    swap(input[i], input[1000]);
+    EXPECT_FALSE(solution.wordBreak(input, wordDict));
+  }
+}
+
 }

@@ -9,6 +9,7 @@ void usage() {
             << "       g n str_1 ... str_n\n"
             << "       r str1\n"
             << "       d str1\n"
+            << "       b str n word_1 ... word_n\n"
             << std::flush;
 }
 
@@ -56,6 +57,15 @@ void runLetterCombinations() {
   }
 }
 
+void runWordBreak() {
+  string s = next<string>();
+  vector<string> wordDict = next_vector<string>();
+
+  Solution solution;
+  auto output = solution.wordBreak(s, wordDict);
+  std::cout << std::boolalpha << output << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -75,6 +85,9 @@ int main() {
       break;
     case 'd':
       runLetterCombinations();
+      break;
+    case 'b':
+      runWordBreak();
       break;
     default:
       usage();
