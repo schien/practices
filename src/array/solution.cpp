@@ -11,11 +11,14 @@
 // https://leetcode.com/problems/sort-colors/
 // https://leetcode.com/problems/find-peak-element/
 // https://leetcode.com/problems/jump-game/
+// https://leetcode.com/problems/largest-number/
 
 #include <vector>
 #include <unordered_set>
 #include <unordered_map>
 #include <queue>
+#include <algorithm>
+#include <string>
 
 using namespace std;
 
@@ -344,5 +347,46 @@ class Solution {
         ++curr;
       }
       return false;
+    }
+    string largestNumber(vector<int>& nums) {
+      vector<string> ns;
+      int zero_count = 0;
+      int max_length = 0;
+      for (auto n:nums) {
+        if (!n) { ++zero_count; ++max_length; continue; }
+        auto s = to_string(n);
+        max_length += s.size();
+        ns.emplace_back(s);
+      }
+
+      sort(ns.begin(), ns.end(), [](const string& lhs, const string& rhs){
+          // fast path
+          const int minz = min(lhs.size(),rhs.size());
+          for (int i = 0; i < minz; ++i) {
+            if (lhs[i] == rhs[i]) {
+              continue;
+            }
+            return lhs[i] > rhs[i];
+          }
+
+          // slow path
+          return (lhs+rhs) > (rhs+lhs);
+      });
+
+      string result;
+      result.reserve(max_length);
+      for (auto& s: ns) {
+        result += s;
+      }
+
+      if (zero_count) {
+        if (result.empty()) {
+          result.push_back('0');
+        } else {
+          result.append(zero_count, '0');
+        }
+      }
+
+      return result;
     }
 };

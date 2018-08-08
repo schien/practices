@@ -16,6 +16,7 @@ void usage() {
             << "        c {n [0|1|2]*}\n"
             << "        e {n x_1 ... x_n}\n"
             << "        j {n x_1 ... x_n}\n"
+            << "        g {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -123,6 +124,13 @@ void runJumpGame() {
   std::cout << output << std::endl;
 }
 
+void runLargestNumber() {
+  std::vector<int> num = next_vector<int>();
+  Solution solution;
+  auto output = solution.largestNumber(num);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -162,6 +170,9 @@ int main() {
       break;
     case 'j':
       runJumpGame();
+      break;
+    case 'g':
+      runLargestNumber();
       break;
     default:
       usage();

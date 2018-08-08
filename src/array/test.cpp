@@ -512,4 +512,39 @@ TEST(JumpGameTest, large) {
   }
 }
 
+TEST(LargestNumberTest, empty) {
+  Solution solution;
+  vector<int> input;
+  EXPECT_EQ("", solution.largestNumber(input));
+}
+
+TEST(LargestNumberTest, zero) {
+  Solution solution;
+  vector<int> input(10, 0);
+
+  EXPECT_EQ("0", solution.largestNumber(input));
+
+  for (int i = 1; i < 100; ++i) {
+    input[0] = i;
+    EXPECT_EQ(to_string(i) + "000000000", solution.largestNumber(input));
+  }
+}
+
+TEST(LargestNumberTest, example) {
+  Solution solution;
+  vector<int> input;
+
+  input = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+  EXPECT_EQ("9876543210", solution.largestNumber(input));
+
+  input = {1, 10 ,100, 1000, 10000};
+  EXPECT_EQ("110100100010000", solution.largestNumber(input));
+
+  input = {1, 12, 122, 1222, 12222};
+  EXPECT_EQ("122221222122121", solution.largestNumber(input));
+
+  input = {121, 12};
+  EXPECT_EQ("12121", solution.largestNumber(input));
+}
+
 }
