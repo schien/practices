@@ -481,4 +481,35 @@ TEST(FindPeakElementTest, large) {
   }
 }
 
+TEST(JumpGameTest, empty) {
+  Solution solution;
+  vector<int> input;
+  EXPECT_FALSE(solution.canJump(input));
+}
+
+TEST(JumpGameTest, simple) {
+  Solution solution;
+  vector<int> input(10, 1);
+  EXPECT_TRUE(solution.canJump(input));
+
+  input.emplace_back(0);
+  for (int i = 0; i < input.size(); ++i) {
+    swap(input[i], input[input.size()-1]);
+    EXPECT_FALSE(solution.canJump(input));
+  }
+}
+
+TEST(JumpGameTest, large) {
+  Solution solution;
+  vector<int> input(100000, 1);
+  EXPECT_TRUE(solution.canJump(input));
+
+  input.resize(200000);
+  input[99999] = 99999;
+  for (int i = 0; i < 100000; ++i) {
+    swap(input[i], input[input.size()-1]);
+    EXPECT_FALSE(solution.canJump(input));
+  }
+}
+
 }

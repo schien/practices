@@ -10,6 +10,7 @@
 // https://leetcode.com/problems/longest-increasing-subsequence/
 // https://leetcode.com/problems/sort-colors/
 // https://leetcode.com/problems/find-peak-element/
+// https://leetcode.com/problems/jump-game/
 
 #include <vector>
 #include <unordered_set>
@@ -328,5 +329,20 @@ class Solution {
       return findPeakElement_linear_search(nums);
       return findPeakElement_binary_search(nums);
     }
-
+    bool canJump(vector<int>& nums) {
+      if (nums.empty()) {
+        return false;
+      }
+      const int sz = nums.size();
+      int mx = 0;
+      int curr = 0;
+      while (curr <= mx) {
+        mx = max(mx, curr + nums[curr]);
+        if (mx >= sz-1) {
+          return true;
+        }
+        ++curr;
+      }
+      return false;
+    }
 };

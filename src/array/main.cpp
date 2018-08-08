@@ -15,6 +15,7 @@ void usage() {
             << "        l {n x_1 ... x_n}\n"
             << "        c {n [0|1|2]*}\n"
             << "        e {n x_1 ... x_n}\n"
+            << "        j {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -115,6 +116,13 @@ void runFindPeakElement() {
   std::cout << output << std::endl;
 }
 
+void runJumpGame() {
+  std::vector<int> num = next_vector<int>();
+  Solution solution;
+  auto output = solution.canJump(num);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -151,6 +159,9 @@ int main() {
       break;
     case 'e':
       runFindPeakElement();
+      break;
+    case 'j':
+      runJumpGame();
       break;
     default:
       usage();
