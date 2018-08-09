@@ -293,4 +293,49 @@ TEST(WordBreakTest, large) {
   }
 }
 
+TEST(DecodeWaysTest, empty) {
+  Solution solution;
+  EXPECT_EQ(0, solution.numDecodings(""));
+}
+
+TEST(DecodeWaysTest, invalid) {
+  Solution solution;
+  EXPECT_EQ(0, solution.numDecodings("0"));
+
+  string input{"123456789"};
+  for (int i = 0; i < input.size()-1; ++i) {
+    char oc1 = input[i], oc2 = input[i+1];
+    input[i] = '0';
+    input[i+1] = '0';
+    EXPECT_EQ(0, solution.numDecodings(input));
+    input[i] = oc1;
+    input[i+1] = oc2;
+  }
+}
+
+TEST(DecodeWaysTest, example) {
+  Solution solution;
+
+  string input{"1"};
+  EXPECT_EQ(1, solution.numDecodings(input));
+
+  input = "12";
+  EXPECT_EQ(2, solution.numDecodings(input));
+
+  input = "11111";
+  EXPECT_EQ(8, solution.numDecodings(input));
+
+  input = "10101";
+  EXPECT_EQ(1, solution.numDecodings(input));
+
+  input = "27";
+  EXPECT_EQ(1, solution.numDecodings(input));
+
+  input = "1918171615141310";
+  EXPECT_EQ(128, solution.numDecodings(input));
+
+  input = "23242526";
+  EXPECT_EQ(16, solution.numDecodings(input));
+}
+
 }

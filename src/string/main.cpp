@@ -10,6 +10,7 @@ void usage() {
             << "       r str1\n"
             << "       d str1\n"
             << "       b str n word_1 ... word_n\n"
+            << "       w str1\n"
             << std::flush;
 }
 
@@ -66,6 +67,13 @@ void runWordBreak() {
   std::cout << std::boolalpha << output << std::endl;
 }
 
+void runDecodeWays() {
+  string s = next<string>();
+  Solution solution;
+  auto output = solution.numDecodings(s);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -88,6 +96,9 @@ int main() {
       break;
     case 'b':
       runWordBreak();
+      break;
+    case 'w':
+      runDecodeWays();
       break;
     default:
       usage();

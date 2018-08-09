@@ -3,6 +3,7 @@
 // https://leetcode.com/problems/group-anagrams/
 // https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 // https://leetcode.com/problems/word-break/
+// https://leetcode.com/problems/decode-ways/
 
 #include <string>
 #include <array>
@@ -179,5 +180,30 @@ class Solution {
         }
       }
       return dp[sz];
+    }
+    int numDecodings(string s) {
+      if (s.empty()) { return 0; }
+
+      const int sz = s.size();
+
+      int prev = 1, curr = 0, next = 0;
+      for (int i = 0; i < sz; ++i) {
+        if (s[i] != '0') {
+          curr += prev;
+        }
+
+        if (i < sz-1 && (s[i] == '1' || (s[i] == '2' && s[i+1] <= '6'))) {
+          next = prev;
+        }
+
+        prev = curr;
+        curr = next;
+        next = 0;
+
+        if (!curr && !prev) {
+          return 0;
+        }
+      }
+      return prev;
     }
 };
