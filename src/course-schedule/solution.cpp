@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/course-schedule/
+// https://leetcode.com/problems/course-schedule-ii/
 
 #include <vector>
 #include <functional>
@@ -8,7 +9,7 @@
 
 using namespace std;
 
-static bool buttum_up(int numCourses, vector<pair<int, int>>& prerequisites) {
+static bool buttum_up(int numCourses, vector<pair<int, int>>& prerequisites, vector<int>& result) {
   enum class State{
     N, F, T
   };
@@ -18,33 +19,34 @@ static bool buttum_up(int numCourses, vector<pair<int, int>>& prerequisites) {
     dep[p.first].emplace_back(p.second);
   }
 
-  function<bool(int)> dfs = [&dfs, &traversed, &dep](int i) {
-    switch (traversed[i]) {
-      case State::F:
-        return true;
-      case State::T:
-        return false;
-      case State::N:
-      default:
-        traversed[i] = State::T;
-        for (auto n : dep[i]) {
+  function<bool(int)> dfs = [&dfs, &traversed, &dep, &result](int i) {
+    traversed[i] = State::T;
+    for (auto n : dep[i]) {
+      switch(traversed[n]) {
+        case State::N:
           if (!dfs(n)) {
             return false;
           }
-        }
-        traversed[i] = State::F;
-        return true;
+          break;
+        case State::T:
+          return false;
+        default:
+          break;
+      }
     }
+    traversed[i] = State::F;
+    result.emplace_back(i);
+    return true;
   };
   for (int i = 0; i < numCourses; ++i) {
-    if (!dfs(i)) {
+    if (traversed[i] == State::N && !dfs(i)) {
       return false;;
     }
   }
   return true;
 }
 
-static bool top_down(int numCourses, vector<pair<int, int>>& prerequisites) {
+static bool top_down(int numCourses, vector<pair<int, int>>& prerequisites, vector<int>& result) {
   vector<int> indegree(numCourses);
   vector<vector<int>> out(numCourses);
 
@@ -63,6 +65,7 @@ static bool top_down(int numCourses, vector<pair<int, int>>& prerequisites) {
   }
 
   while (!q.empty()) {
+    result.emplace_back(q.front());
     for (auto n : out[q.front()]) {
       if(!--indegree[n]) {
         q.push(n);
@@ -78,7 +81,16 @@ static bool top_down(int numCourses, vector<pair<int, int>>& prerequisites) {
 class Solution {
 public:
   bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
-    return buttum_up(numCourses, prerequisites);
-    //return top_down(numCourses, prerequisites);
+    vector<int> result;
+    return buttum_up(numCourses, prerequisites, result);
+    //return top_down(numCourses, prerequisites, result);
+  }
+  vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+    vector<int> result;
+    if (buttum_up(numCourses, prerequisites, result)) {
+    //if (top_down(numCourses, prerequisites, result)) {
+      return result;
+    }
+    return {};
   }
 };

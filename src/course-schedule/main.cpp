@@ -14,7 +14,12 @@ int main() {
   }
   Solution solution;
   auto output = solution.canFinish(n, prerequisites);
+  auto order = solution.findOrder(n, prerequisites);
 
   std::cout << std::boolalpha << output << std::endl;
+  for (auto n: order) {
+    std::cout << n << ' ';
+  }
+  std::cout << std::endl;
   return 0;
 }
