@@ -4,14 +4,26 @@
 // https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 // https://leetcode.com/problems/word-break/
 // https://leetcode.com/problems/decode-ways/
+// https://leetcode.com/problems/palindrome-partitioning/
 
 #include <string>
 #include <array>
 #include <algorithm>
 #include <unordered_map>
 #include <vector>
+#include <functional>
 
 using namespace std;
+
+static bool isPalindrome(const string& s, const int l, const int h) {
+  int i = l, j = h;
+  while (i < j) {
+    if (s[i++] != s[j--]) {
+      return false;
+    }
+  }
+  return true;
+}
 
 class Solution {
   public:
@@ -205,5 +217,24 @@ class Solution {
         }
       }
       return prev;
+    }
+    vector<vector<string>> partition(string s) {
+      function<vector<vector<string>>(const int)> worker = [&s, &worker](const int e) {
+        if (e <= 0) { return vector<vector<string>>{{}}; }
+
+        vector<vector<string>> result;
+        for (int i = 0; i < e; ++i) {
+          if (!isPalindrome(s, i, e-1)) {
+            continue;
+          }
+          auto sub = worker(i);
+          for (auto& vec: sub) {
+            vec.emplace_back(s.substr(i, e-i));
+            result.emplace_back(move(vec));
+          }
+        }
+        return result;
+      };
+      return worker(s.size());
     }
 };

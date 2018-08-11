@@ -11,6 +11,7 @@ void usage() {
             << "       d str1\n"
             << "       b str n word_1 ... word_n\n"
             << "       w str1\n"
+            << "       p str1\n"
             << std::flush;
 }
 
@@ -74,6 +75,18 @@ void runDecodeWays() {
   std::cout << output << std::endl;
 }
 
+void runPalindromePartition() {
+  string s = next<string>();
+  Solution solution;
+  auto output = solution.partition(s);
+  for (auto& vec: output) {
+    for (auto& s: vec) {
+      std::cout << s << ' ';
+    }
+    std::cout << std::endl;
+  }
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -99,6 +112,9 @@ int main() {
       break;
     case 'w':
       runDecodeWays();
+      break;
+    case 'p':
+      runPalindromePartition();
       break;
     default:
       usage();

@@ -338,4 +338,28 @@ TEST(DecodeWaysTest, example) {
   EXPECT_EQ(16, solution.numDecodings(input));
 }
 
+TEST(PalindromePartitionTest, empty) {
+  Solution solution;
+  EXPECT_EQ(vector<vector<string>>{{}}, solution.partition(""));
+}
+
+TEST(PalindromePartitionTest, example) {
+  Solution solution;
+  EXPECT_EQ(vector<vector<string>>{{"a"}}, solution.partition("a"));
+
+  EXPECT_EQ((vector<vector<string>>{{"aa"}, {"a","a"}}), solution.partition("aa"));
+
+  EXPECT_EQ((vector<vector<string>>{{"a","b"}}), solution.partition("ab"));
+
+  EXPECT_EQ((vector<vector<string>>{{"aba"}, {"a","b","a"}}), solution.partition("aba"));
+
+  EXPECT_EQ((vector<vector<string>>{
+               {"ababa"},
+               {"a", "b", "aba"},
+               {"a", "bab", "a"},
+               {"aba", "b", "a"},
+               {"a", "b", "a", "b", "a"},
+             }), solution.partition("ababa"));
+}
+
 }
