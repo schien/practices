@@ -547,4 +547,100 @@ TEST(LargestNumberTest, example) {
   EXPECT_EQ("12121", solution.largestNumber(input));
 }
 
+TEST(MaxProductTest, empty) {
+  Solution solution;
+  vector<int> input;
+  EXPECT_EQ(0, solution.maxProduct(input));
+}
+
+TEST(MaxProductTest, zero) {
+  Solution solution;
+  vector<int> input{0};
+  EXPECT_EQ(0, solution.maxProduct(input));
+
+  input = {0, 0, -1};
+  EXPECT_EQ(0, solution.maxProduct(input));
+
+  input = {-1, 0, 0};
+  EXPECT_EQ(0, solution.maxProduct(input));
+
+  input = {-1, 0, 0};
+  EXPECT_EQ(0, solution.maxProduct(input));
+
+  input = {0, -1, 0};
+  EXPECT_EQ(0, solution.maxProduct(input));
+
+  input = {-1, 0, -1};
+  EXPECT_EQ(0, solution.maxProduct(input));
+}
+
+TEST(MaxProductTest, non_zero) {
+  Solution solution;
+  vector<int> input{1, 2, 3, 1};
+  EXPECT_EQ(6, solution.maxProduct(input));
+
+  input = {1, 2, -1, -2, -3, 1, 1};
+  EXPECT_EQ(6, solution.maxProduct(input));
+
+  input = {3, -5, -1, -3, 2, 2};
+  EXPECT_EQ(15, solution.maxProduct(input));
+
+  input = {-1, -5, -2};
+  EXPECT_EQ(10, solution.maxProduct(input));
+
+  input = {-3, 1, -5, 1, -2};
+  EXPECT_EQ(15, solution.maxProduct(input));
+
+  input = {100, -1};
+  EXPECT_EQ(100, solution.maxProduct(input));
+
+  input = {10, 5, -1, 100};
+  EXPECT_EQ(100, solution.maxProduct(input));
+}
+
+TEST(MaxProductTest, zero_separate) {
+  Solution solution;
+  vector<int> input{0};
+  EXPECT_EQ(0, solution.maxProduct(input));
+
+  for (int n : {1, 2, 3, 1}) {
+    input.emplace_back(n);
+  }
+  EXPECT_EQ(6, solution.maxProduct(input));
+
+  input.emplace_back(0);
+  for (int n: {1, 2, -1, -2, -3, 1, 1}) {
+    input.emplace_back(n);
+  }
+  EXPECT_EQ(6, solution.maxProduct(input));
+
+  input.emplace_back(0);
+  input.emplace_back(0);
+  for (int n : {3, -5, -1, -3, 2, 2}) {
+    input.emplace_back(n);
+  }
+
+  EXPECT_EQ(15, solution.maxProduct(input));
+
+  input.emplace_back(0);
+  input.emplace_back(0);
+  input.emplace_back(0);
+  for (int n : {-1, -5, -2}) {
+    input.emplace_back(n);
+  }
+  EXPECT_EQ(15, solution.maxProduct(input));
+
+  input.emplace_back(0);
+  input.emplace_back(-100);
+  input.emplace_back(0);
+  for (int n : {-3, 1, -5, 1, -2}) {
+    input.emplace_back(n);
+  }
+  EXPECT_EQ(15, solution.maxProduct(input));
+
+  input.emplace_back(0);
+  input.emplace_back(0);
+  EXPECT_EQ(15, solution.maxProduct(input));
+}
+
 }

@@ -17,6 +17,7 @@ void usage() {
             << "        e {n x_1 ... x_n}\n"
             << "        j {n x_1 ... x_n}\n"
             << "        g {n x_1 ... x_n}\n"
+            << "        x {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -131,6 +132,13 @@ void runLargestNumber() {
   std::cout << output << std::endl;
 }
 
+void runMaxProduct() {
+  std::vector<int> num = next_vector<int>();
+  Solution solution;
+  auto output = solution.maxProduct(num);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -173,6 +181,9 @@ int main() {
       break;
     case 'g':
       runLargestNumber();
+      break;
+    case 'x':
+      runMaxProduct();
       break;
     default:
       usage();

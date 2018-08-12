@@ -12,6 +12,7 @@
 // https://leetcode.com/problems/find-peak-element/
 // https://leetcode.com/problems/jump-game/
 // https://leetcode.com/problems/largest-number/
+// https://leetcode.com/problems/maximum-product-subarray/
 
 #include <vector>
 #include <unordered_set>
@@ -387,6 +388,53 @@ class Solution {
         }
       }
 
+      return result;
+    }
+    int maxProduct(vector<int>& nums) {
+      if (nums.empty()) {
+        return 0;
+      }
+
+      // max product for non-zero subarray
+      auto submax = [&nums](int b, int e) {
+        if (e-b == 1) {
+          return nums[b];
+        }
+
+        int sub = 1;
+        int left = 1;
+        int left_max = nums[b];
+        for (int i = b; i < e; ++i) {
+          sub *= nums[i];
+          left_max = max(left_max, sub);
+          if (left > 0) {
+            left *= nums[i];
+          }
+        }
+        return max(left_max, sub/left);
+      };
+
+      const int sz = nums.size();
+      int result = nums[0];
+      bool zero = false;
+
+      int i = 0;
+      while (i < sz) {
+        if (!nums[i]) {
+          zero = true;
+          ++i;
+          continue;
+        }
+        int j = i+1;
+        while (j < sz && nums[j]) ++j;
+        if (j < sz) { zero = true; }
+        result = max(result, submax(i, j));
+        i = j+1;
+      }
+
+      if (zero && result < 0) {
+        return 0;
+      }
       return result;
     }
 };
