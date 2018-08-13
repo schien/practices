@@ -13,6 +13,7 @@
 // https://leetcode.com/problems/jump-game/
 // https://leetcode.com/problems/largest-number/
 // https://leetcode.com/problems/maximum-product-subarray/
+// https://leetcode.com/problems/search-in-rotated-sorted-array/
 
 #include <vector>
 #include <unordered_set>
@@ -436,5 +437,33 @@ class Solution {
         return 0;
       }
       return result;
+    }
+    int search(vector<int>& nums, int target) {
+      if (nums.empty()) { return -1; }
+
+      const int sz = nums.size();
+      if (target == nums[0]) { return 0; }
+      if (target == nums[sz-1]) { return sz-1; }
+
+      int l = 0;
+      int h = sz-1;
+      while (l < h) {
+        const int m = (l+h)>>1;
+        const auto vm = nums[m];
+
+        if (target == vm) { return m; }
+
+        const auto vl = nums[l];
+        const auto vh = nums[h];
+        if ((vl < vm && (target > vl && target < vm)) ||
+            (vl > vm && !(target > vm && target < vh))) {
+          h = m-1;
+          if (target == nums[h]) { return h; }
+        } else {
+          l = m+1;
+          if (target == nums[l]) { return l; }
+        }
+      }
+      return -1;
     }
 };

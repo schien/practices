@@ -643,4 +643,28 @@ TEST(MaxProductTest, zero_separate) {
   EXPECT_EQ(15, solution.maxProduct(input));
 }
 
+TEST(SearchRotateTest, empty) {
+  Solution solution;
+  vector<int> input;
+  EXPECT_EQ(-1, solution.search(input, 0));
+}
+
+TEST(SearchRotateTest, small) {
+  Solution solution;
+  vector<int> input { 1, 3, 5, 7, 9 };
+
+  for (int r = 0; r < 5; ++r) {
+    for (int i = 0; i <= 10; ++i) {
+      if (!(i&1)) {
+        EXPECT_EQ(-1, solution.search(input, i));
+      } else {
+        int expected = ((i>>1) + r)%5;
+        EXPECT_EQ(expected, solution.search(input, i));
+      }
+    }
+    input.insert(input.begin(), input.back());
+    input.resize(5);
+  }
+}
+
 }

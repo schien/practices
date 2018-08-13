@@ -18,6 +18,7 @@ void usage() {
             << "        j {n x_1 ... x_n}\n"
             << "        g {n x_1 ... x_n}\n"
             << "        x {n x_1 ... x_n}\n"
+            << "        r {n x_1 ... x_n} t\n"
             << std::flush;
 }
 
@@ -139,6 +140,14 @@ void runMaxProduct() {
   std::cout << output << std::endl;
 }
 
+void runSearchRotate() {
+  std::vector<int> num = next_vector<int>();
+  int target = next<int>();
+  Solution solution;
+  auto output = solution.search(num, target);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -184,6 +193,9 @@ int main() {
       break;
     case 'x':
       runMaxProduct();
+      break;
+    case 'r':
+      runSearchRotate();
       break;
     default:
       usage();
