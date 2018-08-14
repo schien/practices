@@ -667,4 +667,43 @@ TEST(SearchRotateTest, small) {
   }
 }
 
+TEST(SearchRangeTest, empty) {
+  Solution solution;
+  vector<int> input;
+  EXPECT_EQ((vector<int>{-1,-1}), solution.searchRange(input, 0));
+}
+
+TEST(SearchRangeTest, not_found) {
+  Solution solution;
+  vector<int> input {0};
+  EXPECT_EQ((vector<int>{-1,-1}), solution.searchRange(input, -1));
+  EXPECT_EQ((vector<int>{-1,-1}), solution.searchRange(input, 1));
+
+  input = {0, 0};
+  EXPECT_EQ((vector<int>{-1,-1}), solution.searchRange(input, -1));
+  EXPECT_EQ((vector<int>{-1,-1}), solution.searchRange(input, 1));
+
+  input = { 1, 3, 5, 7, 9 };
+  for (int i = 0; i <= 10; i+=2) {
+    EXPECT_EQ((vector<int>{-1,-1}), solution.searchRange(input, i));
+  }
+}
+
+TEST(SearchRangeTest, found) {
+  Solution solution;
+  vector<int> input {0};
+  EXPECT_EQ((vector<int>{0, 0}), solution.searchRange(input, 0));
+
+  input = {0, 0};
+  EXPECT_EQ((vector<int>{0, 1}), solution.searchRange(input, 0));
+
+  input = { 1, 3, 3, 5, 5, 5, 7, 7, 7, 7, 9, 9, 9, 9, 9 };
+  EXPECT_EQ((vector<int>{0,0}), solution.searchRange(input, 1));
+  EXPECT_EQ((vector<int>{1,2}), solution.searchRange(input, 3));
+  EXPECT_EQ((vector<int>{3,5}), solution.searchRange(input, 5));
+  EXPECT_EQ((vector<int>{6,9}), solution.searchRange(input, 7));
+  EXPECT_EQ((vector<int>{10,14}), solution.searchRange(input, 9));
+}
+
+
 }

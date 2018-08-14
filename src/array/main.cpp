@@ -19,6 +19,7 @@ void usage() {
             << "        g {n x_1 ... x_n}\n"
             << "        x {n x_1 ... x_n}\n"
             << "        r {n x_1 ... x_n} t\n"
+            << "        b {n x_1 ... x_n} t\n"
             << std::flush;
 }
 
@@ -148,6 +149,17 @@ void runSearchRotate() {
   std::cout << output << std::endl;
 }
 
+void runSearchRange() {
+  std::vector<int> num = next_vector<int>();
+  int target = next<int>();
+  Solution solution;
+  auto output = solution.searchRange(num, target);
+  for (auto n:output) {
+    std::cout << n << ' ';
+  }
+  std::cout << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -196,6 +208,9 @@ int main() {
       break;
     case 'r':
       runSearchRotate();
+      break;
+    case 'b':
+      runSearchRange();
       break;
     default:
       usage();

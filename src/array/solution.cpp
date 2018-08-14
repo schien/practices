@@ -14,6 +14,7 @@
 // https://leetcode.com/problems/largest-number/
 // https://leetcode.com/problems/maximum-product-subarray/
 // https://leetcode.com/problems/search-in-rotated-sorted-array/
+// https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 
 #include <vector>
 #include <unordered_set>
@@ -465,5 +466,45 @@ class Solution {
         }
       }
       return -1;
+    }
+    vector<int> searchRange(vector<int>& nums, int target) {
+      if (nums.empty() || target < nums.front() || target > nums.back()) {
+        return {-1, -1};
+      }
+      const int sz = nums.size();
+      int l = 0;
+      // search for the first index that nums[i] >= target;
+      int count = sz;
+      while (count) {
+        int step = count>>1;
+        if (nums[l+step] < target) {
+          l += step+1;
+          count -= step+1;
+          if (nums[l] >= target) {
+            break;
+          }
+        } else {
+          count = step;
+        }
+      }
+      if (l == sz || nums[l] != target) {
+        return {-1,-1};
+      }
+      int h = l;
+      // search for the first index that nums[i] > target;
+      count = sz-l;
+      while (count) {
+        int step = count>>1;
+        if (nums[h+step] == target) {
+          h += step+1;
+          count -= step+1;
+          if (nums[h] != target) {
+            break;
+          }
+        } else {
+          count = step;
+        }
+      }
+      return {l, h-1};
     }
 };
