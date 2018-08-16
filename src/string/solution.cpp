@@ -5,6 +5,7 @@
 // https://leetcode.com/problems/word-break/
 // https://leetcode.com/problems/decode-ways/
 // https://leetcode.com/problems/palindrome-partitioning/
+// https://leetcode.com/problems/evaluate-reverse-polish-notation/
 
 #include <string>
 #include <array>
@@ -12,6 +13,7 @@
 #include <unordered_map>
 #include <vector>
 #include <functional>
+#include <stack>
 
 using namespace std;
 
@@ -236,5 +238,57 @@ class Solution {
         return result;
       };
       return worker(s.size());
+    }
+    int evalRPN(vector<string>& tokens) {
+      auto isOperator = [](const string& s) {
+        if (s.size() != 1) {
+          return false;
+        }
+        switch(s[0]) {
+          case '+':
+          case '-':
+          case '*':
+          case '/':
+            return true;
+          default:
+            return false;
+        }
+      };
+      stack<int> val;
+      for (auto &s: tokens) {
+        if (isOperator(s)) {
+          if (val.size() < 2) {
+            throw runtime_error("not enough operand for " + s);
+          }
+          int rhs = val.top();
+          val.pop();
+          int lhs = val.top();
+          val.pop();
+          switch(s[0]) {
+            case '+':
+              val.push(lhs+rhs);
+              break;
+            case '-':
+              val.push(lhs-rhs);
+              break;
+            case '*':
+              val.push(lhs*rhs);
+              break;
+            case '/':
+              val.push(lhs/rhs);
+              break;
+            default:
+              break;
+          }
+        } else {
+          val.push(stoi(s));
+        }
+      }
+
+      if (val.size() != 1) {
+        throw runtime_error("not a complete expression");
+      }
+
+      return val.top();
     }
 };

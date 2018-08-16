@@ -362,4 +362,45 @@ TEST(PalindromePartitionTest, example) {
              }), solution.partition("ababa"));
 }
 
+TEST(EvalRPNTest, invalid) {
+  Solution solution;
+  vector<string> input;
+  EXPECT_THROW(solution.evalRPN(input), runtime_error);
+  input = {"a"};
+  EXPECT_THROW(solution.evalRPN(input), invalid_argument);
+  input = {"1", "2"};
+  EXPECT_THROW(solution.evalRPN(input), runtime_error);
+  input = {"/", "1", "2", "3"};
+  EXPECT_THROW(solution.evalRPN(input), runtime_error);
+  input = {"1", "*", "2", "3"};
+  EXPECT_THROW(solution.evalRPN(input), runtime_error);
+  input = {"1", "2", "+", "3"};
+  EXPECT_THROW(solution.evalRPN(input), runtime_error);
+  input = {"1", "2", "3", "-"};
+  EXPECT_THROW(solution.evalRPN(input), runtime_error);
+}
+
+TEST(EvalRPNTest, one) {
+  Solution solution;
+  vector<string> input{"0"};
+  EXPECT_EQ(0, solution.evalRPN(input));
+
+  for (auto n : {-10, -1, 1, 10}) {
+    input[0] = to_string(n);
+    EXPECT_EQ(n, solution.evalRPN(input));
+  }
+}
+
+TEST(EvalRPNTest, example) {
+  Solution solution;
+  vector<string> input{"2", "1", "+", "3", "*"};
+  EXPECT_EQ(9, solution.evalRPN(input));
+
+  input = {"4", "13", "5", "/", "+"};
+  EXPECT_EQ(6, solution.evalRPN(input));
+
+  input = {"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"};
+  EXPECT_EQ(22, solution.evalRPN(input));
+}
+
 }

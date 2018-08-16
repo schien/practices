@@ -12,6 +12,7 @@ void usage() {
             << "       b str n word_1 ... word_n\n"
             << "       w str1\n"
             << "       p str1\n"
+            << "       e n str_1 ... str_n\n"
             << std::flush;
 }
 
@@ -87,6 +88,13 @@ void runPalindromePartition() {
   }
 }
 
+void runEvaluateReversePolishNotation() {
+  vector<string> input = next_vector<string>();
+  Solution solution;
+  auto output = solution.evalRPN(input);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -115,6 +123,9 @@ int main() {
       break;
     case 'p':
       runPalindromePartition();
+      break;
+    case 'e':
+      runEvaluateReversePolishNotation();
       break;
     default:
       usage();
