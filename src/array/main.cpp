@@ -20,6 +20,7 @@ void usage() {
             << "        x {n x_1 ... x_n}\n"
             << "        r {n x_1 ... x_n} t\n"
             << "        b {n x_1 ... x_n} t\n"
+            << "        w {n x_1 ... x_n} t\n"
             << std::flush;
 }
 
@@ -160,6 +161,13 @@ void runSearchRange() {
   std::cout << std::endl;
 }
 
+void runWiggleSort() {
+  std::vector<int> num = next_vector<int>();
+  Solution solution;
+  solution.wiggleSort(num);
+  output_vector(num);
+}
+
 int main() {
   char op = next<char>();
 
@@ -211,6 +219,9 @@ int main() {
       break;
     case 'b':
       runSearchRange();
+      break;
+    case 'w':
+      runWiggleSort();
       break;
     default:
       usage();

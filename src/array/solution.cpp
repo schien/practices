@@ -15,6 +15,7 @@
 // https://leetcode.com/problems/maximum-product-subarray/
 // https://leetcode.com/problems/search-in-rotated-sorted-array/
 // https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+// https://leetcode.com/problems/wiggle-sort-ii/
 
 #include <vector>
 #include <unordered_set>
@@ -112,33 +113,33 @@ class Solution {
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
       unordered_set<int> table;
       for (auto n : nums1) {
-	table.insert(n);
+        table.insert(n);
       }
       vector<int> result;
       for (auto n : nums2) {
-	auto iter = table.find(n);
-	if (iter != table.end()) {
-	  table.erase(iter);
-	  result.push_back(n);
-	}
+        auto iter = table.find(n);
+        if (iter != table.end()) {
+          table.erase(iter);
+          result.push_back(n);
+        }
       }
       return result;
     }
     vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
       unordered_map<int,int> table;
       for (auto n : nums1) {
-	table[n] += 1;
+        table[n] += 1;
       }
       for (auto n : nums2) {
-	if (table[n]) {
-	  table[n] -= 1;
-	}
+        if (table[n]) {
+          table[n] -= 1;
+        }
       }
       vector<int> result;
       for (auto n : nums1) {
-	if (--table[n] < 0) {
-	  result.push_back(n);
-	}
+        if (--table[n] < 0) {
+          result.push_back(n);
+        }
       }
       return result;
     }
@@ -175,7 +176,7 @@ class Solution {
     }
     vector<int> productExceptSelf(vector<int>& nums) {
       if (nums.empty()) {
-	return {};
+        return {};
       }
 
       const int sz = nums.size();
@@ -184,15 +185,15 @@ class Solution {
       // result'[i] = nums[i+1]*...*nums[sz-1]
       int right_product = nums[sz-1];
       for (int i = sz-2; i >= 0; --i) {
-	result[i] = right_product;
-	right_product *= nums[i];
+        result[i] = right_product;
+        right_product *= nums[i];
       }
 
       // result[i] = (nums[0]*...*nums[i-1]) * (nums[i+1]*...*nums[sz-1])
       int left_product = nums[0];
       for (int i = 1; i < sz; ++i) {
-	result[i] *= left_product;
-	left_product *= nums[i];
+        result[i] *= left_product;
+        left_product *= nums[i];
       }
       return result;
     }
@@ -221,18 +222,18 @@ class Solution {
       // precondition: nums has N+1 elements, value range is [1, N]
       int result = -1;
       for (auto n : nums) {
-	auto t = abs(n);
-	if (nums[t] < 0) {
-	  result = t;
-	} else {
+        auto t = abs(n);
+        if (nums[t] < 0) {
+          result = t;
+        } else {
           // use nagative value in index i to remember value i exists.
-	  nums[t] *= -1;
-	}
+          nums[t] *= -1;
+        }
       }
 
       // restore the input array
       for (size_t i = 0; i < nums.size(); ++i) {
-	nums[i] = abs(nums[i]);
+        nums[i] = abs(nums[i]);
       }
       return result;
     }
@@ -366,15 +367,15 @@ class Solution {
           // fast path
           const int minz = min(lhs.size(),rhs.size());
           for (int i = 0; i < minz; ++i) {
-            if (lhs[i] == rhs[i]) {
-              continue;
-            }
-            return lhs[i] > rhs[i];
+          if (lhs[i] == rhs[i]) {
+          continue;
+          }
+          return lhs[i] > rhs[i];
           }
 
           // slow path
           return (lhs+rhs) > (rhs+lhs);
-      });
+          });
 
       string result;
       result.reserve(max_length);
@@ -506,5 +507,52 @@ class Solution {
         }
       }
       return {l, h-1};
+    }
+    void wiggleSort(vector<int>& nums) {
+      if (nums.empty()) { return; }
+      const int sz = nums.size();
+
+      // find median and partition
+      auto mid = nums.begin() + (sz>>1);
+      nth_element(nums.begin(), mid, nums.end());
+
+      const int mid_v = *mid;
+      int i = 0;
+      int j = (sz>>1)-1;
+      while(i < j) {
+        if (nums[i] == mid_v) {
+          swap(nums[i], nums[j--]);
+        } else {
+          ++i;
+        }
+      }
+
+      i = (sz>>1) + 1;
+      j = sz-1;
+      while (i < j) {
+        if (nums[j] == mid_v) {
+          swap(nums[j], nums[i++]);
+        } else {
+          --j;
+        }
+      }
+
+      // make less-than pair with largest unused lower-half value and upper-half value
+      vector<int> tmp;
+      tmp.reserve(sz);
+
+      i = sz-1;
+      j = i >> 1;
+      const int bound = j;
+      while(i > bound) {
+        tmp.emplace_back(nums[j--]);
+        tmp.emplace_back(nums[i--]);
+      }
+      // for odd element array put the smallest value at the end
+      if (!j) {
+        tmp.emplace_back(nums[0]);
+      }
+
+      copy(tmp.begin(), tmp.end(), nums.begin());
     }
 };

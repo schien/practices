@@ -705,5 +705,110 @@ TEST(SearchRangeTest, found) {
   EXPECT_EQ((vector<int>{10,14}), solution.searchRange(input, 9));
 }
 
+TEST(WiggleSortTest, empty) {
+  Solution solution;
+  vector<int> input;
+  EXPECT_NO_THROW(solution.wiggleSort(input));
+}
+
+TEST(WiggleSortTest, small) {
+  Solution solution;
+  vector<int> input{1};
+  solution.wiggleSort(input);
+  EXPECT_EQ(vector<int>{1}, input);
+
+  input = {0, 1};
+  solution.wiggleSort(input);
+  EXPECT_EQ((vector<int>{0, 1}), input);
+
+  input = {1, 0};
+  solution.wiggleSort(input);
+  EXPECT_EQ((vector<int>{0, 1}), input);
+
+  input = {0, 1, 0};
+  solution.wiggleSort(input);
+  EXPECT_EQ((vector<int>{0, 1, 0}), input);
+
+  input = {1, 0, 0};
+  solution.wiggleSort(input);
+  EXPECT_EQ((vector<int>{0, 1, 0}), input);
+
+  input = {0, 0, 1};
+  solution.wiggleSort(input);
+  EXPECT_EQ((vector<int>{0, 1, 0}), input);
+
+  input = {0, 0, 1, 1};
+  solution.wiggleSort(input);
+  EXPECT_EQ((vector<int>{0, 1, 0, 1}), input);
+
+  input = {1, 1, 0, 0};
+  solution.wiggleSort(input);
+  EXPECT_EQ((vector<int>{0, 1, 0, 1}), input);
+}
+
+TEST(WiggleSortTest, large) {
+  Solution solution;
+  vector<int> input(100000);
+  for (int i = 0; i < 100000; ++i) {
+    input[i] = i;
+  }
+  auto verdict = [](vector<int>& nums) {
+    const int sz = nums.size();
+    for (int i = 0; i < sz-1; i+=2) {
+      if (nums[i] >= nums[i+1]) {
+        return false;
+      }
+    }
+
+    for (int i = 1; i < sz-1; i+=2) {
+      if (nums[i] <= nums[i+1]) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  for (int i = 0; i < 10; ++i) {
+    solution.wiggleSort(input);
+    EXPECT_TRUE(verdict(input));
+    random_shuffle(input.begin(), input.end());
+  }
+
+  input.emplace_back(100000);
+  for (int i = 0; i < 10; ++i) {
+    solution.wiggleSort(input);
+    EXPECT_TRUE(verdict(input));
+    random_shuffle(input.begin(), input.end());
+  }
+
+  for (int i = 0; i < 49999; ++i) {
+    input[i] = 50000;
+  }
+  for (int i = 0; i < 10; ++i) {
+    solution.wiggleSort(input);
+    EXPECT_TRUE(verdict(input));
+    random_shuffle(input.begin(), input.end());
+  }
+
+  for (int i = 0; i < 49999; ++i) {
+    input[i] = 0;
+  }
+  for (int i = 0; i < 10; ++i) {
+    solution.wiggleSort(input);
+    EXPECT_TRUE(verdict(input));
+    random_shuffle(input.begin(), input.end());
+  }
+
+  for (int i = 0; i < 49999; ++i) {
+    input[i] = 100000;
+  }
+  for (int i = 0; i < 10; ++i) {
+    solution.wiggleSort(input);
+    EXPECT_TRUE(verdict(input));
+    random_shuffle(input.begin(), input.end());
+  }
+
+}
 
 }
