@@ -10,13 +10,15 @@ void usage() {
             << "              l n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              z n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              v n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
+            << "              n n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << std::flush;
 }
 
-std::vector<TreeNode> tree_from_input(std::vector<std::tuple<int, int, int>>& input) {
+template<typename NodeType>
+std::vector<NodeType> tree_from_input(std::vector<std::tuple<int, int, int>>& input) {
   const int sz = input.size();
 
-  std::vector<TreeNode> nodes(sz, TreeNode(0));
+  std::vector<NodeType> nodes(sz, NodeType(0));
 
   for (int i = 0; i< sz; ++i) {
     auto& node = nodes[i];
@@ -43,7 +45,7 @@ void runInorderTraversal() {
     input.emplace_back(v,l,r);
   }
 
-  std::vector<TreeNode> nodes = tree_from_input(input);
+  std::vector<TreeNode> nodes = tree_from_input<TreeNode>(input);
 
   Solution solution;
   auto output = solution.inorderTraversal(&nodes.at(0));
@@ -63,7 +65,7 @@ void runKthSmallest() {
     input.emplace_back(v,l,r);
   }
 
-  std::vector<TreeNode> nodes = tree_from_input(input);
+  std::vector<TreeNode> nodes = tree_from_input<TreeNode>(input);
 
   int k = next<int>();
 
@@ -85,7 +87,7 @@ void runLevelOrder() {
     input.emplace_back(v,l,r);
   }
 
-  std::vector<TreeNode> nodes = tree_from_input(input);
+  std::vector<TreeNode> nodes = tree_from_input<TreeNode>(input);
 
   Solution solution;
   auto output = solution.levelOrder(&nodes.at(0));
@@ -106,7 +108,7 @@ void runZigZagLevelOrder() {
     input.emplace_back(v,l,r);
   }
 
-  std::vector<TreeNode> nodes = tree_from_input(input);
+  std::vector<TreeNode> nodes = tree_from_input<TreeNode>(input);
 
   Solution solution;
   auto output = solution.zigzagLevelOrder(&nodes.at(0));
@@ -127,11 +129,59 @@ void runValidBST() {
     input.emplace_back(v,l,r);
   }
 
-  std::vector<TreeNode> nodes = tree_from_input(input);
+  std::vector<TreeNode> nodes = tree_from_input<TreeNode>(input);
 
   Solution solution;
   auto output = solution.isValidBST(&nodes.at(0));
   std::cout << std::boolalpha << output << std::endl;
+}
+
+void runPopulateNext() {
+  int n = next<int>();
+  std::vector<tuple<int, int, int>> input;
+
+  for (int i = 0; i < n; ++i) {
+    int v = next<int>(), l = next<int>(), r = next<int>();
+    input.emplace_back(v,l,r);
+  }
+
+  std::vector<TreeLinkNode> nodes = tree_from_input<TreeLinkNode>(input);
+
+  Solution solution;
+  solution.connect(&nodes.at(0));
+
+  std::vector<TreeLinkNode*> q;
+  q.push_back(&nodes.at(0));
+  int i = 0;
+  while (i < q.size()) {
+    auto node = q[i++];
+    std::cout << node->val << '(';
+
+    if (node->left) {
+      q.push_back(node->left);
+      std::cout << node->left->val;
+    } else {
+      std::cout << '#';
+    }
+    std::cout << ',';
+
+    if (node->right) {
+      q.push_back(node->right);
+      std::cout << node->right->val;
+    } else {
+      std::cout << '#';
+    }
+    std::cout << ',';
+
+    if (node->next) {
+      std::cout << node->next->val;
+    } else {
+      std::cout << '#';
+    }
+
+    std::cout << ')' << '\n';
+  }
+  std::cout << std::flush;
 }
 
 int main() {
@@ -152,6 +202,9 @@ int main() {
       break;
     case 'v':
       runValidBST();
+      break;
+    case 'n':
+      runPopulateNext();
       break;
     default:
       usage();

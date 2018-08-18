@@ -376,4 +376,52 @@ TEST(ValidBSTTest, complete_tree) {
   EXPECT_TRUE(solution.isValidBST(&nodes.at(0)));
 }
 
+TEST(PopulateNextTest, empty) {
+  Solution solution;
+  EXPECT_NO_THROW(solution.connect(nullptr));
+}
+
+TEST(PopulateNextTest, complete_tree) {
+  vector<TreeLinkNode> nodes {
+    TreeLinkNode(0),
+    TreeLinkNode(1),
+    TreeLinkNode(2),
+    TreeLinkNode(3),
+    TreeLinkNode(4),
+    TreeLinkNode(5),
+    TreeLinkNode(6)
+  };
+
+  nodes[0].left = &nodes[1];
+  nodes[0].right = &nodes[2];
+  nodes[1].left = &nodes[3];
+  nodes[1].right = &nodes[4];
+  nodes[2].left = &nodes[5];
+  nodes[2].right = &nodes[6];
+
+  Solution solution;
+  solution.connect(&nodes.at(0));
+
+  vector<TreeLinkNode*> level;
+  level.push_back(&nodes[0]);
+
+  while (!level.empty()) {
+    vector<TreeLinkNode*> nextLevel;
+    for (int i = 0; i < level.size(); ++i) {
+      if (i != level.size()-1) {
+        EXPECT_EQ(level[i+1], level[i]->next);
+      } else {
+        EXPECT_EQ(nullptr, level[i]->next);
+      }
+      if (level[i]->left) {
+        nextLevel.push_back(level[i]->left);
+      }
+      if (level[i]->right) {
+        nextLevel.push_back(level[i]->right);
+      }
+    }
+    level.swap(nextLevel);
+  }
+}
+
 }

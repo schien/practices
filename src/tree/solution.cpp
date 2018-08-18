@@ -2,6 +2,7 @@
 // https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 // https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
 // https://leetcode.com/problems/validate-binary-search-tree/
+// https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
 
 #include <vector>
 #include <functional>
@@ -16,6 +17,15 @@ struct TreeNode {
     TreeNode *left;
     TreeNode *right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+/**
+ * Definition for binary tree with next pointer.
+ */
+struct TreeLinkNode {
+ int val;
+ TreeLinkNode *left, *right, *next;
+ TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
 };
 
 static void iterative(TreeNode* n, vector<int>& result) {
@@ -149,5 +159,17 @@ class Solution {
         else { return valid(root->left, min, root->val) && valid(root->right, root->val, max); }
       };
       return valid(root->left, LLONG_MIN, root->val) && valid(root->right, root->val, LLONG_MAX);
+    }
+    void connect(TreeLinkNode *root) {
+      function<void(TreeLinkNode*,TreeLinkNode*)> worker = [&worker](TreeLinkNode *left, TreeLinkNode *next) {
+        if (!left) {
+          return;
+        }
+
+        left->next = next;
+        worker(left->right, next?next->left:nullptr);
+        worker(left->left, left->right);
+      };
+      worker(root, nullptr);
     }
 };
