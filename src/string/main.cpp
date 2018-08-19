@@ -13,6 +13,7 @@ void usage() {
             << "       w str1\n"
             << "       p str1\n"
             << "       e n str_1 ... str_n\n"
+            << "       c str1\n"
             << std::flush;
 }
 
@@ -95,6 +96,13 @@ void runEvaluateReversePolishNotation() {
   std::cout << output << std::endl;
 }
 
+void runCalculator() {
+  string input = next<string>();
+  Solution solution;
+  auto output = solution.calculate(input);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -126,6 +134,9 @@ int main() {
       break;
     case 'e':
       runEvaluateReversePolishNotation();
+      break;
+    case 'c':
+      runCalculator();
       break;
     default:
       usage();

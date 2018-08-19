@@ -6,6 +6,7 @@
 // https://leetcode.com/problems/decode-ways/
 // https://leetcode.com/problems/palindrome-partitioning/
 // https://leetcode.com/problems/evaluate-reverse-polish-notation/
+// https://leetcode.com/problems/basic-calculator-ii/
 
 #include <string>
 #include <array>
@@ -14,6 +15,7 @@
 #include <vector>
 #include <functional>
 #include <stack>
+#include <numeric>
 
 using namespace std;
 
@@ -290,5 +292,46 @@ class Solution {
       }
 
       return val.top();
+    }
+    int calculate(string s) {
+      const int sz = s.size();
+
+      vector<int> operands;
+      char op = '+';
+      int i = 0;
+      while (i < sz) {
+        auto c = s[i];
+
+        if (isdigit(c)) {
+          int num = c-'0';
+          int j = i+1;
+          while (j < sz && isdigit(s[j])) {
+            num = num*10 + (s[j]-'0');
+            ++j;
+          }
+          switch (op) {
+            case '+': operands.emplace_back(num); break;
+            case '-': operands.emplace_back(-num); break;
+            case '*': operands.back() *= num; break;
+            case '/': operands.back() /= num; break;
+            default: break;
+          }
+          i = j;
+        } else {
+          switch (c) {
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+              op = c;
+              break;
+            default:
+              break;
+          }
+          ++i;
+        }
+      }
+
+      return accumulate(operands.begin(), operands.end(), 0);
     }
 };

@@ -403,4 +403,36 @@ TEST(EvalRPNTest, example) {
   EXPECT_EQ(22, solution.evalRPN(input));
 }
 
+TEST(CalculatorTest, empty) {
+  Solution solution;
+  string input;
+  EXPECT_EQ(0, solution.calculate(input));
+}
+
+TEST(CalculatorTest, only_digit) {
+  Solution solution;
+  string input{"1234567890"};
+  EXPECT_EQ(1234567890, solution.calculate(input));
+}
+
+TEST(CalculatorTest, only_add_minus) {
+  Solution solution;
+  string input{"1+2-3+4-5+6-7+8-9+10"};
+  EXPECT_EQ(7, solution.calculate(input));
+}
+
+TEST(CalculatorTest, only_mul_div) {
+  Solution solution;
+  string input{"1*2/2*3/3*4/4*5/5*6/6*7/7*8/7*9/9*10/10"};
+  EXPECT_EQ(1, solution.calculate(input));
+  input = "1/2*3/4*5/6*7/8*9/10";
+  EXPECT_EQ(0, solution.calculate(input));
+}
+
+TEST(CalculatorTest, mixed) {
+  Solution solution;
+  string input{"1+2*3-4/5+6*7/8-9+10"};
+  EXPECT_EQ(13, solution.calculate(input));
+}
+
 }
