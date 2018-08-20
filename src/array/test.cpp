@@ -811,4 +811,35 @@ TEST(WiggleSortTest, large) {
 
 }
 
+TEST(MaxConsecutiveOnesTest, empty) {
+  Solution solution;
+  vector<int> input;
+  EXPECT_EQ(0, solution.findMaxConsecutiveOnes(input));
+}
+
+TEST(MaxConsecutiveOnesTest, example) {
+  Solution solution;
+  vector<int> input{0};
+
+  EXPECT_EQ(0, solution.findMaxConsecutiveOnes(input));
+
+  input = {1};
+  EXPECT_EQ(1, solution.findMaxConsecutiveOnes(input));
+
+  input = {1,1,0};
+  EXPECT_EQ(2, solution.findMaxConsecutiveOnes(input));
+
+  input = {0,1,1,1};
+  EXPECT_EQ(3, solution.findMaxConsecutiveOnes(input));
+
+  input = {0,1,1,1,1,0};
+  EXPECT_EQ(4, solution.findMaxConsecutiveOnes(input));
+
+  input = {0,1,1,1,1,1,0,1};
+  EXPECT_EQ(5, solution.findMaxConsecutiveOnes(input));
+
+  input = {0,1,1,1,1,1,0,1,1,1,1,1,1};
+  EXPECT_EQ(6, solution.findMaxConsecutiveOnes(input));
+}
+
 }

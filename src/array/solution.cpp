@@ -16,6 +16,7 @@
 // https://leetcode.com/problems/search-in-rotated-sorted-array/
 // https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 // https://leetcode.com/problems/wiggle-sort-ii/
+// https://leetcode.com/problems/max-consecutive-ones/
 
 #include <vector>
 #include <unordered_set>
@@ -554,5 +555,20 @@ class Solution {
       }
 
       copy(tmp.begin(), tmp.end(), nums.begin());
+    }
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+      int result = 0;
+      int current = 0;
+      for (auto n : nums) {
+	if (!n) {
+	  if (current > result) {
+	    result = current;
+	  }
+	  current = 0;
+	} else {
+	  ++current;
+	}
+      }
+      return max(result, current);
     }
 };

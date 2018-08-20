@@ -21,6 +21,7 @@ void usage() {
             << "        r {n x_1 ... x_n} t\n"
             << "        b {n x_1 ... x_n} t\n"
             << "        w {n x_1 ... x_n} t\n"
+            << "        1 {n [0|1]*}\n"
             << std::flush;
 }
 
@@ -168,6 +169,12 @@ void runWiggleSort() {
   output_vector(num);
 }
 
+void runMaxConsecutiveOnes() {
+  std::vector<int> num = next_vector<int>();
+  Solution solution;
+  std::cout << solution.findMaxConsecutiveOnes(num) << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -222,6 +229,9 @@ int main() {
       break;
     case 'w':
       runWiggleSort();
+      break;
+    case '1':
+      runMaxConsecutiveOnes();
       break;
     default:
       usage();
