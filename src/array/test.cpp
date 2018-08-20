@@ -842,4 +842,72 @@ TEST(MaxConsecutiveOnesTest, example) {
   EXPECT_EQ(6, solution.findMaxConsecutiveOnes(input));
 }
 
+TEST(MinCostClimbStairTest, boundary_condition) {
+  Solution solution;
+  vector<int> input;
+
+  EXPECT_EQ(0, solution.minCostClimbingStairs(input));
+
+  input={1000};
+  EXPECT_EQ(0, solution.minCostClimbingStairs(input));
+
+  input={1000, 2000};
+  EXPECT_EQ(0, solution.minCostClimbingStairs(input));
+}
+
+TEST(MinCostClimbStairTest, small) {
+  Solution solution;
+  vector<int> input{0, 0, 0};
+
+  EXPECT_EQ(0, solution.minCostClimbingStairs(input));
+
+  input={0, 100, 100};
+  EXPECT_EQ(100, solution.minCostClimbingStairs(input));
+
+  input={100, 0, 100};
+  EXPECT_EQ(0, solution.minCostClimbingStairs(input));
+
+  input={0, 100, 0};
+  EXPECT_EQ(0, solution.minCostClimbingStairs(input));
+}
+
+TEST(MinCostClimbStairTest, large) {
+  Solution solution;
+  vector<int> input(10000);
+
+  for (int i = 0; i < 10000; ++i) {
+    input[i] = 100;
+    EXPECT_EQ(0, solution.minCostClimbingStairs(input));
+    input[i] = 0;
+  }
+
+  input[0] = 100;
+  for (int i = 2; i < 10000; ++i) {
+    input[i] = 100;
+    EXPECT_EQ(0, solution.minCostClimbingStairs(input));
+    input[i] = 0;
+  }
+
+  input[9999] = 100;
+  for (int i = 2; i < 9998; ++i) {
+    input[i] = 100;
+    EXPECT_EQ(0, solution.minCostClimbingStairs(input));
+    input[i] = 0;
+  }
+
+  input[1] = 100;
+  for (int i = 2; i < 9998; ++i) {
+    input[i] = 100;
+    EXPECT_EQ(100, solution.minCostClimbingStairs(input));
+    input[i] = 0;
+  }
+
+  input[9998] = 100;
+  for (int i = 2; i < 9997; ++i) {
+    input[i] = 100;
+    EXPECT_EQ(200, solution.minCostClimbingStairs(input));
+    input[i] = 0;
+  }
+}
+
 }

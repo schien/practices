@@ -17,6 +17,7 @@
 // https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 // https://leetcode.com/problems/wiggle-sort-ii/
 // https://leetcode.com/problems/max-consecutive-ones/
+// https://leetcode.com/problems/min-cost-climbing-stairs/
 
 #include <vector>
 #include <unordered_set>
@@ -570,5 +571,17 @@ class Solution {
 	}
       }
       return max(result, current);
+    }
+    int minCostClimbingStairs(vector<int>& cost) {
+      // min_cost[i] = min(min_cost[i-2], min_cost[i-1]) + cost[i]
+      const int sz = cost.size();
+      if (sz <= 2) { return 0; }
+      int effort2 = cost[0];
+      int effort1 = cost[1];
+      for (int i = 2; i < sz; ++i) {
+        effort2 = min(effort2, effort1) + cost[i];
+        swap(effort1, effort2);
+      }
+      return min(effort2, effort1);
     }
 };

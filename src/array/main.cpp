@@ -22,6 +22,7 @@ void usage() {
             << "        b {n x_1 ... x_n} t\n"
             << "        w {n x_1 ... x_n} t\n"
             << "        1 {n [0|1]*}\n"
+            << "        a {n x_1 ... x_n} t\n"
             << std::flush;
 }
 
@@ -175,6 +176,12 @@ void runMaxConsecutiveOnes() {
   std::cout << solution.findMaxConsecutiveOnes(num) << std::endl;
 }
 
+void runMinCostClimbStair() {
+  std::vector<int> num = next_vector<int>();
+  Solution solution;
+  std::cout << solution.findMaxConsecutiveOnes(num) << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -232,6 +239,9 @@ int main() {
       break;
     case '1':
       runMaxConsecutiveOnes();
+      break;
+    case 'a':
+      runMinCostClimbStair();
       break;
     default:
       usage();
