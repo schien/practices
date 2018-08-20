@@ -3,6 +3,7 @@
 // https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
 // https://leetcode.com/problems/validate-binary-search-tree/
 // https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+// https://leetcode.com/problems/average-of-levels-in-binary-tree/
 
 #include <vector>
 #include <functional>
@@ -171,5 +172,34 @@ class Solution {
         worker(left->left, left->right);
       };
       worker(root, nullptr);
+    }
+    vector<double> averageOfLevels(TreeNode* root) {
+      if (!root) {
+        return {};
+      }
+
+      vector<TreeNode*> level;
+      level.emplace_back(root);
+
+      vector<double> result;
+      while (!level.empty()) {
+        vector<TreeNode*> nextLevel;
+        double total = 0.0;
+        for (auto node : level) {
+          total += node->val;
+          if (node->left) {
+            nextLevel.emplace_back(node->left);
+          }
+          if (node->right) {
+            nextLevel.emplace_back(node->right);
+          }
+        }
+
+        result.emplace_back(total / level.size());
+
+        level.swap(nextLevel);
+      }
+
+      return result;
     }
 };

@@ -424,4 +424,68 @@ TEST(PopulateNextTest, complete_tree) {
   }
 }
 
+TEST(LevelAverageTest, empty) {
+  Solution solution;
+  EXPECT_EQ(vector<double>{}, solution.averageOfLevels(nullptr));
+}
+
+TEST(LevelAverageTest, complete_tree) {
+  Solution solution;
+
+  vector<TreeNode> nodes {
+    TreeNode(0),
+    TreeNode(1),
+    TreeNode(1),
+    TreeNode(2),
+    TreeNode(2),
+    TreeNode(2),
+    TreeNode(2)
+  };
+
+  nodes[0].left = &nodes[1];
+  nodes[0].right = &nodes[2];
+  nodes[1].left = &nodes[3];
+  nodes[1].right = &nodes[4];
+  nodes[2].left = &nodes[5];
+  nodes[2].right = &nodes[6];
+
+  EXPECT_EQ((vector<double>{0.0, 1.0, 2.0}), solution.averageOfLevels(&nodes.at(0)));
+}
+
+TEST(LevelAverageTest, all_left) {
+  Solution solution;
+
+  vector<TreeNode> nodes;
+  nodes.reserve(10000);
+  vector<double> expected;
+  expected.reserve(10000);
+  for (int i = 0; i < 10000; ++i) {
+    nodes.emplace_back(i);
+    if (i > 0) {
+      nodes.at(i-1).left = &nodes.at(i);
+    }
+    expected.emplace_back(i);
+  }
+
+  EXPECT_EQ(expected, solution.averageOfLevels(&nodes.at(0)));
+}
+
+TEST(LevelAverageTest, all_right) {
+  Solution solution;
+
+  vector<TreeNode> nodes;
+  nodes.reserve(10000);
+  vector<double> expected;
+  expected.reserve(10000);
+  for (int i = 0; i < 10000; ++i) {
+    nodes.emplace_back(i);
+    if (i > 0) {
+      nodes.at(i-1).right = &nodes.at(i);
+    }
+    expected.emplace_back(i);
+  }
+
+  EXPECT_EQ(expected, solution.averageOfLevels(&nodes.at(0)));
+}
+
 }

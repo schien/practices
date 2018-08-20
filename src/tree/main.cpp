@@ -11,6 +11,7 @@ void usage() {
             << "              z n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              v n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              n n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
+            << "              a n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << std::flush;
 }
 
@@ -184,6 +185,25 @@ void runPopulateNext() {
   std::cout << std::flush;
 }
 
+void runLevelAverage() {
+  int n = next<int>();
+  std::vector<tuple<int, int, int>> input;
+
+  for (int i = 0; i < n; ++i) {
+    int v = next<int>(), l = next<int>(), r = next<int>();
+    input.emplace_back(v,l,r);
+  }
+
+  std::vector<TreeNode> nodes = tree_from_input<TreeNode>(input);
+
+  Solution solution;
+  auto output = solution.averageOfLevels(&nodes.at(0));
+  for (auto v : output) {
+    std::cout << v << ' ';
+  }
+  std::cout << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -205,6 +225,9 @@ int main() {
       break;
     case 'n':
       runPopulateNext();
+      break;
+    case 'a':
+      runLevelAverage();
       break;
     default:
       usage();
