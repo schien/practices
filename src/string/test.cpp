@@ -435,4 +435,28 @@ TEST(CalculatorTest, mixed) {
   EXPECT_EQ(13, solution.calculate(input));
 }
 
+TEST(ToLowerCaseTest, empty) {
+  Solution solution;
+  EXPECT_EQ("", solution.toLowerCase(""));
+}
+
+TEST(ToLowerCaseTest, single_char) {
+  Solution solution;
+
+  for (char c = 'a'; c <= 'z'; ++c) {
+    EXPECT_EQ(string(1,c), solution.toLowerCase(string(1, c)));
+    EXPECT_EQ(string(1,c), solution.toLowerCase(string(1, toupper(c))));
+  }
+}
+
+TEST(ToLowerCaseTest, multi_char) {
+  Solution solution;
+
+  for (int i = 2; i < 100; ++i) {
+    string input(i, 'A');
+    string expected(i, 'a');
+    EXPECT_EQ(expected, solution.toLowerCase(input));
+  }
+}
+
 }

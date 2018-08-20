@@ -14,6 +14,7 @@ void usage() {
             << "       p str1\n"
             << "       e n str_1 ... str_n\n"
             << "       c str1\n"
+            << "       l str1\n"
             << std::flush;
 }
 
@@ -103,6 +104,13 @@ void runCalculator() {
   std::cout << output << std::endl;
 }
 
+void runToLowerCase() {
+  string input = next<string>();
+  Solution solution;
+  auto output = solution.toLowerCase(input);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -137,6 +145,9 @@ int main() {
       break;
     case 'c':
       runCalculator();
+      break;
+    case 'l':
+      runToLowerCase();
       break;
     default:
       usage();

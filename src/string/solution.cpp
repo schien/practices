@@ -7,6 +7,7 @@
 // https://leetcode.com/problems/palindrome-partitioning/
 // https://leetcode.com/problems/evaluate-reverse-polish-notation/
 // https://leetcode.com/problems/basic-calculator-ii/
+// https://leetcode.com/problems/to-lower-case/
 
 #include <string>
 #include <array>
@@ -333,5 +334,12 @@ class Solution {
       }
 
       return accumulate(operands.begin(), operands.end(), 0);
+    }
+    string toLowerCase(string str) {
+      const int sz = str.size();
+      for (int i = 0; i < sz; ++i) {
+        str[i] |= (1 << 5);
+      }
+      return str;
     }
 };
