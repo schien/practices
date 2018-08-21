@@ -18,6 +18,7 @@
 // https://leetcode.com/problems/wiggle-sort-ii/
 // https://leetcode.com/problems/max-consecutive-ones/
 // https://leetcode.com/problems/min-cost-climbing-stairs/
+// https://leetcode.com/problems/peak-index-in-a-mountain-array/
 
 #include <vector>
 #include <unordered_set>
@@ -583,5 +584,18 @@ class Solution {
         swap(effort1, effort2);
       }
       return min(effort2, effort1);
+    }
+    int peakIndexInMountainArray(vector<int>& A) {
+      int l = 0;
+      int h = A.size()-1;
+      while (l < h) {
+        const int m = (l+h) >> 1;
+        if (A[m] < A[m+1]) {
+          l = m+1;
+        } else {
+          h = m;
+        }
+      }
+      return l;
     }
 };

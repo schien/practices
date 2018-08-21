@@ -910,4 +910,25 @@ TEST(MinCostClimbStairTest, large) {
   }
 }
 
+TEST(PeakIndexTest, small) {
+  Solution solution;
+  vector<int> input{0,1,0};
+  EXPECT_EQ(1, solution.peakIndexInMountainArray(input));
+
+  input = {0, 2, 1, 0};
+  EXPECT_EQ(1, solution.peakIndexInMountainArray(input));
+
+  input = {0, 1, 2, 0};
+  EXPECT_EQ(2, solution.peakIndexInMountainArray(input));
+
+  input = {0, 1, 2, 3, 0};
+  EXPECT_EQ(3, solution.peakIndexInMountainArray(input));
+
+  input = {0, 1, 3, 2, 0};
+  EXPECT_EQ(2, solution.peakIndexInMountainArray(input));
+
+  input = {0, 3, 2, 1, 0};
+  EXPECT_EQ(1, solution.peakIndexInMountainArray(input));
+}
+
 }
