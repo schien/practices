@@ -4,6 +4,7 @@
 // https://leetcode.com/problems/validate-binary-search-tree/
 // https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
 // https://leetcode.com/problems/average-of-levels-in-binary-tree/
+// https://leetcode.com/problems/invert-binary-tree/
 
 #include <vector>
 #include <functional>
@@ -201,5 +202,15 @@ class Solution {
       }
 
       return result;
+    }
+    TreeNode* invertTree(TreeNode* root) {
+      if (!root) {
+        return nullptr;
+      }
+
+      swap(root->left, root->right);
+      invertTree(root->left);
+      invertTree(root->right);
+      return root;
     }
 };

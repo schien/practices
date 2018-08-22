@@ -12,6 +12,7 @@ void usage() {
             << "              v n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              n n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              a n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
+            << "              i n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << std::flush;
 }
 
@@ -35,6 +36,39 @@ std::vector<NodeType> tree_from_input(std::vector<std::tuple<int, int, int>>& in
   }
 
   return nodes;
+}
+
+template<typename NodeType>
+void output_tree(NodeType* root, void (*extraInfo)(NodeType*) = nullptr) {
+  std::vector<NodeType*> q;
+  q.push_back(root);
+  int i = 0;
+  while (i < q.size()) {
+    auto node = q[i++];
+    std::cout << node->val << '(';
+
+    if (node->left) {
+      q.push_back(node->left);
+      std::cout << node->left->val;
+    } else {
+      std::cout << '#';
+    }
+    std::cout << ',';
+
+    if (node->right) {
+      q.push_back(node->right);
+      std::cout << node->right->val;
+    } else {
+      std::cout << '#';
+    }
+
+    if (extraInfo) {
+      extraInfo(node);
+    }
+
+    std::cout << ')' << '\n';
+  }
+  std::cout << std::flush;
 }
 
 void runInorderTraversal() {
@@ -137,6 +171,16 @@ void runValidBST() {
   std::cout << std::boolalpha << output << std::endl;
 }
 
+static void link_node_info(TreeLinkNode* node) {
+  std::cout << ',';
+
+  if (node->next) {
+    std::cout << node->next->val;
+  } else {
+    std::cout << '#';
+  }
+}
+
 void runPopulateNext() {
   int n = next<int>();
   std::vector<tuple<int, int, int>> input;
@@ -151,38 +195,7 @@ void runPopulateNext() {
   Solution solution;
   solution.connect(&nodes.at(0));
 
-  std::vector<TreeLinkNode*> q;
-  q.push_back(&nodes.at(0));
-  int i = 0;
-  while (i < q.size()) {
-    auto node = q[i++];
-    std::cout << node->val << '(';
-
-    if (node->left) {
-      q.push_back(node->left);
-      std::cout << node->left->val;
-    } else {
-      std::cout << '#';
-    }
-    std::cout << ',';
-
-    if (node->right) {
-      q.push_back(node->right);
-      std::cout << node->right->val;
-    } else {
-      std::cout << '#';
-    }
-    std::cout << ',';
-
-    if (node->next) {
-      std::cout << node->next->val;
-    } else {
-      std::cout << '#';
-    }
-
-    std::cout << ')' << '\n';
-  }
-  std::cout << std::flush;
+  output_tree(&nodes.at(0), link_node_info);
 }
 
 void runLevelAverage() {
@@ -202,6 +215,23 @@ void runLevelAverage() {
     std::cout << v << ' ';
   }
   std::cout << std::endl;
+}
+
+void runInvertTree() {
+  int n = next<int>();
+  std::vector<tuple<int, int, int>> input;
+
+  for (int i = 0; i < n; ++i) {
+    int v = next<int>(), l = next<int>(), r = next<int>();
+    input.emplace_back(v,l,r);
+  }
+
+  std::vector<TreeNode> nodes = tree_from_input<TreeNode>(input);
+
+  Solution solution;
+  auto output = solution.invertTree(&nodes.at(0));
+
+  output_tree(&nodes.at(0));
 }
 
 int main() {
@@ -228,6 +258,9 @@ int main() {
       break;
     case 'a':
       runLevelAverage();
+      break;
+    case 'i':
+      runInvertTree();
       break;
     default:
       usage();

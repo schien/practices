@@ -488,4 +488,61 @@ TEST(LevelAverageTest, all_right) {
   EXPECT_EQ(expected, solution.averageOfLevels(&nodes.at(0)));
 }
 
+TEST(InvertTreeTest, empty) {
+  Solution solution;
+
+  EXPECT_EQ(nullptr, solution.invertTree(nullptr));
+}
+
+TEST(InvertTreeTest, one) {
+  Solution solution;
+
+  TreeNode node(0);
+  EXPECT_EQ(&node, solution.invertTree(&node));
+  EXPECT_EQ(nullptr, node.left);
+  EXPECT_EQ(nullptr, node.right);
+}
+
+TEST(InvertTreeTest, all_left) {
+  Solution solution;
+
+  vector<TreeNode> nodes;
+  nodes.reserve(10000);
+  for (int i = 0; i < 10000; ++i) {
+    nodes.emplace_back(i);
+    if (i > 0) {
+      nodes.at(i-1).left = &nodes.at(i);
+    }
+  }
+
+  EXPECT_EQ(&nodes[0], solution.invertTree(&nodes.at(0)));
+  for (int i = 1; i < 10000; ++i) {
+    EXPECT_EQ(nullptr, nodes[i-1].left);
+    EXPECT_EQ(&nodes[i], nodes[i-1].right);
+  }
+  EXPECT_EQ(nullptr, nodes.back().left);
+  EXPECT_EQ(nullptr, nodes.back().right);
+}
+
+TEST(InvertTreeTest, all_right) {
+  Solution solution;
+
+  vector<TreeNode> nodes;
+  nodes.reserve(10000);
+  for (int i = 0; i < 10000; ++i) {
+    nodes.emplace_back(i);
+    if (i > 0) {
+      nodes.at(i-1).right = &nodes.at(i);
+    }
+  }
+
+  EXPECT_EQ(&nodes[0], solution.invertTree(&nodes.at(0)));
+  for (int i = 1; i < 10000; ++i) {
+    EXPECT_EQ(&nodes[i], nodes[i-1].left);
+    EXPECT_EQ(nullptr, nodes[i-1].right);
+  }
+  EXPECT_EQ(nullptr, nodes.back().left);
+  EXPECT_EQ(nullptr, nodes.back().right);
+}
+
 }
