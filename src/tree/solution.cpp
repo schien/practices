@@ -6,6 +6,7 @@
 // https://leetcode.com/problems/average-of-levels-in-binary-tree/
 // https://leetcode.com/problems/invert-binary-tree/
 // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 
 #include <vector>
 #include <functional>
@@ -233,5 +234,24 @@ class Solution {
         }
       }
       return nullptr;
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+      if (!root || !p || !q) {
+	return nullptr;
+      }
+
+      if (root == p || root == q) {
+	return root;
+      }
+
+      auto l = lowestCommonAncestor(root->left, p, q);
+      auto r = lowestCommonAncestor(root->right, p, q);
+      if (l) {
+	if (r) {
+	  return root;
+	}
+	return l;
+      }
+      return r;
     }
 };

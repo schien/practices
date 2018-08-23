@@ -621,4 +621,80 @@ TEST(LCAinBSTTest, all_right) {
   }
 }
 
+TEST(LCATest, empty) {
+  Solution solution;
+  EXPECT_EQ(nullptr, solution.lowestCommonAncestor(nullptr, nullptr, nullptr));
+
+  TreeNode n(0);
+  EXPECT_EQ(nullptr, solution.lowestCommonAncestor(&n, nullptr, nullptr));
+  EXPECT_EQ(nullptr, solution.lowestCommonAncestor(nullptr, &n, nullptr));
+  EXPECT_EQ(nullptr, solution.lowestCommonAncestor(nullptr, nullptr, &n));
+  EXPECT_EQ(nullptr, solution.lowestCommonAncestor(nullptr, &n, &n));
+}
+
+TEST(LCATest, complete_tree) {
+  vector<TreeNode> nodes {
+    TreeNode(0),
+    TreeNode(1),
+    TreeNode(2),
+    TreeNode(3),
+    TreeNode(4),
+    TreeNode(5),
+    TreeNode(6)
+  };
+
+  nodes[0].left = &nodes[1];
+  nodes[0].right = &nodes[2];
+  nodes[1].left = &nodes[3];
+  nodes[1].right = &nodes[4];
+  nodes[2].left = &nodes[5];
+  nodes[2].right = &nodes[6];
+
+  Solution solution;
+  EXPECT_EQ(&nodes.at(0), solution.lowestCommonAncestor(&nodes.at(0), &nodes.at(1), &nodes.at(2)));
+  EXPECT_EQ(&nodes.at(0), solution.lowestCommonAncestor(&nodes.at(0), &nodes.at(3), &nodes.at(6)));
+  EXPECT_EQ(&nodes.at(0), solution.lowestCommonAncestor(&nodes.at(0), &nodes.at(4), &nodes.at(5)));
+  EXPECT_EQ(&nodes.at(1), solution.lowestCommonAncestor(&nodes.at(0), &nodes.at(4), &nodes.at(3)));
+  EXPECT_EQ(&nodes.at(1), solution.lowestCommonAncestor(&nodes.at(0), &nodes.at(1), &nodes.at(4)));
+  EXPECT_EQ(&nodes.at(2), solution.lowestCommonAncestor(&nodes.at(0), &nodes.at(5), &nodes.at(6)));
+  EXPECT_EQ(&nodes.at(2), solution.lowestCommonAncestor(&nodes.at(0), &nodes.at(5), &nodes.at(2)));
+}
+
+
+TEST(LCATest, all_left) {
+  vector<TreeNode> nodes;
+  nodes.reserve(100);
+  for (int i = 0; i < 100; ++i) {
+    nodes.emplace_back(i);
+    if (i > 0) {
+      nodes.at(i-1).left = &nodes.at(i);
+    }
+  }
+
+  Solution solution;
+  for (int i = 0; i < 100; ++i) {
+    for (int j = i; j < 100; ++j) {
+      EXPECT_EQ(&nodes.at(i), solution.lowestCommonAncestor(&nodes.at(0), &nodes.at(i), &nodes.at(j)));
+    }
+  }
+}
+
+TEST(LCATest, all_right) {
+  vector<TreeNode> nodes;
+  nodes.reserve(100);
+  for (int i = 0; i < 100; ++i) {
+    nodes.emplace_back(i);
+    if (i > 0) {
+      nodes.at(i-1).right = &nodes.at(i);
+    }
+  }
+
+  Solution solution;
+  for (int i = 0; i < 100; ++i) {
+    for (int j = i; j < 100; ++j) {
+      EXPECT_EQ(&nodes.at(i), solution.lowestCommonAncestor(&nodes.at(0), &nodes.at(i), &nodes.at(j)));
+    }
+  }
+}
+
 }

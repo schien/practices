@@ -14,6 +14,7 @@ void usage() {
             << "              a n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              i n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              c n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
+            << "              C n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << std::flush;
 }
 
@@ -253,6 +254,24 @@ void runLCAinBST() {
   std::cout << output->val << std::endl;
 }
 
+void runLCA() {
+  int n = next<int>();
+  std::vector<tuple<int, int, int>> input;
+
+  for (int i = 0; i < n; ++i) {
+    int v = next<int>(), l = next<int>(), r = next<int>();
+    input.emplace_back(v,l,r);
+  }
+
+  std::vector<TreeNode> nodes = tree_from_input<TreeNode>(input);
+  int p = next<int>();
+  int q = next<int>();
+
+  Solution solution;
+  auto output = solution.lowestCommonAncestor(&nodes.at(0), &nodes.at(p), & nodes.at(q));
+  std::cout << output->val << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -283,6 +302,9 @@ int main() {
       break;
     case 'c':
       runLCAinBST();
+      break;
+    case 'C':
+      runLCA();
       break;
     default:
       usage();
