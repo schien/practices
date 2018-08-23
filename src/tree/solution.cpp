@@ -5,6 +5,7 @@
 // https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
 // https://leetcode.com/problems/average-of-levels-in-binary-tree/
 // https://leetcode.com/problems/invert-binary-tree/
+// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
 
 #include <vector>
 #include <functional>
@@ -212,5 +213,25 @@ class Solution {
       invertTree(root->left);
       invertTree(root->right);
       return root;
+    }
+    TreeNode* lowestCommonAncestorBST(TreeNode* root, TreeNode* p, TreeNode* q) {
+      if (!p || !q) {
+        return nullptr;
+      }
+
+      while (root) {
+        const auto pv = p->val;
+        const auto qv = q->val;
+        const auto rv = root->val;
+
+        if (pv < rv && qv < rv) {
+          root = root->left;
+        } else if (pv > rv && qv > rv) {
+          root = root->right;
+        } else {
+          return root;
+        }
+      }
+      return nullptr;
     }
 };
