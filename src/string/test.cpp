@@ -459,4 +459,23 @@ TEST(ToLowerCaseTest, multi_char) {
   }
 }
 
+TEST(JewelsAndStonesTest, empty) {
+  Solution solution;
+
+  EXPECT_EQ(0, solution.numJewelsInStones("", ""));
+  EXPECT_EQ(0, solution.numJewelsInStones("abcde", ""));
+  EXPECT_EQ(0, solution.numJewelsInStones("", "abcde"));
+}
+
+TEST(JewelsAndStonesTest, simple) {
+  Solution solution;
+  string stones{"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+
+  for (int i = 0; i < 26; ++i) {
+    EXPECT_EQ(1, solution.numJewelsInStones(string(1, 'a'+i), stones));
+    EXPECT_EQ(1, solution.numJewelsInStones(string(1, 'A'+i), stones));
+    EXPECT_EQ(2, solution.numJewelsInStones(string{(char)('a'+i), (char)('A'+i)}, stones));
+  }
+}
+
 }

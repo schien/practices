@@ -8,6 +8,7 @@
 // https://leetcode.com/problems/evaluate-reverse-polish-notation/
 // https://leetcode.com/problems/basic-calculator-ii/
 // https://leetcode.com/problems/to-lower-case/
+// https://leetcode.com/problems/jewels-and-stones/
 
 #include <string>
 #include <array>
@@ -341,5 +342,19 @@ class Solution {
         str[i] |= (1 << 5);
       }
       return str;
+    }
+    int numJewelsInStones(string J, string S) {
+      array<bool, 256> jewels;
+      jewels.fill(false);
+      for (auto c: J) {
+        jewels[c] = true;
+      }
+      int count = 0;
+      for (auto c: S) {
+        if (jewels[c]) {
+          ++count;
+        }
+      }
+      return count;
     }
 };

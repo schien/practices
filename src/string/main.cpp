@@ -15,6 +15,7 @@ void usage() {
             << "       e n str_1 ... str_n\n"
             << "       c str1\n"
             << "       l str1\n"
+            << "       j str1 str2\n"
             << std::flush;
 }
 
@@ -111,6 +112,14 @@ void runToLowerCase() {
   std::cout << output << std::endl;
 }
 
+void runJewelsAndStones() {
+  string jewels = next<string>();
+  string stones = next<string>();
+  Solution solution;
+  auto output = solution.numJewelsInStones(jewels, stones);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -148,6 +157,9 @@ int main() {
       break;
     case 'l':
       runToLowerCase();
+      break;
+    case 'j':
+      runJewelsAndStones();
       break;
     default:
       usage();
