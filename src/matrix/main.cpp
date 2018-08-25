@@ -14,6 +14,7 @@ void usage() {
             << "       w n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m] str\n"
             << "       z n [m v_1_1 ... v_1_m] ... [m v_n_1 ... v_n_m]\n"
             << "       d n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m]\n"
+            << "       f n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m]\n"
             << std::flush;
 }
 
@@ -186,6 +187,25 @@ void runSurroundedRegions() {
   }
 }
 
+void runFlipAndInvert() {
+  const int n = next<int>();
+  vector<vector<int>> matrix;
+  for (int i = 0; i < n; ++i) {
+    vector<int> row = next_vector<int>();
+    matrix.push_back(row);
+  }
+
+  Solution solution;
+  solution.flipAndInvertImage(matrix);
+
+  for (auto& vec:matrix) {
+    for (auto i:vec) {
+      std::cout << i << ' ';
+    }
+    std::cout << std::endl;
+  }
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -219,6 +239,9 @@ int main() {
       break;
     case 'd':
       runSurroundedRegions();
+      break;
+    case 'f':
+      runFlipAndInvert();
       break;
     default:
       usage();

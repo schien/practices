@@ -894,4 +894,44 @@ TEST(SurroundingRegionsTest, two_dimension) {
   EXPECT_EQ(expected, input);
 }
 
+TEST(FlipAndInvertTest, empty) {
+  Solution solution;
+
+  vector<vector<int>> input;
+  EXPECT_EQ((vector<vector<int>>{}), solution.flipAndInvertImage(input));
+
+  input = {{}};
+  EXPECT_EQ((vector<vector<int>>{{}}), solution.flipAndInvertImage(input));
+}
+
+TEST(FlipAndInvertTest, example) {
+  Solution solution;
+
+  vector<vector<int>> input {
+    {0,0,0,0},
+    {1,1,1,1},
+    {0,1,0,1},
+    {1,0,1,0},
+  };
+  vector<vector<int>> expected {
+    {1,1,1,1},
+    {0,0,0,0},
+    {0,1,0,1},
+    {1,0,1,0},
+  };
+  EXPECT_EQ(expected, solution.flipAndInvertImage(input));
+
+  input = {
+    {0,1,0},
+    {0,0,1},
+    {1,0,0},
+  };
+  expected = {
+    {1,0,1},
+    {0,1,1},
+    {1,1,0},
+  };
+  EXPECT_EQ(expected, solution.flipAndInvertImage(input));
+}
+
 }

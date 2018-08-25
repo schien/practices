@@ -8,6 +8,7 @@
 // https://leetcode.com/problems/word-search/
 // https://leetcode.com/problems/set-matrix-zeroes/
 // https://leetcode.com/problems/surrounded-regions/
+// https://leetcode.com/problems/flipping-an-image/
 
 #include <vector>
 #include <queue>
@@ -461,5 +462,12 @@ class Solution {
 	  }
 	}
       }
+    }
+    vector<vector<int>> flipAndInvertImage(vector<vector<int>>& A) {
+      for (auto& row : A) {
+        reverse(row.begin(), row.end());
+        transform(row.begin(), row.end(), row.begin(), [](int n){ return n^1; });
+      }
+      return A;
     }
 };
