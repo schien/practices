@@ -478,4 +478,30 @@ TEST(JewelsAndStonesTest, simple) {
   }
 }
 
+TEST(UniqueMorseCodesTest, empty) {
+  Solution solution;
+  vector<string> input;
+  EXPECT_EQ(0, solution.uniqueMorseRepresentations(input));
+
+  input = {"", "", "", ""};
+  EXPECT_EQ(1, solution.uniqueMorseRepresentations(input));
+}
+
+TEST(UniqueMorseCodesTest, one_char) {
+  Solution solution;
+  vector<string> input;
+  for (char c = 'a'; c <= 'z'; ++c) {
+    input.emplace_back(1, c);
+  }
+  EXPECT_EQ(input.size(), solution.uniqueMorseRepresentations(input));
+}
+
+TEST(UniqueMorseCodesTest, example) {
+  Solution solution;
+  vector<string> input = {
+    "gin", "zen", "gig", "msg"
+  };
+  EXPECT_EQ(2, solution.uniqueMorseRepresentations(input));
+}
+
 }

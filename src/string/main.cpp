@@ -16,6 +16,7 @@ void usage() {
             << "       c str1\n"
             << "       l str1\n"
             << "       j str1 str2\n"
+            << "       m str n word_1 ... word_n\n"
             << std::flush;
 }
 
@@ -120,6 +121,13 @@ void runJewelsAndStones() {
   std::cout << output << std::endl;
 }
 
+void runUniqueMorseCodes() {
+  std::vector<std::string> words = next_vector<std::string>();
+  Solution solution;
+  auto output = solution.uniqueMorseRepresentations(words);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -160,6 +168,9 @@ int main() {
       break;
     case 'j':
       runJewelsAndStones();
+      break;
+    case 'm':
+      runUniqueMorseCodes();
       break;
     default:
       usage();

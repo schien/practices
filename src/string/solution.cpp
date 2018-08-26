@@ -9,6 +9,7 @@
 // https://leetcode.com/problems/basic-calculator-ii/
 // https://leetcode.com/problems/to-lower-case/
 // https://leetcode.com/problems/jewels-and-stones/
+// https://leetcode.com/problems/unique-morse-code-words/
 
 #include <string>
 #include <array>
@@ -18,6 +19,7 @@
 #include <functional>
 #include <stack>
 #include <numeric>
+#include <unordered_set>
 
 using namespace std;
 
@@ -356,5 +358,26 @@ class Solution {
         }
       }
       return count;
+    }
+    int uniqueMorseRepresentations(vector<string>& words) {
+      static string codes[26] = {
+        ".-","-...","-.-.","-..",".","..-.","--.","....", "..",".---",
+        "-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-",
+        "..-","...-",".--","-..-","-.--","--.."
+      };
+
+      unordered_set<string> mos;
+
+      string buf;
+      buf.reserve(50);
+      for (auto& s:words) {
+        buf.resize(0);
+        for (const auto c:s) {
+          buf += codes[c-'a'];
+        }
+        mos.insert(buf);
+      }
+
+      return mos.size();
     }
 };
