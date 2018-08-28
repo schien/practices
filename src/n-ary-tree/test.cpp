@@ -46,4 +46,23 @@ TEST(LevelOrderTest, example) {
   }), solution.levelOrder(&nodes[0]));
 }
 
+TEST(PostorderTest, empty) {
+  Solution solution;
+  EXPECT_EQ((vector<int>{}), solution.postorder(nullptr));
+}
+
+TEST(PostorderTest, example) {
+  Solution solution;
+  vector<Node> nodes(11);
+  for (int i = 0; i < 11; ++i) {
+    nodes[i].val = i;
+  }
+  nodes[0].children.assign({&nodes[1], &nodes[2], &nodes[3], &nodes[4]});
+  nodes[1].children.assign({&nodes[5], &nodes[6], &nodes[7]});
+  nodes[2].children.assign({&nodes[8], &nodes[9]});
+  nodes[3].children.assign({&nodes[10]});
+
+  EXPECT_EQ((vector<int>{5, 6, 7, 1, 8, 9, 2, 10, 3, 4, 0}), solution.postorder(&nodes[0]));
+}
+
 }

@@ -1,5 +1,6 @@
 // https://leetcode.com/problems/n-ary-tree-preorder-traversal/
 // https://leetcode.com/problems/n-ary-tree-level-order-traversal/
+// https://leetcode.com/problems/n-ary-tree-postorder-traversal/
 
 #include <vector>
 #include <stack>
@@ -70,6 +71,25 @@ class Solution {
         }
       }
 
+      return result;
+    }
+    vector<int> postorder(Node* root) {
+      if (!root) { return {}; }
+
+      vector<int> result;
+      stack<Node*> st;
+      st.emplace(root);
+
+      while (!st.empty()) {
+        Node* n = st.top();
+        st.pop();
+        result.emplace_back(n->val);
+
+        for (auto child:n->children) {
+          st.emplace(child);
+        }
+      }
+      reverse(result.begin(), result.end());
       return result;
     }
 };
