@@ -2,6 +2,7 @@
 // https://leetcode.com/problems/add-digits/
 // https://leetcode.com/problems/ugly-number/
 // https://leetcode.com/problems/perfect-squares/
+// https://leetcode.com/problems/hamming-distance/
 
 #include <unordered_set>
 #include <vector>
@@ -139,5 +140,14 @@ public:
       //return numSquares_recursive(n);
       //return numSquares_dp(n);
       return numSquares_math(n);
+    }
+    int hammingDistance(int x, int y) {
+      x ^= y;
+      x = ((x & 0xAAAAAAAA) >> 1) + (x & 0x55555555);
+      x = ((x & 0xCCCCCCCC) >> 2) + (x & 0x33333333);
+      x = ((x & 0xF0F0F0F0) >> 4) + (x & 0x0F0F0F0F);
+      x = ((x & 0xFF00FF00) >> 8) + (x & 0x00FF00FF);
+      x = ((x & 0xFFFF0000) >> 16) + (x & 0x0000FFFF);
+      return x;
     }
 };

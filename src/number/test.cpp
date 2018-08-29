@@ -80,4 +80,16 @@ TEST(NumOfSquaresTest, bound) {
   }
 }
 
+TEST(HammingDistanceTest, example) {
+  Solution solution;
+
+  for (int i = 0; i < 32; ++i) {
+    EXPECT_EQ(1, solution.hammingDistance(0, 1 << i));
+  }
+
+  for (int i = 0; i < 32; ++i) {
+    EXPECT_EQ(0, solution.hammingDistance(1 << i, 1 << i));
+  }
+}
+
 }

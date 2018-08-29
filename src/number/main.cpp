@@ -17,5 +17,10 @@ int main() {
   std::cout << "ugly: " << ugly << std::endl;
   std::cout << "numSquares: " << numSquares << std::endl;
 
+  int y;
+  std::cin >> y;
+  auto hammingDistance = solution.hammingDistance(n, y);
+  std::cout << "hammingDistance: " << hammingDistance << std::endl;
+
   return 0;
 }
