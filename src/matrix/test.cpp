@@ -934,4 +934,38 @@ TEST(FlipAndInvertTest, example) {
   EXPECT_EQ(expected, solution.flipAndInvertImage(input));
 }
 
+TEST(TransposeTest, one) {
+  Solution solution;
+
+  vector<vector<int>> input {{0}};
+  EXPECT_EQ(input, solution.transpose(input));
+
+  input = {{1}};
+  EXPECT_EQ(input, solution.transpose(input));
+}
+
+TEST(TransposeTest, square) {
+  Solution solution;
+
+  vector<vector<int>> input(10);
+  for (int i = 0; i < 10; ++i) {
+    input[i].assign(10, i);
+  }
+  vector<vector<int>> expected(10, {0,1,2,3,4,5,6,7,8,9});
+
+  EXPECT_EQ(expected, solution.transpose(input));
+
+  EXPECT_EQ(input, solution.transpose(expected));
+}
+
+TEST(TransposeTest, non_square) {
+  Solution solution;
+
+  vector<vector<int>> input = {{0,1,2,3,4,5,6,7,8,9}};
+  vector<vector<int>> expected = {{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}};
+
+  EXPECT_EQ(expected, solution.transpose(input));
+  EXPECT_EQ(input, solution.transpose(expected));
+}
+
 }

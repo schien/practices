@@ -9,6 +9,7 @@
 // https://leetcode.com/problems/set-matrix-zeroes/
 // https://leetcode.com/problems/surrounded-regions/
 // https://leetcode.com/problems/flipping-an-image/
+// https://leetcode.com/problems/transpose-matrix/
 
 #include <vector>
 #include <queue>
@@ -469,5 +470,16 @@ class Solution {
         transform(row.begin(), row.end(), row.begin(), [](int n){ return n^1; });
       }
       return A;
+    }
+    vector<vector<int>> transpose(vector<vector<int>>& A) {
+      const int H = A.size();
+      const int W = A[0].size();
+      vector<vector<int>> result(W, vector<int>(H));
+      for (int i = 0; i < H; ++i) {
+        for (int j = 0; j < W; ++j) {
+          result[j][i] = A[i][j];
+        }
+      }
+      return result;
     }
 };
