@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/n-ary-tree-preorder-traversal/
 // https://leetcode.com/problems/n-ary-tree-level-order-traversal/
 // https://leetcode.com/problems/n-ary-tree-postorder-traversal/
+// https://leetcode.com/problems/maximum-depth-of-n-ary-tree/
 
 #include <vector>
 #include <stack>
@@ -91,5 +92,15 @@ class Solution {
       }
       reverse(result.begin(), result.end());
       return result;
+    }
+    int maxDepth(Node* root) {
+      if (!root) {
+        return 0;
+      }
+      int mx = 0;
+      for (auto child : root->children) {
+        mx = max(mx, maxDepth(child));
+      }
+      return mx+1;
     }
 };

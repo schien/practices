@@ -7,6 +7,7 @@ void usage() {
   std::cout << "[usage]: n-ary-tree p n v_1 k_1 c_1_1 ... c_1_k ... v_n k_n c_n_1 ... c_n_k\n"
             << "                    l n v_1 k_1 c_1_1 ... c_1_k ... v_n k_n c_n_1 ... c_n_k\n"
             << "                    t n v_1 k_1 c_1_1 ... c_1_k ... v_n k_n c_n_1 ... c_n_k\n"
+            << "                    d n v_1 k_1 c_1_1 ... c_1_k ... v_n k_n c_n_1 ... c_n_k\n"
             << std::flush;
 }
 
@@ -61,6 +62,14 @@ void runPostorder() {
   std::cout << std::endl;
 }
 
+void runMaxDepth() {
+  Solution solution;
+  std::vector<Node> nodes = build_tree();
+
+  auto output = solution.maxDepth(&nodes.at(0));
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -73,6 +82,9 @@ int main() {
       break;
     case 't':
       runPostorder();
+      break;
+    case 'd':
+      runMaxDepth();
       break;
     default:
       usage();
