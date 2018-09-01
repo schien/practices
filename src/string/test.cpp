@@ -504,4 +504,75 @@ TEST(UniqueMorseCodesTest, example) {
   EXPECT_EQ(2, solution.uniqueMorseRepresentations(input));
 }
 
+TEST(LetterCasePermutationTest, empty) {
+  Solution solution;
+  EXPECT_EQ(vector<string>{""}, solution.letterCasePermutation(""));
+}
+
+TEST(LetterCasePermutationTest, one_char) {
+  Solution solution;
+
+  for (char c = '0'; c <= '9'; ++c) {
+    EXPECT_EQ((vector<string>{string(1,c)}), solution.letterCasePermutation(string(1, c)));
+  }
+
+  for (char c = 'a'; c <= 'z'; ++c) {
+    EXPECT_EQ((vector<string>{string(1,c), string(1, toupper(c))}), solution.letterCasePermutation(string(1, c)));
+  }
+
+  for (char c = 'A'; c <= 'Z'; ++c) {
+    EXPECT_EQ((vector<string>{string(1,tolower(c)), string(1, c)}), solution.letterCasePermutation(string(1, c)));
+  }
+}
+
+TEST(LetterCasePermutationTest, multi_char) {
+  Solution solution;
+
+  string input{"0?"};
+
+  for (char c = 'a'; c <= 'z'; ++c) {
+    input[1] = c;
+    vector<string> expected(2, "0?");
+    expected[0][1] = c;
+    expected[1][1] = toupper(c);
+    EXPECT_EQ(expected, solution.letterCasePermutation(input));
+  }
+
+  input = "?0";
+  for (char c = 'A'; c <= 'Z'; ++c) {
+    input[0] = c;
+    vector<string> expected(2, "?0");
+    expected[0][0] = tolower(c);
+    expected[1][0] = c;
+    EXPECT_EQ(expected, solution.letterCasePermutation(input));
+  }
+
+  input = "1?9";
+  for (char c = 'a'; c <= 'z'; ++c) {
+    input[1] = c;
+    vector<string> expected(2, "1?9");
+    expected[0][1] = c;
+    expected[1][1] = toupper(c);
+    EXPECT_EQ(expected, solution.letterCasePermutation(input));
+  }
+
+  input = "?5?";
+  for (char c1 = 'a'; c1 <= 'z'; ++c1) {
+    input[0] = c1;
+    for (char c2 = 'A'; c2 <= 'Z'; ++c2) {
+      input[2] = c2;
+      vector<string> expected(4, "?5?");
+      expected[0][0] = tolower(c1);
+      expected[1][0] = tolower(c1);
+      expected[2][0] = toupper(c1);
+      expected[3][0] = toupper(c1);
+      expected[0][2] = tolower(c2);
+      expected[1][2] = toupper(c2);
+      expected[2][2] = tolower(c2);
+      expected[3][2] = toupper(c2);
+      EXPECT_EQ(expected, solution.letterCasePermutation(input));
+    }
+  }
+}
+
 }

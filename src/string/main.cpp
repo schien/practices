@@ -17,6 +17,7 @@ void usage() {
             << "       l str1\n"
             << "       j str1 str2\n"
             << "       m str n word_1 ... word_n\n"
+            << "       C str1\n"
             << std::flush;
 }
 
@@ -128,6 +129,15 @@ void runUniqueMorseCodes() {
   std::cout << output << std::endl;
 }
 
+void runLetterCasePermutation() {
+  Solution solution;
+  auto output = solution.letterCasePermutation(next<std::string>());
+  for (auto& s : output) {
+    std::cout << s << '\n';
+  }
+  std::cout << std::flush;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -171,6 +181,9 @@ int main() {
       break;
     case 'm':
       runUniqueMorseCodes();
+      break;
+    case 'C':
+      runLetterCasePermutation();
       break;
     default:
       usage();

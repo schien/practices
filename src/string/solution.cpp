@@ -10,6 +10,7 @@
 // https://leetcode.com/problems/to-lower-case/
 // https://leetcode.com/problems/jewels-and-stones/
 // https://leetcode.com/problems/unique-morse-code-words/
+// https://leetcode.com/problems/letter-case-permutation/
 
 #include <string>
 #include <array>
@@ -379,5 +380,27 @@ class Solution {
       }
 
       return mos.size();
+    }
+    vector<string> letterCasePermutation(string S) {
+      const int sz = S.size();
+      vector<string> result;
+
+      function<void(int)> worker = [&S, &result, &worker, sz](int i) {
+        while (i < sz && !isalpha(S[i])) { ++i; }
+
+        if (i == sz) {
+          result.emplace_back(S);
+          return;
+        }
+
+        S[i] = tolower(S[i]);
+        worker(i+1);
+
+        S[i] = toupper(S[i]);
+        worker(i+1);
+      };
+
+      worker(0);
+      return result;
     }
 };
