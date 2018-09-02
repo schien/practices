@@ -385,4 +385,62 @@ TEST(CopyRandomListTest, small) {
   }
 }
 
+TEST(MyLinkedListTest, get) {
+  MyLinkedList list;
+
+  EXPECT_EQ(-1, list.get(0));
+  EXPECT_EQ(-1, list.get(-1));
+
+  for (int i = 0; i < 10; ++i) {
+    list.addAtHead(i);
+    EXPECT_EQ(i, list.get(0));
+  }
+
+  EXPECT_EQ(-1, list.get(10));
+}
+
+TEST(MyLinkedListTest, add) {
+  MyLinkedList list;
+
+  for (int i = 0; i < 10; ++i) {
+    list.addAtTail(i);
+    EXPECT_EQ(i, list.get(i));
+  }
+
+  EXPECT_EQ(-1, list.get(-1));
+  EXPECT_EQ(-1, list.get(10));
+
+  for (int i = 10; i >= 0; --i) {
+    list.addAtIndex(i, i+10);
+    EXPECT_EQ(i+10, list.get(i));
+  }
+
+}
+
+TEST(MyLinkedListTest, del) {
+  MyLinkedList list;
+
+  for (int i = 0; i < 10; ++i) {
+    list.addAtHead(i);
+    EXPECT_EQ(i, list.get(0));
+  }
+
+  EXPECT_NO_THROW(list.deleteAtIndex(-1));
+  EXPECT_NO_THROW(list.deleteAtIndex(10));
+
+  EXPECT_NO_THROW(list.deleteAtIndex(9));
+  EXPECT_EQ(-1, list.get(9));
+  EXPECT_EQ(1, list.get(8));
+
+  EXPECT_NO_THROW(list.deleteAtIndex(0));
+  EXPECT_EQ(8, list.get(0));
+
+  for (int i = 5; i > 0; --i) {
+    int expected = list.get(i+1);
+    EXPECT_NO_THROW(list.deleteAtIndex(i));
+    EXPECT_EQ(expected, list.get(i));
+  }
+
+}
+
 }

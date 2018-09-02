@@ -127,6 +127,53 @@ void runCopyRandomList() {
   printRandomList(output);
 }
 
+void runMyLinkedList() {
+  MyLinkedList list;
+  while (true) {
+    char op;
+    std::cin >> op;
+    if (std::cin.eof()) {
+      break;
+    }
+
+    switch (op) {
+      case 'h':
+      {
+        int val;
+        std::cin >> val;
+        list.addAtHead(val);
+        break;
+      }
+      case 't':
+      {
+        int val;
+        std::cin >> val;
+        list.addAtTail(val);
+        break;
+      }
+      case 'i':
+      {
+        int idx, val;
+        std::cin >> idx >> val;
+        list.addAtIndex(idx, val);
+        break;
+      }
+      case 'd':
+      {
+        int idx;
+        std::cin >> idx;
+        list.deleteAtIndex(idx);
+        break;
+      }
+      case 'p':
+        list.print(std::cout);
+        break;
+      default:
+        break;
+    }
+  }
+}
+
 void usage() {
   std::cerr << "usage: r N v[1] ... v[N]\n"
             << "       d N v[1] ... v[N] v[x] (where x < N)\n"
@@ -134,6 +181,7 @@ void usage() {
             << "       s N v[1] ... v[N]\n"
             << "       o N v[1] ... v[N]\n"
             << "       c N v[1] ... v[N] r[1] ... r[N] (where -1 == nullptr)\n"
+            << "       l (h v)|(t v)|(i idx v)|(d idx v)|(p)\n"
             << std::flush;
 }
 
@@ -159,6 +207,9 @@ int main() {
       break;
     case 'c':
       runCopyRandomList();
+      break;
+    case 'l':
+      runMyLinkedList();
       break;
     default:
       usage();

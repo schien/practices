@@ -4,6 +4,9 @@
 // https://leetcode.com/problems/sort-list/
 // https://leetcode.com/problems/odd-even-linked-list/
 // https://leetcode.com/problems/copy-list-with-random-pointer/
+// https://leetcode.com/problems/design-linked-list/
+
+#include <ostream>
 
 /**
  * Definition for singly-linked list.
@@ -296,4 +299,96 @@ public:
     }
     return result;
   }
+};
+
+class MyLinkedList {
+  struct Node {
+    int val{0};
+    Node* next{nullptr};
+  };
+public:
+  /** Initialize your data structure here. */
+  MyLinkedList() {
+  }
+
+  /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
+  int get(int index) {
+    if (index < 0 || index >= size) {
+      return -1;
+    }
+
+    Node* curr = head;
+    while (index--) { curr = curr->next; }
+    return curr->val;
+  }
+
+  /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
+  void addAtHead(int val) {
+    Node* newHead = new Node;
+    newHead->val = val;
+    newHead->next = head;
+    head = newHead;
+
+    ++size;
+  }
+
+  /** Append a node of value val to the last element of the linked list. */
+  void addAtTail(int val) {
+    addAtIndex(size, val);
+  }
+
+  /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
+  void addAtIndex(int index, int val) {
+    if (index < 0 || index > size) {
+      return;
+    }
+
+    if (!index) {
+      addAtHead(val);
+      return;
+    }
+
+    Node* prev = head;
+    while (prev && --index) { prev = prev->next; }
+    Node* node = new Node;
+    node->val = val;
+    node->next = prev->next;
+    prev->next = node;
+
+    ++size;
+  }
+
+  /** Delete the index-th node in the linked list, if the index is valid. */
+  void deleteAtIndex(int index) {
+    if (index < 0 || index >= size) {
+      return;
+    }
+
+    if (!index) {
+      Node* del_node = head;
+      head = del_node->next;
+      delete del_node;
+    } else {
+      Node* prev = head;
+      while (prev && --index) { prev = prev->next; }
+      Node* del_node = prev->next;
+      prev->next = del_node->next;
+      delete del_node;
+    }
+
+    --size;
+  }
+
+  void print(std::ostream& out) {
+    out << '[';
+    Node* curr = head;
+    while (curr) {
+      out << curr->val << ' ';
+      curr = curr->next;
+    }
+    out << ']' << '\n';
+  }
+private:
+  Node* head{nullptr};
+  int size{0};
 };
