@@ -3,6 +3,7 @@
 // https://leetcode.com/problems/ugly-number/
 // https://leetcode.com/problems/perfect-squares/
 // https://leetcode.com/problems/hamming-distance/
+// https://leetcode.com/problems/valid-perfect-square/
 
 #include <unordered_set>
 #include <vector>
@@ -149,5 +150,9 @@ public:
       x = ((x & 0xFF00FF00) >> 8) + (x & 0x00FF00FF);
       x = ((x & 0xFFFF0000) >> 16) + (x & 0x0000FFFF);
       return x;
+    }
+    bool isPerfectSquare(int num) {
+      int root = static_cast<int>(sqrt(num));
+      return root*root == num;
     }
 };

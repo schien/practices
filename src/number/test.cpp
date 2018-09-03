@@ -92,4 +92,21 @@ TEST(HammingDistanceTest, example) {
   }
 }
 
+TEST(PerfectSquareTest, small) {
+  Solution solution;
+
+  int r = 0;
+  int next_perfect_square = 0;
+
+  for (int i = 0; i < 10000; ++i) {
+    if (i == next_perfect_square) {
+      EXPECT_TRUE(solution.isPerfectSquare(i));
+      ++r;
+      next_perfect_square = r*r;
+    } else {
+      EXPECT_FALSE(solution.isPerfectSquare(i));
+    }
+  }
+}
+
 }

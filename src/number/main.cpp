@@ -11,11 +11,13 @@ int main() {
   auto digit = solution.addDigits(n);
   auto ugly = solution.isUgly(n);
   auto numSquares = solution.numSquares(n);
+  auto perfectSquare = solution.isPerfectSquare(n);
 
   std::cout << "happy: " << happy << std::endl;
   std::cout << "digit: " << digit << std::endl;
   std::cout << "ugly: " << ugly << std::endl;
   std::cout << "numSquares: " << numSquares << std::endl;
+  std::cout << "isPerfectSquare: " << perfectSquare << std::endl;
 
   int y;
   std::cin >> y;
