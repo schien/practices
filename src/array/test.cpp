@@ -931,4 +931,50 @@ TEST(PeakIndexTest, small) {
   EXPECT_EQ(1, solution.peakIndexInMountainArray(input));
 }
 
+TEST(CheckNonDecreasingTest, example) {
+  Solution solution;
+  vector<int> input{0};
+  EXPECT_TRUE(solution.checkPossibility(input));
+
+  vector<pair<vector<int>, bool>> examples = {
+    {{0,1}, true},
+    {{0,0}, true},
+    {{1,0}, true},
+    {{0,1,2}, true},
+    {{0,2,1}, true},
+    {{1,0,2}, true},
+    {{1,2,0}, true},
+    {{2,0,1}, true},
+    {{2,1,0}, false},
+    {{0,1,2,3}, true},
+    {{0,1,3,2}, true},
+    {{0,2,1,3}, true},
+    {{0,2,3,1}, true},
+    {{0,3,1,2}, true},
+    {{0,3,2,1}, false},
+    {{1,0,2,3}, true},
+    {{1,0,3,2}, false},
+    {{1,2,0,3}, true},
+    {{1,2,3,0}, true},
+    {{1,3,0,2}, false},
+    {{1,3,2,0}, false},
+    {{2,0,1,3}, true},
+    {{2,0,3,1}, false},
+    {{2,1,0,3}, false},
+    {{2,1,3,0}, false},
+    {{2,3,0,1}, false},
+    {{2,3,1,0}, false},
+    {{3,0,1,2}, true},
+    {{3,0,2,1}, false},
+    {{3,1,0,2}, false},
+    {{3,1,2,0}, false},
+    {{3,2,0,1}, false},
+    {{3,2,1,0}, false},
+  };
+
+  for (auto& example : examples) {
+    EXPECT_EQ(example.second, solution.checkPossibility(example.first));
+  }
+}
+
 }

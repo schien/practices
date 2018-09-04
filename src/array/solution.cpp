@@ -19,6 +19,7 @@
 // https://leetcode.com/problems/max-consecutive-ones/
 // https://leetcode.com/problems/min-cost-climbing-stairs/
 // https://leetcode.com/problems/peak-index-in-a-mountain-array/
+// https://leetcode.com/problems/non-decreasing-array/
 
 #include <vector>
 #include <unordered_set>
@@ -597,5 +598,30 @@ class Solution {
         }
       }
       return l;
+    }
+    bool checkPossibility(vector<int>& nums) {
+      if (nums.empty()) {
+        return true;
+      }
+
+      const int sz = nums.size();
+      int mx = nums[0];
+      bool once = false;
+      for (int i = 1; i < sz; ++i) {
+        if (mx <= nums[i]) {
+          mx = nums[i];
+          continue;
+        }
+        if (once) {
+          return false;
+        }
+
+        // use minimal value to fix the array
+        if (i==1 || nums[i-2] <= nums[i]) {
+          mx = nums[i];
+        }
+        once = true;
+      }
+      return true;
     }
 };

@@ -24,6 +24,7 @@ void usage() {
             << "        1 {n [0|1]*}\n"
             << "        a {n x_1 ... x_n} t\n"
             << "        P {n x_1 ... x_n} t\n"
+            << "        I {n x_1 ... x_n} t\n"
             << std::flush;
 }
 
@@ -189,6 +190,12 @@ void runPeakIndex() {
   std::cout << solution.peakIndexInMountainArray(num) << std::endl;
 }
 
+void runCheckNonDecreasing() {
+  std::vector<int> num = next_vector<int>();
+  Solution solution;
+  std::cout << std::boolalpha << solution.checkPossibility(num) << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -252,6 +259,9 @@ int main() {
       break;
     case 'P':
       runPeakIndex();
+      break;
+    case 'I':
+      runCheckNonDecreasing();
       break;
     default:
       usage();
