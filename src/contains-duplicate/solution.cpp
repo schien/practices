@@ -1,9 +1,11 @@
 // https://leetcode.com/problems/contains-duplicate/
+// https://leetcode.com/problems/contains-duplicate-ii/
 
 #include <vector>
 #include <unordered_set>
 #include <iostream>
 #include <algorithm>
+#include <unordered_map>
 
 using namespace std;
 
@@ -39,5 +41,17 @@ class Solution {
       }
       //return useHashset(nums);
       return useSort(nums);
+    }
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+      const int sz = nums.size();
+      unordered_map<int, int> table(sz);
+      for (int i = 0; i < sz; ++i) {
+        auto it = table.find(nums[i]);
+        if (it != table.end() && (i - it->second <= k)) {
+          return true;
+        }
+        table[nums[i]] = i;
+      }
+      return false;
     }
 };

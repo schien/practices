@@ -51,4 +51,65 @@ TEST(ContainsDuplicateTest, no_dup_large) {
   EXPECT_FALSE(solution.containsDuplicate(input));
 }
 
+TEST(NearbyDuplicateTest, empty) {
+  Solution solution;
+  vector<int> input;
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, INT_MAX));
+}
+
+TEST(NearbyDuplicateTest, boundary_condition) {
+  Solution solution;
+  vector<int> input{0};
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, INT_MAX));
+
+  input = {1, 1};
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, 0));
+}
+
+TEST(NearbyDuplicateTest, small) {
+  Solution solution;
+  vector<int> input{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, INT_MAX));
+
+  input.emplace_back(0);
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, 9));
+  EXPECT_TRUE(solution.containsNearbyDuplicate(input, 10));
+
+  input.emplace_back(2);
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, 8));
+  EXPECT_TRUE(solution.containsNearbyDuplicate(input, 9));
+
+  input.emplace_back(4);
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, 7));
+  EXPECT_TRUE(solution.containsNearbyDuplicate(input, 8));
+
+  input.emplace_back(6);
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, 6));
+  EXPECT_TRUE(solution.containsNearbyDuplicate(input, 7));
+
+  input.emplace_back(8);
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, 5));
+  EXPECT_TRUE(solution.containsNearbyDuplicate(input, 6));
+
+  input.emplace_back(0);
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, 4));
+  EXPECT_TRUE(solution.containsNearbyDuplicate(input, 5));
+
+  input.emplace_back(4);
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, 3));
+  EXPECT_TRUE(solution.containsNearbyDuplicate(input, 4));
+
+  input.emplace_back(8);
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, 2));
+  EXPECT_TRUE(solution.containsNearbyDuplicate(input, 3));
+
+  input.emplace_back(4);
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, 1));
+  EXPECT_TRUE(solution.containsNearbyDuplicate(input, 2));
+
+  input.emplace_back(4);
+  EXPECT_FALSE(solution.containsNearbyDuplicate(input, 0));
+  EXPECT_TRUE(solution.containsNearbyDuplicate(input, 1));
+}
+
 }

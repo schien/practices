@@ -20,5 +20,9 @@ int main() {
 
   std::cout << output << std::endl;
 
+  int k;
+  std::cin >> k;
+  output = solution.containsNearbyDuplicate(input, k);
+  std::cout << output << std::endl;
   return 0;
 }
