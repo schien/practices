@@ -25,6 +25,7 @@ void usage() {
             << "        a {n x_1 ... x_n} t\n"
             << "        P {n x_1 ... x_n} t\n"
             << "        I {n x_1 ... x_n} t\n"
+            << "        T {n x_1 ... x_n} t\n"
             << std::flush;
 }
 
@@ -196,6 +197,12 @@ void runCheckNonDecreasing() {
   std::cout << std::boolalpha << solution.checkPossibility(num) << std::endl;
 }
 
+void runThirdMax() {
+  std::vector<int> num = next_vector<int>();
+  Solution solution;
+  std::cout << solution.thirdMax(num) << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -262,6 +269,9 @@ int main() {
       break;
     case 'I':
       runCheckNonDecreasing();
+      break;
+    case 'T':
+      runThirdMax();
       break;
     default:
       usage();

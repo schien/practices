@@ -20,6 +20,7 @@
 // https://leetcode.com/problems/min-cost-climbing-stairs/
 // https://leetcode.com/problems/peak-index-in-a-mountain-array/
 // https://leetcode.com/problems/non-decreasing-array/
+// https://leetcode.com/problems/third-maximum-number/
 
 #include <vector>
 #include <unordered_set>
@@ -27,6 +28,8 @@
 #include <queue>
 #include <algorithm>
 #include <string>
+#include <array>
+#include <limits>
 
 using namespace std;
 
@@ -623,5 +626,25 @@ class Solution {
         once = true;
       }
       return true;
+    }
+    int thirdMax(vector<int>& nums) {
+      array<int64_t, 3> mx_arr;
+      mx_arr.fill(numeric_limits<int64_t>::min());
+      for (auto n : nums) {
+        if (n > mx_arr[0]) {
+          mx_arr[2] = mx_arr[1];
+          mx_arr[1] = mx_arr[0];
+          mx_arr[0] = n;
+        } else if (n > mx_arr[1] && n < mx_arr[0]) {
+          mx_arr[2] = mx_arr[1];
+          mx_arr[1] = n;
+        } else if (n > mx_arr[2] && n < mx_arr[1]) {
+          mx_arr[2] = n;
+        }
+      }
+      if (mx_arr[2] == numeric_limits<int64_t>::min()) {
+        return static_cast<int>(mx_arr[0]);
+      }
+      return static_cast<int>(mx_arr[2]);
     }
 };

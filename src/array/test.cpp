@@ -977,4 +977,16 @@ TEST(CheckNonDecreasingTest, example) {
   }
 }
 
+TEST(ThirdMaxTest, example) {
+  Solution solution;
+  vector<int> input{3,2,1};
+  EXPECT_EQ(1, solution.thirdMax(input));
+
+  input = {1,2};
+  EXPECT_EQ(2, solution.thirdMax(input));
+
+  input = {2,2,3,1};
+  EXPECT_EQ(1, solution.thirdMax(input));
+}
+
 }
