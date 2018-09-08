@@ -4,6 +4,7 @@
 // https://leetcode.com/problems/perfect-squares/
 // https://leetcode.com/problems/hamming-distance/
 // https://leetcode.com/problems/valid-perfect-square/
+// https://leetcode.com/problems/sum-of-square-numbers/
 
 #include <unordered_set>
 #include <vector>
@@ -154,5 +155,24 @@ public:
     bool isPerfectSquare(int num) {
       int root = static_cast<int>(sqrt(num));
       return root*root == num;
+    }
+    bool judgeSquareSum(int c) {
+      if (c < 0) {
+        return false;
+      }
+
+      int i = 0;
+      int j = static_cast<int>(sqrt(c));
+      while (i <= j) {
+        int v = i*i + j*j;
+        if (c == v) {
+          return true;
+        } else if (c > v) {
+          ++i;
+        } else {
+          --j;
+        }
+      }
+      return false;
     }
 };

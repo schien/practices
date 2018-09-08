@@ -109,4 +109,30 @@ TEST(PerfectSquareTest, small) {
   }
 }
 
+TEST(SquareSumTest, boundary_condition) {
+  Solution solution;
+
+  EXPECT_TRUE(solution.judgeSquareSum(0));
+  EXPECT_FALSE(solution.judgeSquareSum(-1));
+}
+
+TEST(SquareSumTest, small) {
+  Solution solution;
+
+  unordered_set<int> table;
+  for (int i = 10; i >= 0; --i) {
+    for (int j = i; j >= 0; --j) {
+      table.insert(i*i+j*j);
+    }
+  }
+
+  for (int i = 0; i <= 100; ++i) {
+    if (table.find(i) != table.end()) {
+      EXPECT_TRUE(solution.judgeSquareSum(i));
+    } else {
+      EXPECT_FALSE(solution.judgeSquareSum(i));
+    }
+  }
+}
+
 }
