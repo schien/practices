@@ -989,4 +989,34 @@ TEST(ThirdMaxTest, example) {
   EXPECT_EQ(1, solution.thirdMax(input));
 }
 
+TEST(MaxSlidingWindowTest, example) {
+  Solution solution;
+
+  vector<int> input;
+  int k = 0;
+  EXPECT_EQ(vector<int>{}, solution.maxSlidingWindow(input, k));
+
+  input = {1,3,-1,-3,5,3,6,7};
+  k = 3;
+  EXPECT_EQ((vector<int>{3,3,5,5,6,7}), solution.maxSlidingWindow(input, k));
+}
+
+TEST(MaxSlidingWindowTest, small) {
+  Solution solution;
+
+  vector<int> input;
+  for (int i = 0; i < 100; ++i) {
+    input.emplace_back(i);
+  }
+  EXPECT_EQ(input, solution.maxSlidingWindow(input, 1));
+  EXPECT_EQ((vector<int>{99}), solution.maxSlidingWindow(input, 100));
+
+  reverse(input.begin(), input.end());
+  vector<int> expected;
+  for (int i = 100; i > 0; --i) {
+    expected.emplace_back(i-1);
+    EXPECT_EQ(expected, solution.maxSlidingWindow(input, i));
+  }
+}
+
 }

@@ -26,6 +26,7 @@ void usage() {
             << "        P {n x_1 ... x_n} t\n"
             << "        I {n x_1 ... x_n} t\n"
             << "        T {n x_1 ... x_n} t\n"
+            << "        M {n x_1 ... x_n} k\n"
             << std::flush;
 }
 
@@ -203,6 +204,17 @@ void runThirdMax() {
   std::cout << solution.thirdMax(num) << std::endl;
 }
 
+void runMaxSlidingWindow() {
+std:vector<int> num = next_vector<int>();
+    int k = next<int>();
+    Solution solution;
+    auto output = solution.maxSlidingWindow(num, k);
+    for (auto n : output) {
+      std::cout << n << ' ';
+    }
+    std::cout << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -272,6 +284,9 @@ int main() {
       break;
     case 'T':
       runThirdMax();
+      break;
+    case 'M':
+      runMaxSlidingWindow();
       break;
     default:
       usage();

@@ -21,6 +21,7 @@
 // https://leetcode.com/problems/peak-index-in-a-mountain-array/
 // https://leetcode.com/problems/non-decreasing-array/
 // https://leetcode.com/problems/third-maximum-number/
+// https://leetcode.com/problems/sliding-window-maximum/
 
 #include <vector>
 #include <unordered_set>
@@ -646,5 +647,32 @@ class Solution {
         return static_cast<int>(mx_arr[0]);
       }
       return static_cast<int>(mx_arr[2]);
+    }
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+      if (nums.empty() || k <= 0) {
+        return {};
+      }
+
+      const int sz = nums.size();
+      deque<int> win;
+      for (int i = 0; i < k; ++i) {
+        while (!win.empty() && nums[win.back()] <= nums[i]) {
+          win.pop_back();
+        }
+        win.emplace_back(i);
+      }
+      vector<int> result;
+      for (int i = k; i < sz; ++i) {
+        result.emplace_back(nums[win[0]]);
+        while (!win.empty() && nums[win.back()] <= nums[i]) {
+          win.pop_back();
+        }
+        win.emplace_back(i);
+        if (win[0] <= (i-k)) {
+          win.pop_front();
+        }
+      }
+      result.emplace_back(nums[win[0]]);
+      return result;
     }
 };
