@@ -11,6 +11,7 @@
 // https://leetcode.com/problems/jewels-and-stones/
 // https://leetcode.com/problems/unique-morse-code-words/
 // https://leetcode.com/problems/letter-case-permutation/
+// https://leetcode.com/problems/robot-return-to-origin/
 
 #include <string>
 #include <array>
@@ -402,5 +403,19 @@ class Solution {
 
       worker(0);
       return result;
+    }
+    bool judgeCircle(string moves) {
+      int x = 0;
+      int y = 0;
+      for (auto c : moves) {
+        switch (c) {
+          case 'U': ++y; break;
+          case 'D': --y; break;
+          case 'L': --x; break;
+          case 'R': ++x; break;
+          default: break;
+        }
+      }
+      return !x && !y;
     }
 };

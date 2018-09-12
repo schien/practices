@@ -18,6 +18,7 @@ void usage() {
             << "       j str1 str2\n"
             << "       m str n word_1 ... word_n\n"
             << "       C str1\n"
+            << "       R str1\n"
             << std::flush;
 }
 
@@ -138,6 +139,12 @@ void runLetterCasePermutation() {
   std::cout << std::flush;
 }
 
+void runReturnToOrigin() {
+  std::string moves = next<string>();
+  Solution solution;
+  std::cout << solution.judgeCircle(moves) << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -184,6 +191,9 @@ int main() {
       break;
     case 'C':
       runLetterCasePermutation();
+      break;
+    case 'R':
+      runReturnToOrigin();
       break;
     default:
       usage();

@@ -575,4 +575,23 @@ TEST(LetterCasePermutationTest, multi_char) {
   }
 }
 
+TEST(ReturnToOriginTest, empty) {
+  Solution solution;
+  EXPECT_TRUE(solution.judgeCircle(""));
+}
+
+TEST(ReturnToOriginTest, small) {
+  Solution solution;
+
+  EXPECT_FALSE(solution.judgeCircle("U"));
+  EXPECT_FALSE(solution.judgeCircle("D"));
+  EXPECT_FALSE(solution.judgeCircle("L"));
+  EXPECT_FALSE(solution.judgeCircle("R"));
+
+  EXPECT_TRUE(solution.judgeCircle("UD"));
+  EXPECT_TRUE(solution.judgeCircle("DU"));
+  EXPECT_TRUE(solution.judgeCircle("LR"));
+  EXPECT_TRUE(solution.judgeCircle("RL"));
+}
+
 }
