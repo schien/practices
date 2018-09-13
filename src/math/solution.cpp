@@ -1,7 +1,10 @@
 // https://leetcode.com/problems/powx-n/
+// https://leetcode.com/problems/self-dividing-numbers/
 
 #include <cstdlib>
 #include <cstdint>
+#include <vector>
+#include <array>
 
 using namespace std;
 
@@ -27,6 +30,35 @@ class Solution {
         return 1.0 / result;
       }
 
+      return result;
+    }
+    vector<int> selfDividingNumbers(int left, int right) {
+      if (left > right || left <= 0) {
+        return {};
+      }
+
+      vector<int> result;
+      for (int i = left; i <= right; ++i) {
+        array<bool, 10> digits;
+        digits.fill(false);
+        int n = i;
+        while (n) { digits[n%10] = true; n/=10; }
+
+        if (digits[0]) {
+          continue;
+        }
+
+        bool divisible = true;
+        for (int d = 1; d < 10; ++d) {
+          if (digits[d] && (i%d)) {
+            divisible = false;
+            break;
+          }
+        }
+        if (divisible) {
+          result.emplace_back(i);
+        }
+      }
       return result;
     }
 };
