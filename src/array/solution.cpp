@@ -22,6 +22,7 @@
 // https://leetcode.com/problems/non-decreasing-array/
 // https://leetcode.com/problems/third-maximum-number/
 // https://leetcode.com/problems/sliding-window-maximum/
+// https://leetcode.com/problems/array-partition-i/
 
 #include <vector>
 #include <unordered_set>
@@ -673,6 +674,15 @@ class Solution {
         }
       }
       result.emplace_back(nums[win[0]]);
+      return result;
+    }
+    int arrayPairSum(vector<int>& nums) {
+      const int sz = nums.size();
+      sort(nums.begin(), nums.end());
+      int result = 0;
+      for (int i = 0; i < sz; i += 2) {
+        result += nums[i];
+      }
       return result;
     }
 };

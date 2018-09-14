@@ -1019,4 +1019,22 @@ TEST(MaxSlidingWindowTest, small) {
   }
 }
 
+TEST(MinPairSumTest, empty) {
+  Solution solution;
+
+  vector<int> input;
+  EXPECT_EQ(0, solution.arrayPairSum(input));
+}
+
+TEST(MinPairSumTest, small) {
+  Solution solution;
+
+  vector<int> input(20000);
+  fill_n(input.begin(), 10000, 1);
+  for (int i = 0; i < 100; ++i) {
+    random_shuffle(input.begin(), input.end());
+    EXPECT_EQ(5000, solution.arrayPairSum(input));
+  }
+}
+
 }

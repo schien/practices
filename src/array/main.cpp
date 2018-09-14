@@ -27,6 +27,7 @@ void usage() {
             << "        I {n x_1 ... x_n} t\n"
             << "        T {n x_1 ... x_n} t\n"
             << "        M {n x_1 ... x_n} k\n"
+            << "        S {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -215,6 +216,13 @@ std:vector<int> num = next_vector<int>();
     std::cout << std::endl;
 }
 
+void runMinPairSum() {
+  std::vector<int> nums = next_vector<int>();
+  Solution solution;
+  auto output  = solution.arrayPairSum(nums);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -287,6 +295,9 @@ int main() {
       break;
     case 'M':
       runMaxSlidingWindow();
+      break;
+    case 'S':
+      runMinPairSum();
       break;
     default:
       usage();
