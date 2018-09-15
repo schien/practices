@@ -697,4 +697,182 @@ TEST(LCATest, all_right) {
   }
 }
 
+TEST(MergeBinaryTreeTest, empty) {
+  Solution solution;
+
+  EXPECT_EQ(nullptr, solution.mergeTrees(nullptr, nullptr));
+
+  TreeNode node(1);
+  EXPECT_EQ(&node, solution.mergeTrees(&node, nullptr));
+  EXPECT_EQ(&node, solution.mergeTrees(nullptr, &node));
+}
+
+TEST(MergeBinaryTreeTest, small) {
+  Solution solution;
+
+  TreeNode t1(1);
+  TreeNode t1_left(3);
+  TreeNode t1_right(5);
+  TreeNode t2(2);
+  TreeNode t2_left(4);
+  TreeNode t2_right(6);
+
+  // t2
+  auto root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(nullptr, root->left);
+  EXPECT_EQ(nullptr, root->right);
+
+  t1 = TreeNode(1);
+  t1.left = &t1_left;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(&t1_left, root->left);
+  EXPECT_EQ(3, root->left->val);
+  EXPECT_EQ(nullptr, root->right);
+
+  t1 = TreeNode(1);
+  t1.right= &t1_right;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(nullptr, root->left);
+  EXPECT_EQ(&t1_right, root->right);
+  EXPECT_EQ(5, root->right->val);
+
+  t1_left = TreeNode(3);
+  t1_right = TreeNode(5);
+  t1 = TreeNode(1);
+  t1.left = &t1_left;
+  t1.right = &t1_right;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(&t1_left, root->left);
+  EXPECT_EQ(3, root->left->val);
+  EXPECT_EQ(&t1_right, root->right);
+  EXPECT_EQ(5, root->right->val);
+
+  // t2->t2_left
+  t1 = TreeNode(1);
+  t2.left = &t2_left;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(&t2_left, root->left);
+  EXPECT_EQ(4, root->left->val);
+  EXPECT_EQ(nullptr, root->right);
+
+  t1 = TreeNode(1);
+  t1.left = &t1_left;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(&t1_left, root->left);
+  EXPECT_EQ(3+4, root->left->val);
+  EXPECT_EQ(nullptr, root->right);
+
+  t1 = TreeNode(1);
+  t1.right= &t1_right;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(&t2_left, root->left);
+  EXPECT_EQ(4, root->left->val);
+  EXPECT_EQ(&t1_right, root->right);
+  EXPECT_EQ(5, root->right->val);
+
+  t1_left = TreeNode(3);
+  t1_right = TreeNode(5);
+  t1 = TreeNode(1);
+  t1.left = &t1_left;
+  t1.right = &t1_right;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(&t1_left, root->left);
+  EXPECT_EQ(3+4, root->left->val);
+  EXPECT_EQ(&t1_right, root->right);
+  EXPECT_EQ(5, root->right->val);
+
+  // t2->t2_right
+  t1 = TreeNode(1);
+  t2.left = nullptr;
+  t2.right = &t2_right;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(nullptr, root->left);
+  EXPECT_EQ(&t2_right, root->right);
+  EXPECT_EQ(6, root->right->val);
+
+  t1_left = TreeNode(3);
+  t1 = TreeNode(1);
+  t1.left = &t1_left;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(&t1_left, root->left);
+  EXPECT_EQ(3, root->left->val);
+  EXPECT_EQ(&t2_right, root->right);
+  EXPECT_EQ(6, root->right->val);
+
+  t1_right = TreeNode(5);
+  t1 = TreeNode(1);
+  t1.right= &t1_right;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(nullptr, root->left);
+  EXPECT_EQ(&t1_right, root->right);
+  EXPECT_EQ(5+6, root->right->val);
+
+  t1_left = TreeNode(3);
+  t1_right = TreeNode(5);
+  t1 = TreeNode(1);
+  t1.left = &t1_left;
+  t1.right = &t1_right;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(&t1_left, root->left);
+  EXPECT_EQ(3, root->left->val);
+  EXPECT_EQ(&t1_right, root->right);
+  EXPECT_EQ(5+6, root->right->val);
+
+  // t2->t2_left
+  //   ->t2_right
+  t1 = TreeNode(1);
+  t2.left = &t2_left;
+  t2.right = &t2_right;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(&t2_left, root->left);
+  EXPECT_EQ(4, root->left->val);
+  EXPECT_EQ(&t2_right, root->right);
+  EXPECT_EQ(6, root->right->val);
+
+  t1_left = TreeNode(3);
+  t1 = TreeNode(1);
+  t1.left = &t1_left;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(&t1_left, root->left);
+  EXPECT_EQ(3+4, root->left->val);
+  EXPECT_EQ(&t2_right, root->right);
+  EXPECT_EQ(6, root->right->val);
+
+  t1_right = TreeNode(5);
+  t1 = TreeNode(1);
+  t1.right= &t1_right;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(&t2_left, root->left);
+  EXPECT_EQ(4, root->left->val);
+  EXPECT_EQ(&t1_right, root->right);
+  EXPECT_EQ(5+6, root->right->val);
+
+  t1_left = TreeNode(3);
+  t1_right = TreeNode(5);
+  t1 = TreeNode(1);
+  t1.left = &t1_left;
+  t1.right = &t1_right;
+  root = solution.mergeTrees(&t1, &t2);
+  EXPECT_EQ(1+2, root->val);
+  EXPECT_EQ(&t1_left, root->left);
+  EXPECT_EQ(3+4, root->left->val);
+  EXPECT_EQ(&t1_right, root->right);
+  EXPECT_EQ(5+6, root->right->val);
+}
+
 }

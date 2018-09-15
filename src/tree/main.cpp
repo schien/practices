@@ -15,6 +15,7 @@ void usage() {
             << "              i n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              c n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              C n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
+            << "              m n t1_v t1_left t1_right ... tn_v tn_left tn_right n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << std::flush;
 }
 
@@ -272,6 +273,31 @@ void runLCA() {
   std::cout << output->val << std::endl;
 }
 
+void runMergeBinaryTree() {
+  int n = next<int>();
+  std::vector<tuple<int, int, int>> input;
+
+  for (int i = 0; i < n; ++i) {
+    int v = next<int>(), l = next<int>(), r = next<int>();
+    input.emplace_back(v,l,r);
+  }
+
+  std::vector<TreeNode> t1 = tree_from_input<TreeNode>(input);
+
+  n = next<int>();
+  input.clear();
+  for (int i = 0; i < n; ++i) {
+    int v = next<int>(), l = next<int>(), r = next<int>();
+    input.emplace_back(v,l,r);
+  }
+
+  std::vector<TreeNode> t2 = tree_from_input<TreeNode>(input);
+  Solution solution;
+  auto output = solution.mergeTrees(&t1.at(0), &t2.at(0));
+  output_tree(output);
+}
+
+
 int main() {
   char op = next<char>();
 
@@ -305,6 +331,9 @@ int main() {
       break;
     case 'C':
       runLCA();
+      break;
+    case 'm':
+      runMergeBinaryTree();
       break;
     default:
       usage();
