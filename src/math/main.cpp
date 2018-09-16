@@ -6,6 +6,7 @@
 void usage() {
   std::cout << "usage: math p x n\n"
             << "            d l r\n"
+            << "            n x\n"
             << std::flush;
 }
 
@@ -29,6 +30,12 @@ void runSelfDividingNumbers() {
   std::cout << std::endl;
 }
 
+void runNthDigit() {
+  Solution solution;
+  auto output = solution.findNthDigit(next<int>());
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -38,6 +45,9 @@ int main() {
       break;
     case 'd':
       runSelfDividingNumbers();
+      break;
+    case 'n':
+      runNthDigit();
       break;
     default:
       usage();

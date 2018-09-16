@@ -44,4 +44,25 @@ TEST(SelfDividingNumbersTest, example) {
   }
 }
 
+TEST(NthDigitTest, invalid) {
+  Solution solution;
+
+  EXPECT_EQ(-1, solution.findNthDigit(0));
+  EXPECT_EQ(-1, solution.findNthDigit(-1));
+  EXPECT_EQ(-1, solution.findNthDigit(INT_MIN));
+}
+
+TEST(NthDigitTest, example) {
+  Solution solution;
+
+  string target;
+  for (int i = 1; i < 1000000; ++i) {
+    target += to_string(i);
+  }
+
+  for (int i = 0; i < target.size(); ++i) {
+    EXPECT_EQ(target[i]-'0', solution.findNthDigit(i+1));
+  }
+}
+
 }

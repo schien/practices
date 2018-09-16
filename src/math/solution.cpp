@@ -1,10 +1,12 @@
 // https://leetcode.com/problems/powx-n/
 // https://leetcode.com/problems/self-dividing-numbers/
+// https://leetcode.com/problems/nth-digit
 
 #include <cstdlib>
 #include <cstdint>
 #include <vector>
 #include <array>
+#include <cmath>
 
 using namespace std;
 
@@ -60,5 +62,21 @@ class Solution {
         }
       }
       return result;
+    }
+    int findNthDigit(int n) {
+      if (n <= 0) {
+        return -1;
+      }
+      int d = 1;
+      long long c = 9;
+      while (n > c*d) {
+        n -= c*d;
+        ++d;
+        c *= 10;
+      }
+
+      int k = static_cast<int>(pow(10, d-1)) + ((n-1)/d);
+      int i = d - ((n-1)%d);
+      return (k% static_cast<int>(pow(10, i))) / static_cast<int>(pow(10, i-1));
     }
 };
