@@ -594,4 +594,77 @@ TEST(ReturnToOriginTest, small) {
   EXPECT_TRUE(solution.judgeCircle("RL"));
 }
 
+TEST(ValidIPAddress, valid) {
+  Solution solution;
+
+  EXPECT_EQ("IPv4", solution.validIPAddress("172.16.254.1"));
+  EXPECT_EQ("IPv4", solution.validIPAddress("0.0.0.0"));
+  EXPECT_EQ("IPv4", solution.validIPAddress("255.255.255.255"));
+
+  EXPECT_EQ("IPv6", solution.validIPAddress("1234:5678:90ab:cdef:ABCD:EF98:7654:3210"));
+  EXPECT_EQ("IPv6", solution.validIPAddress("0:12:345:6789:a:bc:def:ABCD"));
+  EXPECT_EQ("IPv6", solution.validIPAddress("0:0:0:0:0:0:0:0"));
+  EXPECT_EQ("IPv6", solution.validIPAddress("FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF"));
+}
+
+TEST(ValidIPAddress, invalid) {
+  Solution solution;
+
+  EXPECT_EQ("Neither", solution.validIPAddress(""));
+  EXPECT_EQ("Neither", solution.validIPAddress(".:"));
+  EXPECT_EQ("Neither", solution.validIPAddress("."));
+  EXPECT_EQ("Neither", solution.validIPAddress("..."));
+  EXPECT_EQ("Neither", solution.validIPAddress(":"));
+  EXPECT_EQ("Neither", solution.validIPAddress(":::::::"));
+
+  EXPECT_EQ("Neither", solution.validIPAddress("172.16.254.1."));
+  EXPECT_EQ("Neither", solution.validIPAddress(".172.16.254.1"));
+  EXPECT_EQ("Neither", solution.validIPAddress("172.16.254."));
+  EXPECT_EQ("Neither", solution.validIPAddress(".172.16.254"));
+  EXPECT_EQ("Neither", solution.validIPAddress("172..16.254"));
+  EXPECT_EQ("Neither", solution.validIPAddress("172.16.254"));
+  EXPECT_EQ("Neither", solution.validIPAddress("256.255.255.255"));
+  EXPECT_EQ("Neither", solution.validIPAddress("255.256.255.255"));
+  EXPECT_EQ("Neither", solution.validIPAddress("255.255.256.255"));
+  EXPECT_EQ("Neither", solution.validIPAddress("255.255.255.256"));
+  EXPECT_EQ("Neither", solution.validIPAddress("1000.0.0.0"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0.1000.0.0"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0.0.1000.0"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0.0.0.1000"));
+
+  EXPECT_EQ("Neither", solution.validIPAddress("01234:5678:90ab:cdef:ABCD:EF98:7654:3210"));
+  EXPECT_EQ("Neither", solution.validIPAddress("1234:05678:90ab:cdef:ABCD:EF98:7654:3210"));
+  EXPECT_EQ("Neither", solution.validIPAddress("1234:5678:090ab:cdef:ABCD:EF98:7654:3210"));
+  EXPECT_EQ("Neither", solution.validIPAddress("1234:5678:90ab:0cdef:ABCD:EF98:7654:3210"));
+  EXPECT_EQ("Neither", solution.validIPAddress("1234:5678:90ab:cdef:0ABCD:EF98:7654:3210"));
+  EXPECT_EQ("Neither", solution.validIPAddress("1234:5678:90ab:cdef:ABCD:0EF98:7654:3210"));
+  EXPECT_EQ("Neither", solution.validIPAddress("1234:5678:90ab:cdef:ABCD:EF98:07654:3210"));
+  EXPECT_EQ("Neither", solution.validIPAddress("1234:5678:90ab:cdef:ABCD:EF98:7654:03210"));
+  EXPECT_EQ("Neither", solution.validIPAddress(":0:12:345:6789:a:bc:def:ABCD"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0::12:345:6789:a:bc:def:ABCD"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:12::345:6789:a:bc:def:ABCD"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:12:345::6789:a:bc:def:ABCD"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:12:345:6789::a:bc:def:ABCD"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:12:345:6789:a::bc:def:ABCD"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:12:345:6789:a:bc::def:ABCD"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:12:345:6789:a:bc:def::ABCD"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:12:345:6789:a:bc:def:ABCD:"));
+  EXPECT_EQ("Neither", solution.validIPAddress(":0:0:0:0:0:0:0"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0::0:0:0:0:0:0"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:0::0:0:0:0:0"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:0:0::0:0:0:0"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:0:0:0::0:0:0"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:0:0:0:0::0:0"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:0:0:0:0:0::0"));
+  EXPECT_EQ("Neither", solution.validIPAddress("0:0:0:0:0:0:0:"));
+  EXPECT_EQ("Neither", solution.validIPAddress("GFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF"));
+  EXPECT_EQ("Neither", solution.validIPAddress("FFFF:FhFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF"));
+  EXPECT_EQ("Neither", solution.validIPAddress("FFFF:FFFF:FFiF:FFFF:FFFF:FFFF:FFFF:FFFF"));
+  EXPECT_EQ("Neither", solution.validIPAddress("FFFF:FFFF:FFFF:FFFj:FFFF:FFFF:FFFF:FFFF"));
+  EXPECT_EQ("Neither", solution.validIPAddress("FFFF:FFFF:FFFF:FFFF:FFFK:FFFF:FFFF:FFFF"));
+  EXPECT_EQ("Neither", solution.validIPAddress("FFFF:FFFF:FFFF:FFFF:FFFF:FFLF:FFFF:FFFF"));
+  EXPECT_EQ("Neither", solution.validIPAddress("FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FMFF:FFFF"));
+  EXPECT_EQ("Neither", solution.validIPAddress("FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:NFFF"));
+}
+
 }

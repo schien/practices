@@ -12,6 +12,7 @@
 // https://leetcode.com/problems/unique-morse-code-words/
 // https://leetcode.com/problems/letter-case-permutation/
 // https://leetcode.com/problems/robot-return-to-origin/
+// https://leetcode.com/problems/validate-ip-address/
 
 #include <string>
 #include <array>
@@ -33,6 +34,85 @@ static bool isPalindrome(const string& s, const int l, const int h) {
     }
   }
   return true;
+}
+
+static bool validIPv4(const string& ip) {
+  // states : 's', 'z', '1', '2', '3'
+  char state = 's';
+  int curr = 0;
+  for (auto c : ip) {
+    switch (state) {
+      case 's':
+        if (c == '0') {
+          state = 'z';
+        } else if (c >= '1' && c <= '9') {
+          curr = (c - '0');
+          state = '1';
+        } else {
+          return false;
+        }
+        break;
+      case '1':
+      case '2':
+        if (c >= '0' && c <= '9') {
+          curr = curr * 10 + (c - '0');
+          ++state;
+          break;
+        }
+      case '3':
+      case 'z':
+        if (c == '.' && curr < 256) {
+          state = 's';
+          curr = 0;
+        } else {
+          return false;
+        }
+        break;
+      default:
+        return false;
+    }
+  }
+  switch (state) {
+    case 'z':
+    case '1':
+    case '2':
+    case '3':
+      return curr < 256;
+    default:
+      return false;
+  }
+}
+static bool validIPv6(const string& ip) {
+  // state s, 1, 2, 3, 4
+  char state = 's';
+  for (auto c : ip) {
+    switch (state) {
+      case 's':
+        if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
+          state = '1';
+        } else {
+          return false;
+        }
+        break;
+      case '1':
+      case '2':
+      case '3':
+        if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
+          ++state;
+          break;
+        }
+      case '4':
+        if (c == ':') {
+          state = 's';
+        } else {
+          return false;
+        }
+        break;
+      default:
+        return false;
+    }
+  }
+  return state >= '1' && state <= '4';
 }
 
 class Solution {
@@ -417,5 +497,30 @@ class Solution {
         }
       }
       return !x && !y;
+    }
+    string validIPAddress(string IP) {
+      enum AnswerType {
+        V4, V6, INVALID
+      };
+      static string answers[3] { "IPv4", "IPv6", "Neither"};
+
+      int v4_sp = 0;
+      int v6_sp = 0;
+      for (auto c : IP) {
+        switch (c) {
+          case '.': ++v4_sp; break;
+          case ':': ++v6_sp; break;
+          default: break;
+        }
+      }
+      if (!v4_sp == !v6_sp || (v4_sp != 0 && v4_sp != 3) || (v6_sp != 0 && v6_sp != 7)) {
+        return answers[INVALID];
+      }
+
+      if (v4_sp) {
+        return validIPv4(IP) ? answers[V4] : answers[INVALID];
+      } else {
+        return validIPv6(IP) ? answers[V6] : answers[INVALID];
+      }
     }
 };

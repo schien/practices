@@ -19,6 +19,7 @@ void usage() {
             << "       m str n word_1 ... word_n\n"
             << "       C str1\n"
             << "       R str1\n"
+            << "       i str1\n"
             << std::flush;
 }
 
@@ -145,6 +146,11 @@ void runReturnToOrigin() {
   std::cout << solution.judgeCircle(moves) << std::endl;
 }
 
+void runValidIPAddress() {
+  Solution solution;
+  std::cout << solution.validIPAddress(next<std::string>()) << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -194,6 +200,9 @@ int main() {
       break;
     case 'R':
       runReturnToOrigin();
+      break;
+    case 'i':
+      runValidIPAddress();
       break;
     default:
       usage();
