@@ -5,6 +5,7 @@
 // https://leetcode.com/problems/hamming-distance/
 // https://leetcode.com/problems/valid-perfect-square/
 // https://leetcode.com/problems/sum-of-square-numbers/
+// https://leetcode.com/problems/perfect-number/
 
 #include <unordered_set>
 #include <vector>
@@ -174,5 +175,23 @@ public:
         }
       }
       return false;
+    }
+    bool checkPerfectNumber(int num) {
+      if (num <= 1) {
+        return false;
+      }
+
+      int bound = static_cast<int>(sqrt(num));
+      int sum = 1;
+      for (int i = 2; i <= bound; ++i) {
+        if (num%i == 0) {
+          if (i*i == num) {
+            sum += i;
+          } else {
+            sum += i + num/i;
+          }
+        }
+      }
+      return sum == num;
     }
 };

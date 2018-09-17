@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include <numeric>
 
 #include "solution.cpp"
 
@@ -132,6 +133,51 @@ TEST(SquareSumTest, small) {
     } else {
       EXPECT_FALSE(solution.judgeSquareSum(i));
     }
+  }
+}
+
+TEST(PerfectNumberTest, boundary_condition) {
+  Solution solution;
+
+  EXPECT_FALSE(solution.checkPerfectNumber(-1));
+  EXPECT_FALSE(solution.checkPerfectNumber(0));
+  EXPECT_FALSE(solution.checkPerfectNumber(1));
+}
+
+static vector<int> get_all_divisors(const int num) {
+  if (num <= 1) {
+    return {};
+  }
+  vector<int> divisors{1};
+  int bound = static_cast<int>(sqrt(num));
+  for (int i = 2; i <= bound; ++i) {
+    if (num%i == 0) {
+      divisors.emplace_back(i);
+      if (num/i != i) {
+        divisors.emplace_back(num/i);
+      }
+    }
+  }
+  return divisors;
+}
+
+TEST(PerfectNumberTest, small) {
+  Solution solution;
+
+  for (int i = 2; i < 10000; ++i) {
+    auto divisors = get_all_divisors(i);
+    int sum = accumulate(divisors.begin(), divisors.end(), 0);
+    EXPECT_EQ(sum == i, solution.checkPerfectNumber(i));
+  }
+}
+
+TEST(PerfectNumberTest, large) {
+  Solution solution;
+
+  for (int i = 99900000; i < 100000000; ++i) {
+    auto divisors = get_all_divisors(i);
+    int sum = accumulate(divisors.begin(), divisors.end(), 0);
+    EXPECT_EQ(sum == i, solution.checkPerfectNumber(i));
   }
 }
 
