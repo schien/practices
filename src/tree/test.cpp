@@ -875,4 +875,62 @@ TEST(MergeBinaryTreeTest, small) {
   EXPECT_EQ(5+6, root->right->val);
 }
 
+TEST(MaxPathSumTest, empty) {
+  Solution solution;
+  EXPECT_EQ(0, solution.maxPathSum(nullptr));
+}
+
+TEST(MaxPathSumTest, example) {
+  Solution solution;
+
+  TreeNode root(1);
+  EXPECT_EQ(1, solution.maxPathSum(&root));
+
+  root.val = -1;
+  EXPECT_EQ(-1, solution.maxPathSum(&root));
+
+  TreeNode l(1);
+  root.left = &l;
+  EXPECT_EQ(1, solution.maxPathSum(&root));
+
+  l.val = -1;
+  EXPECT_EQ(-1, solution.maxPathSum(&root));
+
+  TreeNode r(1);
+  root.right = &r;
+  EXPECT_EQ(1, solution.maxPathSum(&root));
+
+  r.val = -1;
+  EXPECT_EQ(-1, solution.maxPathSum(&root));
+
+  l.val = 1;
+  r.val = 1;
+  EXPECT_EQ(1, solution.maxPathSum(&root));
+
+  root.val = 1;
+  EXPECT_EQ(3, solution.maxPathSum(&root));
+
+  TreeNode ll(3);
+  l.left = &ll;
+  EXPECT_EQ(6, solution.maxPathSum(&root));
+
+  TreeNode lr(3);
+  l.right = &lr;
+  EXPECT_EQ(7, solution.maxPathSum(&root));
+
+  TreeNode rl(2);
+  r.left = &rl;
+  EXPECT_EQ(8, solution.maxPathSum(&root));
+
+  TreeNode rr(10);
+  r.right = &rr;
+  EXPECT_EQ(16, solution.maxPathSum(&root));
+
+  r.val = -6;
+  EXPECT_EQ(10, solution.maxPathSum(&root));
+
+  rl.val = 10;
+  EXPECT_EQ(14, solution.maxPathSum(&root));
+}
+
 }

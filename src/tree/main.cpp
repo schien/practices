@@ -16,6 +16,7 @@ void usage() {
             << "              c n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              C n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << "              m n t1_v t1_left t1_right ... tn_v tn_left tn_right n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
+            << "              s n t1_v t1_left t1_right ... tn_v tn_left tn_right\n"
             << std::flush;
 }
 
@@ -297,6 +298,21 @@ void runMergeBinaryTree() {
   output_tree(output);
 }
 
+void runMaxPathSum() {
+  int n = next<int>();
+  std::vector<tuple<int, int, int>> input;
+
+  for (int i = 0; i < n; ++i) {
+    int v = next<int>(), l = next<int>(), r = next<int>();
+    input.emplace_back(v,l,r);
+  }
+
+  std::vector<TreeNode> nodes = tree_from_input<TreeNode>(input);
+
+  Solution solution;
+  auto output = solution.maxPathSum(&nodes.at(0));
+  std::cout << output << std::endl;
+}
 
 int main() {
   char op = next<char>();
@@ -334,6 +350,9 @@ int main() {
       break;
     case 'm':
       runMergeBinaryTree();
+      break;
+    case 's':
+      runMaxPathSum();
       break;
     default:
       usage();

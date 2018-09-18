@@ -8,6 +8,7 @@
 // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
 // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 // https://leetcode.com/problems/merge-two-binary-trees/
+// https://leetcode.com/problems/binary-tree-maximum-path-sum/
 
 #include <vector>
 #include <functional>
@@ -262,5 +263,30 @@ class Solution {
       t1->left = mergeTrees(t1->left, t2->left);
       t1->right = mergeTrees(t1->right, t2->right);
       return t1;
+    }
+    int maxPathSum(TreeNode* root) {
+      if (!root) { return 0; }
+
+      int mx = INT_MIN;
+
+      function<int(TreeNode*)> maxSumChild = [&mx, &maxSumChild](TreeNode* root) {
+        if (!root) { return 0; }
+
+        int left_max = maxSumChild(root->left);
+        int right_max = maxSumChild(root->right);
+
+        int path_max = root->val + max(0, max(left_max, right_max));
+        int sub_max = path_max;
+        if (left_max > 0 && right_max > 0) {
+          sub_max = root->val + left_max + right_max;
+        }
+
+        mx = max(mx, sub_max);
+
+        return path_max;
+      };
+
+      maxSumChild(root);
+      return mx;
     }
 };
