@@ -181,4 +181,18 @@ TEST(PerfectNumberTest, large) {
   }
 }
 
+TEST(ColumnTitleTest, example) {
+  Solution solution;
+
+  for (int i = 0; i < 26; ++i) {
+    const char c = 'A' + i;
+    EXPECT_EQ((string{c}), solution.convertToTitle(i+1));
+  }
+
+  EXPECT_EQ("", solution.convertToTitle(0));
+  EXPECT_EQ("", solution.convertToTitle(-1));
+  EXPECT_EQ("AB", solution.convertToTitle(28));
+  EXPECT_EQ("ZY", solution.convertToTitle(701));
+}
+
 }

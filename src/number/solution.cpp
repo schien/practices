@@ -6,9 +6,11 @@
 // https://leetcode.com/problems/valid-perfect-square/
 // https://leetcode.com/problems/sum-of-square-numbers/
 // https://leetcode.com/problems/perfect-number/
+// https://leetcode.com/problems/excel-sheet-column-title/
 
 #include <unordered_set>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -87,27 +89,27 @@ int numSquares_math(int n) {
   return 3;
 }
 class Solution {
-public:
+  public:
     bool isHappy(int n) {
-        if (n <= 0) {
-            return false;
-        }
+      if (n <= 0) {
+        return false;
+      }
 
-	auto digitsum = [](int n) {
-	  int sum = 0;
-	  while (n) {
-	    int d = n%10;
-	    n /= 10;
-	    sum += d*d;
-	  }
-	  return sum;
-	};
-
-        unordered_set<int> visited;
-        while (n != 1 && visited.insert(n).second) {
-            n = digitsum(n);
+      auto digitsum = [](int n) {
+        int sum = 0;
+        while (n) {
+          int d = n%10;
+          n /= 10;
+          sum += d*d;
         }
-        return n == 1;
+        return sum;
+      };
+
+      unordered_set<int> visited;
+      while (n != 1 && visited.insert(n).second) {
+        n = digitsum(n);
+      }
+      return n == 1;
     }
     int addDigits(int num) {
       auto digitsum = [](int n) {
@@ -193,5 +195,17 @@ public:
         }
       }
       return sum == num;
+    }
+    string convertToTitle(int n) {
+      if (n <= 0) { return ""; }
+      string result;
+      while(n) {
+        n--;
+        const char c = 'A' + (n%26);
+        result.append(1, c);
+        n /= 26;
+      }
+      reverse(result.begin(), result.end());
+      return result;
     }
 };

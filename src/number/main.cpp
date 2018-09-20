@@ -14,6 +14,7 @@ int main() {
   auto perfectSquare = solution.isPerfectSquare(n);
   auto squareSum= solution.judgeSquareSum(n);
   auto perfectNumber = solution.checkPerfectNumber(n);
+  auto columnTitle = solution.convertToTitle(n);
 
   std::cout << "happy: " << happy << std::endl;
   std::cout << "digit: " << digit << std::endl;
@@ -22,6 +23,7 @@ int main() {
   std::cout << "isPerfectSquare: " << perfectSquare << std::endl;
   std::cout << "judgeSquareSum:" << squareSum << std::endl;
   std::cout << "checkPerfectNumber:" << perfectNumber << std::endl;
+  std::cout << "convertToTitle:" << columnTitle<< std::endl;
 
   int y;
   std::cin >> y;
