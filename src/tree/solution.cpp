@@ -9,6 +9,7 @@
 // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 // https://leetcode.com/problems/merge-two-binary-trees/
 // https://leetcode.com/problems/binary-tree-maximum-path-sum/
+// https://leetcode.com/problems/search-in-a-binary-search-tree/
 
 #include <vector>
 #include <functional>
@@ -288,5 +289,14 @@ class Solution {
 
       maxSumChild(root);
       return mx;
+    }
+    TreeNode* searchBST(TreeNode* root, int val) {
+      while (root) {
+        if (val == root->val) {
+          return root;
+        }
+        root = (val < root->val) ? root->left : root->right;
+      }
+      return nullptr;
     }
 };

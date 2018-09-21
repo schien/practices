@@ -933,4 +933,37 @@ TEST(MaxPathSumTest, example) {
   EXPECT_EQ(14, solution.maxPathSum(&root));
 }
 
+TEST(SearchBSTTest, example) {
+  Solution solution;
+
+  EXPECT_EQ(nullptr, solution.searchBST(nullptr, 0));
+
+  vector<TreeNode> nodes;
+  nodes.reserve(100);
+  for (int i = 0; i < 100; ++i) {
+    nodes.emplace_back(-2*i);
+    if (i > 0) {
+      nodes[i-1].left = &nodes[i];
+    }
+  }
+
+  for (int i = 0; i < 100; ++i) {
+    EXPECT_EQ(&nodes.at(i), solution.searchBST(&nodes.at(0), -2*i));
+    EXPECT_EQ(nullptr, solution.searchBST(&nodes.at(0), -2*i - 1));
+  }
+
+  for (int i = 0; i < 100; ++i) {
+    nodes[i].val *= -1;
+    if (i > 0) {
+      nodes[i-1].right = &nodes[i];
+      nodes[i-1].left = nullptr;
+    }
+  }
+
+  for (int i = 0; i < 100; ++i) {
+    EXPECT_EQ(&nodes.at(i), solution.searchBST(&nodes.at(0), 2*i));
+    EXPECT_EQ(nullptr, solution.searchBST(&nodes.at(0), 2*i + 1));
+  }
+}
+
 }
