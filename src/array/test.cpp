@@ -1037,4 +1037,40 @@ TEST(MinPairSumTest, small) {
   }
 }
 
+TEST(SortByParityTest, example) {
+  Solution solution;
+
+  vector<int> input;
+  EXPECT_EQ(vector<int>{}, solution.sortArrayByParity(input));
+
+  for (int i = 0; i < 100; ++i) {
+    input.emplace_back(i*2);
+  }
+  auto output = solution.sortArrayByParity(input);
+  for (auto n : output) {
+    EXPECT_FALSE(n&1);
+  }
+
+  for (int i = 0; i < 100; ++i) {
+    input[i] = i*2+1;
+  }
+  output = solution.sortArrayByParity(input);
+  for (auto n : output) {
+    EXPECT_TRUE(n&1);
+  }
+
+
+  for (int i = 0; i < 100; ++i) {
+    input[i] = i;
+  }
+  output = solution.sortArrayByParity(input);
+  for (int i = 0; i < 50; ++i) {
+    EXPECT_FALSE(output[i] & 1);
+  }
+  for (int i = 50; i < 100; ++i) {
+    EXPECT_TRUE(output[i] & 1);
+  }
+
+}
+
 }

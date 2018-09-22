@@ -28,6 +28,7 @@ void usage() {
             << "        T {n x_1 ... x_n} t\n"
             << "        M {n x_1 ... x_n} k\n"
             << "        S {n x_1 ... x_n}\n"
+            << "        A {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -223,6 +224,16 @@ void runMinPairSum() {
   std::cout << output << std::endl;
 }
 
+void runSortArrayByParity() {
+  std::vector<int> nums = next_vector<int>();
+  Solution solution;
+  auto output = solution.sortArrayByParity(nums);
+  for (auto n : output) {
+    std::cout << n << ' ';
+  }
+  std::cout << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -298,6 +309,9 @@ int main() {
       break;
     case 'S':
       runMinPairSum();
+      break;
+    case 'A':
+      runSortArrayByParity();
       break;
     default:
       usage();

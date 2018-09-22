@@ -23,6 +23,7 @@
 // https://leetcode.com/problems/third-maximum-number/
 // https://leetcode.com/problems/sliding-window-maximum/
 // https://leetcode.com/problems/array-partition-i/
+// https://leetcode.com/problems/sort-array-by-parity/
 
 #include <vector>
 #include <unordered_set>
@@ -684,5 +685,16 @@ class Solution {
         result += nums[i];
       }
       return result;
+    }
+    vector<int> sortArrayByParity(vector<int>& A) {
+      const int sz = A.size();
+      int next_odd = 0;
+      for (int i = 0; i < sz; ++i) {
+        if (A[i] & 1) {
+          continue;
+        }
+        swap(A[i], A[next_odd++]);
+      }
+      return A;
     }
 };
