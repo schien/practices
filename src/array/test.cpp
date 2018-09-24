@@ -1073,4 +1073,72 @@ TEST(SortByParityTest, example) {
 
 }
 
+TEST(PlaceFlowersTest, example) {
+  Solution solution;
+
+  vector<int> input;
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 0));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 1));
+
+  input = {0};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 1));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 2));
+  input = {0,0};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 1));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 2));
+  input = {0,0,0};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 1));
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 2));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 3));
+
+  input = {1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 0));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 1));
+
+  input = {0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 0));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 1));
+  input = {0,0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 1));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 2));
+  input = {0,0,0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 1));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 2));
+  input = {0,0,0,0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 1));
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 2));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 3));
+
+  input = {1,0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 0));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 1));
+  input = {1,0,0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 0));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 1));
+  input = {1,0,0,0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 1));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 2));
+  input = {1,0,0,0,0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 1));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 2));
+  input = {1,0,0,0,0,0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 1));
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 2));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 3));
+
+  input = {0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 0));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 1));
+  input = {0,0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 1));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 2));
+  input = {0,0,0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 1));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 2));
+  input = {0,0,0,0,1};
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 1));
+  EXPECT_TRUE(solution.canPlaceFlowers(input, 2));
+  EXPECT_FALSE(solution.canPlaceFlowers(input, 3));
+}
+
 }

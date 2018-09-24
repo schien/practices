@@ -24,6 +24,7 @@
 // https://leetcode.com/problems/sliding-window-maximum/
 // https://leetcode.com/problems/array-partition-i/
 // https://leetcode.com/problems/sort-array-by-parity/
+// https://leetcode.com/problems/can-place-flowers/
 
 #include <vector>
 #include <unordered_set>
@@ -696,5 +697,25 @@ class Solution {
         swap(A[i], A[next_odd++]);
       }
       return A;
+    }
+    bool canPlaceFlowers(vector<int>& flowerbed, int n) {
+      if (n <= 0) { return true; }
+
+      const int sz = flowerbed.size();
+      auto allow = [&flowerbed, sz](int i) {
+        int l = (!i) ? 0 : flowerbed[i-1];
+        int r = (i == sz-1) ? 0 : flowerbed[i+1];
+        return !l && !r;
+      };
+
+      for (int i = 0; i < sz; ++i) {
+        if (!flowerbed[i] && allow(i)) {
+          if (--n == 0) {
+            return true;
+          }
+          flowerbed[i] = 1;
+        }
+      }
+      return false;
     }
 };

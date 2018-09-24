@@ -29,6 +29,7 @@ void usage() {
             << "        M {n x_1 ... x_n} k\n"
             << "        S {n x_1 ... x_n}\n"
             << "        A {n x_1 ... x_n}\n"
+            << "        f {n x_1 ... x_n} k\n"
             << std::flush;
 }
 
@@ -234,6 +235,13 @@ void runSortArrayByParity() {
   std::cout << std::endl;
 }
 
+void runCanPlaceFlowers() {
+  std::vector<int> nums = next_vector<int>();
+  Solution solution;
+  auto output = solution.canPlaceFlowers(nums, next<int>());
+  std::cout << std::boolalpha << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -312,6 +320,9 @@ int main() {
       break;
     case 'A':
       runSortArrayByParity();
+      break;
+    case 'f':
+      runCanPlaceFlowers();
       break;
     default:
       usage();
