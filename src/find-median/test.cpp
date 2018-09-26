@@ -25,10 +25,15 @@ TEST(FindMedianTest, large) {
   for (int i = 0; i < 10000; ++i) {
     finder.addNum(0);
   }
+  EXPECT_EQ(0, finder.findMedian());
   for (int i = 0; i < 10000; ++i) {
     finder.addNum(1);
   }
   EXPECT_EQ(0.5, finder.findMedian());
+  for (int i = 0; i < 10000; ++i) {
+    finder.addNum(2);
+  }
+  EXPECT_EQ(1, finder.findMedian());
 }
 
 }

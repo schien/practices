@@ -30,6 +30,7 @@ void usage() {
             << "        S {n x_1 ... x_n}\n"
             << "        A {n x_1 ... x_n}\n"
             << "        f {n x_1 ... x_n} k\n"
+            << "        F {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -242,6 +243,13 @@ void runCanPlaceFlowers() {
   std::cout << std::boolalpha << output << std::endl;
 }
 
+void runFindUnsortedSubarray() {
+  std::vector<int> nums = next_vector<int>();
+  Solution solution;
+  auto output = solution.findUnsortedSubarray(nums);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -324,6 +332,8 @@ int main() {
     case 'f':
       runCanPlaceFlowers();
       break;
+    case 'F':
+      runFindUnsortedSubarray();
     default:
       usage();
       break;

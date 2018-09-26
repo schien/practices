@@ -25,6 +25,7 @@
 // https://leetcode.com/problems/array-partition-i/
 // https://leetcode.com/problems/sort-array-by-parity/
 // https://leetcode.com/problems/can-place-flowers/
+// https://leetcode.com/problems/shortest-unsorted-continuous-subarray/
 
 #include <vector>
 #include <unordered_set>
@@ -718,4 +719,30 @@ class Solution {
       }
       return false;
     }
+    int findUnsortedSubarray(vector<int>& nums) {
+      const int sz = nums.size();
+      if (sz <= 1) { return 0; }
+
+      int r = 0;
+      int mx = nums[0];
+      for (int i = 1; i < sz; ++i) {
+        if (mx > nums[i]) {
+          r = i;
+        } else {
+          mx = nums[i];
+        }
+      }
+      if (!r) { return 0; }
+
+      int l = sz-1;
+      int mn = nums[sz-1];
+      for (int i = sz-2; i >= 0; --i) {
+        if (mn < nums[i]) {
+          l = i;
+        } else {
+          mn = nums[i];
+        }
+      }
+      return r-l+1;
+    };
 };

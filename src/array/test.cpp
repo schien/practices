@@ -1141,4 +1141,47 @@ TEST(PlaceFlowersTest, example) {
   EXPECT_FALSE(solution.canPlaceFlowers(input, 3));
 }
 
+TEST(UnsortedSubarrayTest, example) {
+  Solution solution;
+
+  vector<int> input;
+  EXPECT_EQ(0, solution.findUnsortedSubarray(input));
+
+  input = {1};
+  EXPECT_EQ(0, solution.findUnsortedSubarray(input));
+  input = vector<int>(5,1);
+  EXPECT_EQ(0, solution.findUnsortedSubarray(input));
+
+
+  input = {1,2,3,4,5};
+  EXPECT_EQ(0, solution.findUnsortedSubarray(input));
+  input = {5,1,2,3,4};
+  EXPECT_EQ(5, solution.findUnsortedSubarray(input));
+  input = {4,5,1,2,3};
+  EXPECT_EQ(5, solution.findUnsortedSubarray(input));
+  input = {3,4,5,1,2};
+  EXPECT_EQ(5, solution.findUnsortedSubarray(input));
+
+  input = {5,4,3,2,1};
+  EXPECT_EQ(5, solution.findUnsortedSubarray(input));
+  input = {1,5,4,3,2};
+  EXPECT_EQ(4, solution.findUnsortedSubarray(input));
+  input = {1,2,5,4,3};
+  EXPECT_EQ(3, solution.findUnsortedSubarray(input));
+
+  input = {1,4,2,3,5};
+  EXPECT_EQ(3, solution.findUnsortedSubarray(input));
+  input = {1,4,3,2,5};
+  EXPECT_EQ(3, solution.findUnsortedSubarray(input));
+  input = {1,3,4,2,5};
+  EXPECT_EQ(3, solution.findUnsortedSubarray(input));
+
+  input = {4,2,3,1,5};
+  EXPECT_EQ(4, solution.findUnsortedSubarray(input));
+  input = {4,2,1,3,5};
+  EXPECT_EQ(4, solution.findUnsortedSubarray(input));
+  input = {4,1,2,3,5};
+  EXPECT_EQ(4, solution.findUnsortedSubarray(input));
+}
+
 }
