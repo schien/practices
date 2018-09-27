@@ -443,4 +443,56 @@ TEST(MyLinkedListTest, del) {
 
 }
 
+TEST(RemoveElementsTest, example) {
+  Solution solution;
+
+  EXPECT_EQ(nullptr, solution.removeElements(nullptr, 0));
+
+  std::vector<ListNode> nodes{0,1};
+  nodes[0].next = &nodes[1];
+  auto output = solution.removeElements(&nodes[0], -1);
+  EXPECT_EQ(&nodes[0], output);
+  EXPECT_EQ(0, output->val);
+  EXPECT_EQ(&nodes[1], output->next);
+  EXPECT_EQ(1, output->next->val);
+  EXPECT_EQ(nullptr, output->next->next);
+
+  output = solution.removeElements(&nodes[0], 1);
+  EXPECT_EQ(&nodes[0], output);
+  EXPECT_EQ(0, output->val);
+  EXPECT_EQ(nullptr, output->next);
+
+  EXPECT_EQ(nullptr, solution.removeElements(&nodes[0], 0));
+
+  nodes = {0,0,0,1};
+  for (int i = 0; i < nodes.size()-1; ++i) { nodes[i].next = &nodes[i+1]; }
+  output = solution.removeElements(&nodes[0], 0);
+  EXPECT_EQ(&nodes[3], output);
+  EXPECT_EQ(1, output->val);
+  EXPECT_EQ(nullptr, output->next);
+
+  nodes = {1,0,0,0};
+  for (int i = 0; i < nodes.size()-1; ++i) { nodes[i].next = &nodes[i+1]; }
+  output = solution.removeElements(&nodes[0], 0);
+  EXPECT_EQ(&nodes[0], output);
+  EXPECT_EQ(1, output->val);
+  EXPECT_EQ(nullptr, output->next);
+
+  nodes = {1,0,0,0,1};
+  for (int i = 0; i < nodes.size()-1; ++i) { nodes[i].next = &nodes[i+1]; }
+  output = solution.removeElements(&nodes[0], 0);
+  EXPECT_EQ(&nodes[0], output);
+  EXPECT_EQ(1, output->val);
+  EXPECT_EQ(&nodes[4], output->next);
+  EXPECT_EQ(1, output->next->val);
+  EXPECT_EQ(nullptr, output->next->next);
+
+  nodes = {0,1,0};
+  for (int i = 0; i < nodes.size()-1; ++i) { nodes[i].next = &nodes[i+1]; }
+  output = solution.removeElements(&nodes[0], 0);
+  EXPECT_EQ(&nodes[1], output);
+  EXPECT_EQ(1, output->val);
+  EXPECT_EQ(nullptr, output->next);
+}
+
 }

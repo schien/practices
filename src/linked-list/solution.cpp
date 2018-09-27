@@ -5,6 +5,7 @@
 // https://leetcode.com/problems/odd-even-linked-list/
 // https://leetcode.com/problems/copy-list-with-random-pointer/
 // https://leetcode.com/problems/design-linked-list/
+// https://leetcode.com/problems/remove-linked-list-elements/
 
 #include <ostream>
 
@@ -298,6 +299,23 @@ public:
       curr = next;
     }
     return result;
+  }
+  ListNode* removeElements(ListNode* head, int val) {
+    if (!head) { return nullptr; }
+
+    ListNode dummy(0);
+    ListNode* prev = &dummy;
+    while (true) {
+      while (head && head->val == val) {
+        head = head->next;
+      }
+      prev->next = head;
+      if (!head) { break; }
+
+      prev = head;
+      head = head->next;
+    }
+    return dummy.next;
   }
 };
 

@@ -174,6 +174,16 @@ void runMyLinkedList() {
   }
 }
 
+void runRemoveElements() {
+  std::vector<ListNode> nodes = next_list();
+  int val;
+  std::cin >> val;
+  Solution solution;
+
+  auto output = solution.removeElements(&nodes[0], val);
+  printList(output);
+}
+
 void usage() {
   std::cerr << "usage: r N v[1] ... v[N]\n"
             << "       d N v[1] ... v[N] v[x] (where x < N)\n"
@@ -182,6 +192,7 @@ void usage() {
             << "       o N v[1] ... v[N]\n"
             << "       c N v[1] ... v[N] r[1] ... r[N] (where -1 == nullptr)\n"
             << "       l (h v)|(t v)|(i idx v)|(d idx v)|(p)\n"
+            << "       R N v[1] ... v[N] k\n"
             << std::flush;
 }
 
@@ -210,6 +221,9 @@ int main() {
       break;
     case 'l':
       runMyLinkedList();
+      break;
+    case 'R':
+      runRemoveElements();
       break;
     default:
       usage();
