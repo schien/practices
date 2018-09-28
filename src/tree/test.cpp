@@ -966,4 +966,51 @@ TEST(SearchBSTTest, example) {
   }
 }
 
+TEST(UnivaluePathTest, example) {
+  Solution solution;
+
+  EXPECT_EQ(0, solution.longestUnivaluePath(nullptr));
+
+  TreeNode root(1);
+  EXPECT_EQ(0, solution.longestUnivaluePath(&root));
+
+  TreeNode l(0);
+  root.left = &l;
+  EXPECT_EQ(0, solution.longestUnivaluePath(&root));
+
+  l.val = 1;
+  EXPECT_EQ(1, solution.longestUnivaluePath(&root));
+
+  TreeNode r(0);
+  root.right = &r;
+  EXPECT_EQ(1, solution.longestUnivaluePath(&root));
+
+  r.val = 1;
+  EXPECT_EQ(2, solution.longestUnivaluePath(&root));
+
+  l.val = 0;
+  EXPECT_EQ(1, solution.longestUnivaluePath(&root));
+
+  root.left = nullptr;
+  EXPECT_EQ(1, solution.longestUnivaluePath(&root));
+
+  vector<TreeNode> zeros(100, {0});
+  for (int i = 1; i < zeros.size(); ++i) {
+    zeros[i-1].left = &zeros[i];
+  }
+  root.left = &zeros[0];
+  EXPECT_EQ(99, solution.longestUnivaluePath(&root));
+  root.right = &zeros[0];
+  EXPECT_EQ(99, solution.longestUnivaluePath(&root));
+
+  vector<TreeNode> ones(100, {1});
+  for (int i = 1; i < ones.size(); ++i) {
+    ones[i-1].right = &ones[i];
+  }
+  root.left = &ones[0];
+  EXPECT_EQ(100, solution.longestUnivaluePath(&root));
+  root.right = &ones[0];
+  EXPECT_EQ(200, solution.longestUnivaluePath(&root));
+}
+
 }

@@ -10,6 +10,7 @@
 // https://leetcode.com/problems/merge-two-binary-trees/
 // https://leetcode.com/problems/binary-tree-maximum-path-sum/
 // https://leetcode.com/problems/search-in-a-binary-search-tree/
+// https://leetcode.com/problems/longest-univalue-path/
 
 #include <vector>
 #include <functional>
@@ -298,5 +299,23 @@ class Solution {
         root = (val < root->val) ? root->left : root->right;
       }
       return nullptr;
+    }
+    int longestUnivaluePath(TreeNode* root) {
+      int result = 0;
+
+      function<int(TreeNode*)> worker = [&result, &worker](TreeNode* root) {
+        if (!root) { return 0; }
+
+        int l = worker(root->left);
+        int r = worker(root->right);
+
+        l = (root->left && root->val == root->left->val) ? ++l : 0;
+        r = (root->right && root->val == root->right->val) ? ++r : 0;
+
+        result = max(result, l+r);
+        return max(l, r);
+      };
+      worker(root);
+      return result;
     }
 };
