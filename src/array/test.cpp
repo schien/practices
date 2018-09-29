@@ -1184,4 +1184,37 @@ TEST(UnsortedSubarrayTest, example) {
   EXPECT_EQ(4, solution.findUnsortedSubarray(input));
 }
 
+TEST(CheckSubarraySumTest, example) {
+  Solution solution;
+
+  vector<int> input;
+  EXPECT_FALSE(solution.checkSubarraySum(input, 0));
+  input = {0};
+  EXPECT_FALSE(solution.checkSubarraySum(input, 0));
+  input = {1};
+  EXPECT_FALSE(solution.checkSubarraySum(input, 1));
+
+  input = {0, 0};
+  EXPECT_TRUE(solution.checkSubarraySum(input, 0));
+  EXPECT_TRUE(solution.checkSubarraySum(input, 1));
+
+  input = {0, 1};
+  EXPECT_FALSE(solution.checkSubarraySum(input, 0));
+  EXPECT_TRUE(solution.checkSubarraySum(input, 1));
+
+  input = {1,1,1,1,1};
+  EXPECT_FALSE(solution.checkSubarraySum(input, 7));
+
+  input = {23, 2, 4, 6, 7};
+  EXPECT_TRUE(solution.checkSubarraySum(input, 6));
+  input = {23, 2, 6, 4, 7};
+  EXPECT_TRUE(solution.checkSubarraySum(input, 6));
+
+  input = {1,1,1,1,1,1,1,1,1,1};
+  for (int i = 11; i < 20; ++i) {
+    random_shuffle(input.begin(), input.end());
+    EXPECT_FALSE(solution.checkSubarraySum(input, i));
+  }
+}
+
 }

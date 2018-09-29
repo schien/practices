@@ -31,6 +31,7 @@ void usage() {
             << "        A {n x_1 ... x_n}\n"
             << "        f {n x_1 ... x_n} k\n"
             << "        F {n x_1 ... x_n}\n"
+            << "        C {n x_1 ... x_n} k\n"
             << std::flush;
 }
 
@@ -250,6 +251,13 @@ void runFindUnsortedSubarray() {
   std::cout << output << std::endl;
 }
 
+void runCheckSubarraySum() {
+  std::vector<int> nums = next_vector<int>();
+  Solution solution;
+  auto output = solution.checkSubarraySum(nums, next<int>());
+  std::cout << std::boolalpha << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -334,6 +342,10 @@ int main() {
       break;
     case 'F':
       runFindUnsortedSubarray();
+      break;
+    case 'C':
+      runCheckSubarraySum();
+      break;
     default:
       usage();
       break;

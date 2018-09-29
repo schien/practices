@@ -26,6 +26,7 @@
 // https://leetcode.com/problems/sort-array-by-parity/
 // https://leetcode.com/problems/can-place-flowers/
 // https://leetcode.com/problems/shortest-unsorted-continuous-subarray/
+// https://leetcode.com/problems/continuous-subarray-sum/
 
 #include <vector>
 #include <unordered_set>
@@ -745,4 +746,25 @@ class Solution {
       }
       return r-l+1;
     };
+    bool checkSubarraySum(vector<int>& nums, int k) {
+      const int sz = nums.size();
+      if (sz < 2) { return false; }
+
+      int sub = (k) ? nums[0]%k : nums[0];
+      int prev = 0;
+      unordered_set<int> prev_subsum;
+      for (int i = 1; i < sz; ++i) {
+        prev_subsum.insert(prev);
+        prev = sub;
+        sub += nums[i];
+        if (k) {
+          sub %= k;
+        }
+        if (prev_subsum.count(sub)) {
+          return true;
+        }
+      }
+
+      return false;
+    }
 };
