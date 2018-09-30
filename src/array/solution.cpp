@@ -27,6 +27,7 @@
 // https://leetcode.com/problems/can-place-flowers/
 // https://leetcode.com/problems/shortest-unsorted-continuous-subarray/
 // https://leetcode.com/problems/continuous-subarray-sum/
+// https://leetcode.com/problems/range-sum-query-immutable/
 
 #include <vector>
 #include <unordered_set>
@@ -767,4 +768,24 @@ class Solution {
 
       return false;
     }
+};
+
+class NumArray {
+  public:
+    NumArray(vector<int> nums) {
+      const int sz = nums.size();
+      nums_.reserve(sz);
+      int prev = 0;
+      for (int i = 0; i < sz; ++i) {
+        prev += nums[i];
+        nums_.emplace_back(prev);
+      }
+    }
+
+    int sumRange(int i, int j) {
+      if (!i) { return nums_[j]; }
+      return nums_[j] - nums_[i-1];
+    }
+  private:
+    vector<int> nums_;
 };

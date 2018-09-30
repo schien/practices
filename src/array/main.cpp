@@ -32,6 +32,7 @@ void usage() {
             << "        f {n x_1 ... x_n} k\n"
             << "        F {n x_1 ... x_n}\n"
             << "        C {n x_1 ... x_n} k\n"
+            << "        R {n x_1 ... x_n} i j\n"
             << std::flush;
 }
 
@@ -258,6 +259,12 @@ void runCheckSubarraySum() {
   std::cout << std::boolalpha << output << std::endl;
 }
 
+void runSumRange() {
+  NumArray nums(next_vector<int>());
+  auto output = nums.sumRange(next<int>(), next<int>());
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -345,6 +352,9 @@ int main() {
       break;
     case 'C':
       runCheckSubarraySum();
+      break;
+    case 'R':
+      runSumRange();
       break;
     default:
       usage();

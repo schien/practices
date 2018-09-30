@@ -1217,4 +1217,15 @@ TEST(CheckSubarraySumTest, example) {
   }
 }
 
+TEST(SumRangeTest, example) {
+  vector<int> input(100, 1);
+  NumArray nums(input);
+
+  for (int i = 0; i < 100; ++i) {
+    for (int j = i; j < 100; ++j) {
+      EXPECT_EQ(j-i+1, nums.sumRange(i, j));
+    }
+  }
+}
+
 }
