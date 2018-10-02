@@ -28,6 +28,7 @@
 // https://leetcode.com/problems/shortest-unsorted-continuous-subarray/
 // https://leetcode.com/problems/continuous-subarray-sum/
 // https://leetcode.com/problems/range-sum-query-immutable/
+// https://leetcode.com/problems/kth-largest-element-in-a-stream/
 
 #include <vector>
 #include <unordered_set>
@@ -788,4 +789,33 @@ class NumArray {
     }
   private:
     vector<int> nums_;
+};
+
+class KthLargest {
+  public:
+    KthLargest(int k, vector<int> nums)
+      : k_(k)
+    {
+      const int sz = nums.size();
+      for (int i = 0; i < sz; ++i) {
+        pq.emplace(nums[i]);
+        if (i >= k) {
+          pq.pop();
+        }
+      }
+      if (sz < k) {
+        pq.emplace(INT_MIN);
+      }
+    }
+
+    int add(int val) {
+      if (val > pq.top()) {
+        pq.emplace(val);
+        pq.pop();
+      }
+      return pq.top();
+    }
+  private:
+    priority_queue<int, vector<int>, greater<int>> pq;
+    int k_;
 };

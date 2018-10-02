@@ -33,6 +33,7 @@ void usage() {
             << "        F {n x_1 ... x_n}\n"
             << "        C {n x_1 ... x_n} k\n"
             << "        R {n x_1 ... x_n} i j\n"
+            << "        K {n x_1 ... x_n} k v_1 ...\n"
             << std::flush;
 }
 
@@ -265,6 +266,22 @@ void runSumRange() {
   std::cout << output << std::endl;
 }
 
+void runKthLargestInStream() {
+  std::vector<int> nums = next_vector<int>();
+  int k = next<int>();
+  KthLargest kth(k, nums);
+
+  while (true) {
+    int val;
+    std::cin >> val;
+    if (std::cin.eof()) {
+      break;
+    }
+    auto output = kth.add(val);
+    std::cout << output << std::endl;
+  }
+}
+
 int main() {
   char op = next<char>();
 
@@ -355,6 +372,9 @@ int main() {
       break;
     case 'R':
       runSumRange();
+      break;
+    case 'K':
+      runKthLargestInStream();
       break;
     default:
       usage();

@@ -1228,4 +1228,23 @@ TEST(SumRangeTest, example) {
   }
 }
 
+TEST(StreamKthLargestTest, example) {
+  KthLargest kth(1, {});
+  EXPECT_EQ(1, kth.add(1));
+  EXPECT_EQ(2, kth.add(2));
+  EXPECT_EQ(2, kth.add(0));
+
+  kth = KthLargest(2, {1,2});
+  EXPECT_EQ(1, kth.add(0));
+  EXPECT_EQ(2, kth.add(4));
+  EXPECT_EQ(3, kth.add(3));
+
+  kth = KthLargest(5, {0,2,4,6,8,10});
+  EXPECT_EQ(4, kth.add(9));
+  EXPECT_EQ(4, kth.add(1));
+  EXPECT_EQ(5, kth.add(5));
+  EXPECT_EQ(6, kth.add(7));
+  EXPECT_EQ(6, kth.add(3));
+}
+
 }
