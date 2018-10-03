@@ -1247,4 +1247,21 @@ TEST(StreamKthLargestTest, example) {
   EXPECT_EQ(6, kth.add(3));
 }
 
+TEST(SmallestRangeITest, example) {
+  Solution solution;
+
+  vector<int> input;
+  EXPECT_EQ(0, solution.smallestRangeI(input, 0));
+
+  input = {99};
+  EXPECT_EQ(0, solution.smallestRangeI(input, 0));
+  EXPECT_EQ(0, solution.smallestRangeI(input, 1));
+
+  input = {1,2,3,4,5};
+  EXPECT_EQ(4, solution.smallestRangeI(input, 0));
+  EXPECT_EQ(2, solution.smallestRangeI(input, 1));
+  EXPECT_EQ(0, solution.smallestRangeI(input, 2));
+  EXPECT_EQ(0, solution.smallestRangeI(input, 3));
+}
+
 }

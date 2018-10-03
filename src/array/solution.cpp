@@ -29,6 +29,7 @@
 // https://leetcode.com/problems/continuous-subarray-sum/
 // https://leetcode.com/problems/range-sum-query-immutable/
 // https://leetcode.com/problems/kth-largest-element-in-a-stream/
+// https://leetcode.com/problems/smallest-range-i/
 
 #include <vector>
 #include <unordered_set>
@@ -768,6 +769,18 @@ class Solution {
       }
 
       return false;
+    }
+    int smallestRangeI(vector<int>& A, int K) {
+      if (A.empty()) { return 0; }
+
+      int min_v = A[0];
+      int max_v = A[0];
+      for (int n : A) {
+        max_v = max(max_v, n);
+        min_v = min(min_v, n);
+      }
+
+      return max(max_v - min_v - 2*K, 0);
     }
 };
 
