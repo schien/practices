@@ -35,6 +35,7 @@ void usage() {
             << "        R {n x_1 ... x_n} i j\n"
             << "        K {n x_1 ... x_n} k v_1 ...\n"
             << "        D {n x_1 ... x_n} k\n"
+            << "        G {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -290,6 +291,13 @@ void runSmallestRangeI() {
   std::cout << output << std::endl;
 }
 
+void runGroupSizeX() {
+  std::vector<int> nums = next_vector<int>();
+  Solution solution;
+  auto output = solution.hasGroupsSizeX(nums);
+  std::cout << std::boolalpha << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -386,6 +394,9 @@ int main() {
       break;
     case 'D':
       runSmallestRangeI();
+      break;
+    case 'G':
+      runGroupSizeX();
       break;
     default:
       usage();

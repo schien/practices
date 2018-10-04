@@ -30,6 +30,7 @@
 // https://leetcode.com/problems/range-sum-query-immutable/
 // https://leetcode.com/problems/kth-largest-element-in-a-stream/
 // https://leetcode.com/problems/smallest-range-i/
+// https://leetcode.com/problems/x-of-a-kind-in-a-deck-of-cards/
 
 #include <vector>
 #include <unordered_set>
@@ -781,6 +782,23 @@ class Solution {
       }
 
       return max(max_v - min_v - 2*K, 0);
+    }
+    bool hasGroupsSizeX(vector<int>& deck) {
+      unordered_map<int, int> counts;
+      for (int c : deck) {
+        ++counts[c];
+      }
+
+      function<int(int,int)> gcd = [&gcd](int a, int b) {
+        return b == 0 ? a : gcd(b, a % b);
+      };
+
+      int X = 0;
+      for (auto& entry : counts) {
+        X = gcd(entry.second, X);
+      }
+
+      return X > 1;
     }
 };
 

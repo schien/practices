@@ -1264,4 +1264,51 @@ TEST(SmallestRangeITest, example) {
   EXPECT_EQ(0, solution.smallestRangeI(input, 3));
 }
 
+TEST(GroupSizeXTest, example) {
+  Solution solution;
+
+  vector<int> input;
+  EXPECT_FALSE(solution.hasGroupsSizeX(input));
+
+  input = {1};
+  EXPECT_FALSE(solution.hasGroupsSizeX(input));
+
+  input = {1,2};
+  EXPECT_FALSE(solution.hasGroupsSizeX(input));
+
+  input = {1,1};
+  EXPECT_TRUE(solution.hasGroupsSizeX(input));
+
+  input = {1,1,1};
+  EXPECT_TRUE(solution.hasGroupsSizeX(input));
+
+  input = {1,1,2};
+  EXPECT_FALSE(solution.hasGroupsSizeX(input));
+
+  input = {1,1,2,2,2};
+  EXPECT_FALSE(solution.hasGroupsSizeX(input));
+
+  input = {1,1,2,2,2,2};
+  EXPECT_TRUE(solution.hasGroupsSizeX(input));
+
+  input = {1,1,1,1,2,2,2,2,2,2};
+  EXPECT_TRUE(solution.hasGroupsSizeX(input));
+
+  input.clear();
+  for (int i = 0; i < 100; ++i) {
+    input.push_back(i);
+    input.push_back(i);
+  }
+  EXPECT_TRUE(solution.hasGroupsSizeX(input));
+
+  input.push_back(100);
+  EXPECT_FALSE(solution.hasGroupsSizeX(input));
+  input.push_back(100);
+  EXPECT_TRUE(solution.hasGroupsSizeX(input));
+  input.push_back(100);
+  EXPECT_FALSE(solution.hasGroupsSizeX(input));
+  input.push_back(100);
+  EXPECT_TRUE(solution.hasGroupsSizeX(input));
+}
+
 }
