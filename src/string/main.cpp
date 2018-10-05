@@ -20,6 +20,7 @@ void usage() {
             << "       C str1\n"
             << "       R str1\n"
             << "       i str1\n"
+            << "       P str1\n"
             << std::flush;
 }
 
@@ -151,6 +152,11 @@ void runValidIPAddress() {
   std::cout << solution.validIPAddress(next<std::string>()) << std::endl;
 }
 
+void runValidPalindrome() {
+  Solution solution;
+  std::cout << std::boolalpha << solution.validPalindrome(next<std::string>()) << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -203,6 +209,9 @@ int main() {
       break;
     case 'i':
       runValidIPAddress();
+      break;
+    case 'P':
+      runValidPalindrome();
       break;
     default:
       usage();

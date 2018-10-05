@@ -667,4 +667,32 @@ TEST(ValidIPAddress, invalid) {
   EXPECT_EQ("Neither", solution.validIPAddress("FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:NFFF"));
 }
 
+TEST(ValidPalindromeTest, example) {
+  Solution solution;
+
+  EXPECT_TRUE(solution.validPalindrome(""));
+  EXPECT_TRUE(solution.validPalindrome("a"));
+  EXPECT_TRUE(solution.validPalindrome("az"));
+  EXPECT_TRUE(solution.validPalindrome("aa"));
+  EXPECT_TRUE(solution.validPalindrome("zaa"));
+  EXPECT_TRUE(solution.validPalindrome("aaz"));
+  EXPECT_TRUE(solution.validPalindrome("aba"));
+  EXPECT_TRUE(solution.validPalindrome("zaba"));
+  EXPECT_TRUE(solution.validPalindrome("azba"));
+  EXPECT_TRUE(solution.validPalindrome("abza"));
+  EXPECT_TRUE(solution.validPalindrome("abaz"));
+  EXPECT_TRUE(solution.validPalindrome("abba"));
+  EXPECT_TRUE(solution.validPalindrome("zabba"));
+  EXPECT_TRUE(solution.validPalindrome("azbba"));
+  EXPECT_TRUE(solution.validPalindrome("abbza"));
+  EXPECT_TRUE(solution.validPalindrome("abbaz"));
+
+  EXPECT_FALSE(solution.validPalindrome("abz"));
+  EXPECT_FALSE(solution.validPalindrome("zab"));
+  EXPECT_FALSE(solution.validPalindrome("zabbax"));
+  EXPECT_FALSE(solution.validPalindrome("azbbax"));
+  EXPECT_FALSE(solution.validPalindrome("zabbxa"));
+  EXPECT_FALSE(solution.validPalindrome("azbbxa"));
+}
+
 }

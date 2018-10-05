@@ -13,6 +13,7 @@
 // https://leetcode.com/problems/letter-case-permutation/
 // https://leetcode.com/problems/robot-return-to-origin/
 // https://leetcode.com/problems/validate-ip-address/
+// https://leetcode.com/problems/valid-palindrome-ii/
 
 #include <string>
 #include <array>
@@ -522,5 +523,22 @@ class Solution {
       } else {
         return validIPv6(IP) ? answers[V6] : answers[INVALID];
       }
+    }
+    bool validPalindrome(string s) {
+      function<bool(int,int,bool)> worker = [&s,&worker](int i, int j, bool relax) {
+        while (i < j) {
+          if (s[i] == s[j]) {
+            ++i; --j;
+            continue;
+          }
+          if (relax) {
+            return worker(i+1,j,false) || worker(i,j-1,false);
+          } else {
+            return false;
+          }
+        }
+        return true;
+      };
+      return worker(0, s.size()-1, true);
     }
 };
