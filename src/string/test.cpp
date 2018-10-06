@@ -695,4 +695,15 @@ TEST(ValidPalindromeTest, example) {
   EXPECT_FALSE(solution.validPalindrome("azbbxa"));
 }
 
+TEST(FindDifferenceTest, example) {
+  Solution solution;
+
+  string s = "abcdefghijklmnopqrstuvwxyz";
+  for (int i = 0; i < 26; ++i) {
+    string t = "abcdefghijklmnopqrstuvwxyz";
+    t.insert(i, 1, 'a' + i);
+    EXPECT_EQ('a'+i, solution.findTheDifference(s, t));
+  }
+}
+
 }

@@ -21,6 +21,7 @@ void usage() {
             << "       R str1\n"
             << "       i str1\n"
             << "       P str1\n"
+            << "       D str1 str2\n"
             << std::flush;
 }
 
@@ -157,6 +158,11 @@ void runValidPalindrome() {
   std::cout << std::boolalpha << solution.validPalindrome(next<std::string>()) << std::endl;
 }
 
+void runFindDifference() {
+  Solution solution;
+  std::cout << solution.findTheDifference(next<std::string>(), next<std::string>()) << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -212,6 +218,9 @@ int main() {
       break;
     case 'P':
       runValidPalindrome();
+      break;
+    case 'D':
+      runFindDifference();
       break;
     default:
       usage();

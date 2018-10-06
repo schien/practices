@@ -14,6 +14,7 @@
 // https://leetcode.com/problems/robot-return-to-origin/
 // https://leetcode.com/problems/validate-ip-address/
 // https://leetcode.com/problems/valid-palindrome-ii/
+// https://leetcode.com/problems/find-the-difference/
 
 #include <string>
 #include <array>
@@ -540,5 +541,15 @@ class Solution {
         return true;
       };
       return worker(0, s.size()-1, true);
+    }
+    char findTheDifference(string s, string t) {
+      char result = 0;
+      for (char c : s) {
+        result ^= c;
+      }
+      for (char c : t) {
+        result ^= c;
+      }
+      return result;
     }
 };
