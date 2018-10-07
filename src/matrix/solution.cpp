@@ -10,6 +10,7 @@
 // https://leetcode.com/problems/surrounded-regions/
 // https://leetcode.com/problems/flipping-an-image/
 // https://leetcode.com/problems/transpose-matrix/
+// https://leetcode.com/problems/magic-squares-in-grid/
 
 #include <vector>
 #include <queue>
@@ -481,5 +482,41 @@ class Solution {
         }
       }
       return result;
+    }
+    int numMagicSquaresInside(vector<vector<int>>& grid) {
+      if (grid.empty() || grid[0].empty()) { return 0; }
+
+      auto isMagicSquare = [&grid](const int i, const int j) {
+        if (grid[i][j] + grid[i+1][j+1] + grid[i+2][j+2] != 15 ||
+            grid[i+2][j] + grid[i+1][j+1] + grid[i][j+2] != 15) {
+          return false;
+        }
+        int mask = 0;
+        for (int k = 0; k < 3; ++k) {
+          int row = 0;
+          int col = 0;
+          for (int l = 0; l < 3; ++l) {
+            if (grid[i+k][j+l] < 1 || grid[i+k][j+l] > 9) { return false; }
+            if (mask & 1 << grid[i+k][j+l]) { return false; }
+            mask |= 1 << grid[i+k][j+l];
+            row += grid[i+k][j+l];
+            col += grid[i+l][j+k];
+          }
+          if (row != 15 || col != 15) {
+            return false;
+          }
+        }
+        return true;
+      };
+
+      int count = 0;
+      const int H = grid.size();
+      const int W = grid[0].size();
+      for (int i = 0; i < H-2; ++i) {
+        for (int j = 0; j < W-2; ++j) {
+          if (isMagicSquare(i,j)) { ++count; }
+        }
+      }
+      return count;
     }
 };

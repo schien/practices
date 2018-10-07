@@ -968,4 +968,89 @@ TEST(TransposeTest, non_square) {
   EXPECT_EQ(input, solution.transpose(expected));
 }
 
+TEST(MagicSquareInsideTest, example) {
+  Solution solution;
+
+  vector<vector<int>> input;
+  EXPECT_EQ(0, solution.numMagicSquaresInside(input));
+
+  input = {{0}};
+  EXPECT_EQ(0, solution.numMagicSquaresInside(input));
+
+  input = {
+    {0,15},
+    {15,0}
+  };
+  EXPECT_EQ(0, solution.numMagicSquaresInside(input));
+
+  input = {
+    {5,5,5},
+    {5,5,5},
+    {5,5,5},
+  };
+  EXPECT_EQ(0, solution.numMagicSquaresInside(input));
+
+  input = {
+    {1,2,3},
+    {4,5,6},
+    {7,8,9},
+  };
+  EXPECT_EQ(0, solution.numMagicSquaresInside(input));
+
+  input = {
+    {8,3,4},
+    {1,5,9},
+    {6,7,2},
+  };
+  EXPECT_EQ(1, solution.numMagicSquaresInside(input));
+
+  input = {
+    {8,3,4,8},
+    {1,5,9,1},
+    {6,7,2,6},
+  };
+  EXPECT_EQ(1, solution.numMagicSquaresInside(input));
+
+  input = {
+    {8,3,4,8,3},
+    {1,5,9,1,5},
+    {6,7,2,6,7},
+  };
+  EXPECT_EQ(1, solution.numMagicSquaresInside(input));
+
+  input = {
+    {8,3,4,8,3,4},
+    {1,5,9,1,5,9},
+    {6,7,2,6,7,2},
+  };
+  EXPECT_EQ(2, solution.numMagicSquaresInside(input));
+
+  input = {
+    {8,3,4,8,3,4},
+    {1,5,9,1,5,9},
+    {6,7,2,6,7,2},
+    {8,3,4,8,3,4},
+  };
+  EXPECT_EQ(2, solution.numMagicSquaresInside(input));
+
+  input = {
+    {8,3,4,8,3,4},
+    {1,5,9,1,5,9},
+    {6,7,2,6,7,2},
+    {8,3,4,8,3,4},
+    {1,5,9,1,5,9},
+  };
+  EXPECT_EQ(2, solution.numMagicSquaresInside(input));
+
+  input = {
+    {8,3,4,8,3,4},
+    {1,5,9,1,5,9},
+    {6,7,2,6,7,2},
+    {8,3,4,8,3,4},
+    {1,5,9,1,5,9},
+    {6,7,2,6,7,2},
+  };
+  EXPECT_EQ(4, solution.numMagicSquaresInside(input));
+}
+
 }
