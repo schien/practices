@@ -706,4 +706,27 @@ TEST(FindDifferenceTest, example) {
   }
 }
 
+TEST(BuddyStringTest, example) {
+  Solution solution;
+
+  EXPECT_TRUE(solution.buddyStrings("ab", "ba"));
+  EXPECT_TRUE(solution.buddyStrings("aa", "aa"));
+  EXPECT_TRUE(solution.buddyStrings("abc", "bac"));
+  EXPECT_TRUE(solution.buddyStrings("abc", "cba"));
+  EXPECT_TRUE(solution.buddyStrings("abc", "acb"));
+  EXPECT_TRUE(solution.buddyStrings("oooaoooboooc", "oooboooaoooc"));
+
+  EXPECT_FALSE(solution.buddyStrings("", ""));
+  EXPECT_FALSE(solution.buddyStrings("", "a"));
+  EXPECT_FALSE(solution.buddyStrings("a", ""));
+  EXPECT_FALSE(solution.buddyStrings("a", "a"));
+  EXPECT_FALSE(solution.buddyStrings("ab", "ab"));
+  EXPECT_FALSE(solution.buddyStrings("ab", "ac"));
+  EXPECT_FALSE(solution.buddyStrings("ab", "abc"));
+  EXPECT_FALSE(solution.buddyStrings("ab", "abc"));
+  EXPECT_FALSE(solution.buddyStrings("cab", "abc"));
+  EXPECT_FALSE(solution.buddyStrings("abx", "bay"));
+  EXPECT_FALSE(solution.buddyStrings("oooaooobooox", "oooboooaoooy"));
+}
+
 }

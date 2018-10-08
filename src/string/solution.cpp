@@ -15,6 +15,7 @@
 // https://leetcode.com/problems/validate-ip-address/
 // https://leetcode.com/problems/valid-palindrome-ii/
 // https://leetcode.com/problems/find-the-difference/
+// https://leetcode.com/problems/buddy-strings/
 
 #include <string>
 #include <array>
@@ -551,5 +552,29 @@ class Solution {
         result ^= c;
       }
       return result;
+    }
+    bool buddyStrings(string A, string B) {
+      if (A.size() != B.size()) { return false; }
+
+      const int sz = A.size();
+      int count[26] = {0};
+      int i = 0;
+      while (i < sz && A[i] == B[i]) {
+        ++count[A[i] - 'a'];
+        ++i;
+      }
+      if (i == sz) {
+        return any_of(count, count+26, [](int n) { return n > 1; });
+      }
+
+      int j = i+1;
+      while (j < sz && A[j] == B[j]) {
+        ++j;
+      }
+      if (j == sz || A[i] != B[j] || A[j] != B[i]) { return false; }
+
+      int k = j+1;
+      while (k < sz && A[k] == B[k]) { ++k; }
+      return k == sz;
     }
 };

@@ -22,6 +22,7 @@ void usage() {
             << "       i str1\n"
             << "       P str1\n"
             << "       D str1 str2\n"
+            << "       B str1 str2\n"
             << std::flush;
 }
 
@@ -163,6 +164,11 @@ void runFindDifference() {
   std::cout << solution.findTheDifference(next<std::string>(), next<std::string>()) << std::endl;
 }
 
+void runBuddyString() {
+  Solution solution;
+  std::cout << std::boolalpha << solution.buddyStrings(next<std::string>(), next<std::string>()) << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -221,6 +227,9 @@ int main() {
       break;
     case 'D':
       runFindDifference();
+      break;
+    case 'B':
+      runBuddyString();
       break;
     default:
       usage();
