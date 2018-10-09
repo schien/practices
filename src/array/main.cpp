@@ -36,6 +36,7 @@ void usage() {
             << "        K {n x_1 ... x_n} k v_1 ...\n"
             << "        D {n x_1 ... x_n} k\n"
             << "        G {n x_1 ... x_n}\n"
+            << "        u {n x_1 ... x_n} k\n"
             << std::flush;
 }
 
@@ -298,6 +299,13 @@ void runGroupSizeX() {
   std::cout << std::boolalpha << output << std::endl;
 }
 
+void runKdiffPair() {
+  std::vector<int> nums = next_vector<int>();
+  Solution solution;
+  auto output = solution.findPairs(nums, next<int>());
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -397,6 +405,9 @@ int main() {
       break;
     case 'G':
       runGroupSizeX();
+      break;
+    case 'u':
+      runKdiffPair();
       break;
     default:
       usage();

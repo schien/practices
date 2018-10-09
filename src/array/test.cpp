@@ -1311,4 +1311,43 @@ TEST(GroupSizeXTest, example) {
   EXPECT_TRUE(solution.hasGroupsSizeX(input));
 }
 
+TEST(KdiffPairTest, example) {
+  Solution solution;
+
+  vector<int> input;
+  EXPECT_EQ(0, solution.findPairs(input, 0));
+
+  input = {1};
+  EXPECT_EQ(0, solution.findPairs(input, 0));
+
+  for (int i = 0; i < 10; ++i) {
+    input.emplace_back(1);
+    EXPECT_EQ(1, solution.findPairs(input, 0));
+  }
+
+  input ={1,2,3,4,5};
+  for (int i = 1; i <= 5; ++i) {
+    EXPECT_EQ(5-i, solution.findPairs(input, i));
+    EXPECT_EQ(0, solution.findPairs(input, -i));
+  }
+
+  reverse(input.begin(), input.end());
+  for (int i = 1; i <= 5; ++i) {
+    EXPECT_EQ(5-i, solution.findPairs(input, i));
+  }
+
+  for (int i = 1; i < 5; ++i) {
+    input.emplace_back(i);
+  }
+  for (int i = 1; i <= 5; ++i) {
+    EXPECT_EQ(5-i, solution.findPairs(input, i));
+  }
+
+  input = {3, 1, 4, 1, 5};
+  EXPECT_EQ(2, solution.findPairs(input, 2));
+
+  input = {1, 3, 1, 5, 4};
+  EXPECT_EQ(1, solution.findPairs(input, 0));
+}
+
 }

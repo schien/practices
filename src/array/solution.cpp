@@ -31,6 +31,7 @@
 // https://leetcode.com/problems/kth-largest-element-in-a-stream/
 // https://leetcode.com/problems/smallest-range-i/
 // https://leetcode.com/problems/x-of-a-kind-in-a-deck-of-cards/
+// https://leetcode.com/problems/k-diff-pairs-in-an-array/
 
 #include <vector>
 #include <unordered_set>
@@ -799,6 +800,22 @@ class Solution {
       }
 
       return X > 1;
+    }
+    int findPairs(vector<int>& nums, int k) {
+      if (k < 0) { return 0; }
+
+      unordered_map<int,int> table;
+      int count = 0;
+      for (auto n : nums) {
+        const int cnt = ++table[n];
+        if (k == 0) {
+          if (cnt == 2) { ++count; }
+        } else if (cnt == 1) {
+          if (table[n+k]) { ++count; }
+          if (table[n-k]) { ++count; }
+        }
+      }
+      return count;
     }
 };
 
