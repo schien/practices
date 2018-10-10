@@ -37,6 +37,7 @@ void usage() {
             << "        D {n x_1 ... x_n} k\n"
             << "        G {n x_1 ... x_n}\n"
             << "        u {n x_1 ... x_n} k\n"
+            << "        0 {n x_1 ... x_n} k\n"
             << std::flush;
 }
 
@@ -306,6 +307,16 @@ void runKdiffPair() {
   std::cout << output << std::endl;
 }
 
+void runThreeSum() {
+  std::vector<int> nums = next_vector<int>();
+  Solution solution;
+  auto output = solution.threeSum(nums);
+  for (auto& v : output) {
+    std::cout << v[0] << ' ' << v[1] << ' ' << v[2] << '\n';
+  }
+  std::cout << std::flush;
+}
+
 int main() {
   char op = next<char>();
 
@@ -408,6 +419,9 @@ int main() {
       break;
     case 'u':
       runKdiffPair();
+      break;
+    case '0':
+      runThreeSum();
       break;
     default:
       usage();

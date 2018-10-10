@@ -1350,4 +1350,39 @@ TEST(KdiffPairTest, example) {
   EXPECT_EQ(1, solution.findPairs(input, 0));
 }
 
+TEST(ThreeSumTest, example) {
+  Solution solution;
+
+  vector<int> input;
+  EXPECT_EQ((vector<vector<int>>{}), solution.threeSum(input));
+
+  for (int i = 0; i < 10; ++i) {
+    input.emplace_back(i);
+    EXPECT_EQ((vector<vector<int>>{}), solution.threeSum(input));
+  }
+
+  input = {0,1,-1};
+  EXPECT_EQ((vector<vector<int>>{{-1,0,1}}), solution.threeSum(input));
+
+  for (int i = 0; i < 10; ++i) {
+    input.emplace_back(1);
+    EXPECT_EQ((vector<vector<int>>{{-1,0,1}}), solution.threeSum(input));
+  }
+
+  for (int i = 0; i < 10; ++i) {
+    input.emplace_back(-1);
+    EXPECT_EQ((vector<vector<int>>{{-1,0,1}}), solution.threeSum(input));
+  }
+
+  input.emplace_back(0);
+  EXPECT_EQ((vector<vector<int>>{{-1,0,1}}), solution.threeSum(input));
+  for (int i = 0; i < 10; ++i) {
+    input.emplace_back(0);
+    EXPECT_EQ((vector<vector<int>>{{-1,0,1},{0,0,0}}), solution.threeSum(input));
+  }
+
+  input = {-1, 0, 1, 2, -1, -4};
+  EXPECT_EQ((vector<vector<int>>{{-1, -1, 2},{-1, 0, 1}}), solution.threeSum(input));
+}
+
 }

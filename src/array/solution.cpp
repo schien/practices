@@ -32,6 +32,7 @@
 // https://leetcode.com/problems/smallest-range-i/
 // https://leetcode.com/problems/x-of-a-kind-in-a-deck-of-cards/
 // https://leetcode.com/problems/k-diff-pairs-in-an-array/
+// https://leetcode.com/problems/3sum/
 
 #include <vector>
 #include <unordered_set>
@@ -816,6 +817,34 @@ class Solution {
         }
       }
       return count;
+    }
+    vector<vector<int>> threeSum(vector<int>& nums) {
+      const int sz = nums.size();
+      sort(nums.begin(), nums.end());
+
+      vector<vector<int>> result;
+      int i = 0;
+      while (i < sz-2) {
+        const int v_i = nums[i];
+        int l = i+1;
+        int h = sz-1;
+        while (l < h) {
+          const int v_l = nums[l];
+          const int v_h = nums[h];
+          const int sum_l_h = v_l + v_h;
+          if (sum_l_h > -v_i) {
+            --h;
+          } else if (sum_l_h < -v_i) {
+            ++l;
+          } else {
+            result.emplace_back(vector<int>{v_i, v_l, v_h});
+            while (++l < h && nums[l] == v_l);
+            while (--h >= l && nums[h] == v_h);
+          }
+        }
+        while (++i < sz-2 && nums[i] == v_i);
+      }
+      return result;
     }
 };
 
