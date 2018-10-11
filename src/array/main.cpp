@@ -38,6 +38,7 @@ void usage() {
             << "        G {n x_1 ... x_n}\n"
             << "        u {n x_1 ... x_n} k\n"
             << "        0 {n x_1 ... x_n} k\n"
+            << "        1 {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -317,6 +318,13 @@ void runThreeSum() {
   std::cout << std::flush;
 }
 
+void runFirstMissingPositive() {
+  std::vector<int> nums = next_vector<int>();
+  Solution solution;
+  auto output = solution.firstMissingPositive(nums);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -422,6 +430,9 @@ int main() {
       break;
     case '0':
       runThreeSum();
+      break;
+    case 'o':
+      runFirstMissingPositive();
       break;
     default:
       usage();

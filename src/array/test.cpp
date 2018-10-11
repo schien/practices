@@ -1385,4 +1385,22 @@ TEST(ThreeSumTest, example) {
   EXPECT_EQ((vector<vector<int>>{{-1, -1, 2},{-1, 0, 1}}), solution.threeSum(input));
 }
 
+TEST(FirstMissingPositiveTest, example) {
+  Solution solution;
+
+  vector<int> input;
+  EXPECT_EQ(1, solution.firstMissingPositive(input));
+
+  input = {1,2,3,4,5,6,7,8,9};
+  EXPECT_EQ(10, solution.firstMissingPositive(input));
+  input = {1,1};
+  EXPECT_EQ(2, solution.firstMissingPositive(input));
+  input = {1,2,0};
+  EXPECT_EQ(3, solution.firstMissingPositive(input));
+  input = {3,4,-1,1};
+  EXPECT_EQ(2, solution.firstMissingPositive(input));
+  input = {7,8,9,11,12};
+  EXPECT_EQ(1, solution.firstMissingPositive(input));
+}
+
 }

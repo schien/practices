@@ -33,6 +33,7 @@
 // https://leetcode.com/problems/x-of-a-kind-in-a-deck-of-cards/
 // https://leetcode.com/problems/k-diff-pairs-in-an-array/
 // https://leetcode.com/problems/3sum/
+// https://leetcode.com/problems/first-missing-positive/
 
 #include <vector>
 #include <unordered_set>
@@ -845,6 +846,23 @@ class Solution {
         while (++i < sz-2 && nums[i] == v_i);
       }
       return result;
+    }
+    int firstMissingPositive(vector<int>& nums) {
+      if (nums.empty()) { return 1; }
+
+      const int sz = nums.size();
+      int i = 0;
+      while (i < sz) {
+        if (nums[i] <= 0 || nums[i] >= sz || nums[i] == nums[nums[i]-1]) {
+          ++i;
+        } else {
+          swap(nums[i], nums[nums[i]-1]);
+        }
+      }
+      for (int i = 0; i < sz; ++i) {
+        if (nums[i] != i+1) { return i+1; }
+      }
+      return sz+1;
     }
 };
 
