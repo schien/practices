@@ -1403,4 +1403,23 @@ TEST(FirstMissingPositiveTest, example) {
   EXPECT_EQ(1, solution.firstMissingPositive(input));
 }
 
+TEST(MonotonicTest, example) {
+  Solution solution;
+
+  vector<int> input{1,2,2,3};
+  EXPECT_TRUE(solution.isMonotonic(input));
+
+  input = {6,5,4,4};
+  EXPECT_TRUE(solution.isMonotonic(input));
+
+  input = {1,3,2};
+  EXPECT_FALSE(solution.isMonotonic(input));
+
+  input = {1,2,4,5};
+  EXPECT_TRUE(solution.isMonotonic(input));
+
+  input = {1,1,1};
+  EXPECT_TRUE(solution.isMonotonic(input));
+}
+
 }

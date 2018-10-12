@@ -39,6 +39,7 @@ void usage() {
             << "        u {n x_1 ... x_n} k\n"
             << "        0 {n x_1 ... x_n} k\n"
             << "        1 {n x_1 ... x_n}\n"
+            << "        n {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -325,6 +326,13 @@ void runFirstMissingPositive() {
   std::cout << output << std::endl;
 }
 
+void runIsMonotonic() {
+  std::vector<int> nums = next_vector<int>();
+  Solution solution;
+  auto output = solution.isMonotonic(nums);
+  std::cout << std::boolalpha << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -433,6 +441,9 @@ int main() {
       break;
     case 'o':
       runFirstMissingPositive();
+      break;
+    case 'n':
+      runIsMonotonic();
       break;
     default:
       usage();

@@ -34,6 +34,7 @@
 // https://leetcode.com/problems/k-diff-pairs-in-an-array/
 // https://leetcode.com/problems/3sum/
 // https://leetcode.com/problems/first-missing-positive/
+// https://leetcode.com/problems/monotonic-array/
 
 #include <vector>
 #include <unordered_set>
@@ -863,6 +864,21 @@ class Solution {
         if (nums[i] != i+1) { return i+1; }
       }
       return sz+1;
+    }
+    bool isMonotonic(vector<int>& A) {
+      if (A.empty()) {
+        return true;
+      }
+      const int sz = A.size();
+      bool increasing = (A.front() - A.back()) <= 0;
+      for (int i = 1; i < sz; ++i) {
+	if (increasing) {
+	  if (A[i-1]-A[i] > 0) { return false; }
+	} else {
+	  if (A[i-1]-A[i] < 0) { return false; }
+	}
+      }
+      return true;
     }
 };
 
