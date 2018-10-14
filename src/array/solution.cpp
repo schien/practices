@@ -35,6 +35,7 @@
 // https://leetcode.com/problems/3sum/
 // https://leetcode.com/problems/first-missing-positive/
 // https://leetcode.com/problems/monotonic-array/
+// https://leetcode.com/problems/sort-array-by-parity-ii/
 
 #include <vector>
 #include <unordered_set>
@@ -879,6 +880,17 @@ class Solution {
 	}
       }
       return true;
+    }
+    vector<int> sortArrayByParityII(vector<int>& A) {
+      const int sz = A.size();
+      int i = 0;
+      int j = 1;
+      while (i < sz && j < sz) {
+        while (i < sz && !(A[i] & 0x1)) { i += 2; }
+        while (j < sz && (A[j] & 0x1)) { j += 2; }
+        if (i < sz && j < sz) { swap(A[i], A[j]); }
+      }
+      return A;
     }
 };
 

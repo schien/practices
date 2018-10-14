@@ -1422,4 +1422,25 @@ TEST(MonotonicTest, example) {
   EXPECT_TRUE(solution.isMonotonic(input));
 }
 
+TEST(SortByParityIITest, example) {
+  Solution solution;
+  vector<int> input;
+
+  EXPECT_EQ(vector<int>{}, solution.sortArrayByParityII(input));
+
+  for (int i = 0; i < 1000; ++i) {
+    input.emplace_back(i);
+  }
+
+  auto verify = [](const vector<int>& nums) {
+    for (int i = 0; i < nums.size(); ++i) {
+      EXPECT_EQ(i&1, nums[i]&1);
+    }
+  };
+  for (int i = 0; i < 1000; ++i) {
+    random_shuffle(input.begin(), input.end());
+    verify(solution.sortArrayByParityII(input));
+  }
+}
+
 }
