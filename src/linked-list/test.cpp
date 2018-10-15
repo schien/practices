@@ -495,4 +495,18 @@ TEST(RemoveElementsTest, example) {
   EXPECT_EQ(nullptr, output->next);
 }
 
+TEST(MiddleNodeTest, example) {
+  Solution solution;
+
+  EXPECT_EQ(nullptr, solution.middleNode(nullptr));
+
+  std::vector<ListNode> nodes{0};
+  nodes.reserve(100);
+  for (int i = 1; i < 100; ++i) {
+    EXPECT_EQ(&nodes[i/2], solution.middleNode(&nodes.front()));
+    nodes.emplace_back(i);
+    nodes[i-1].next = &nodes[i];
+  }
+}
+
 }

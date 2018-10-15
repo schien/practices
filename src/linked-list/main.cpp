@@ -184,6 +184,14 @@ void runRemoveElements() {
   printList(output);
 }
 
+void runMiddleNode() {
+  std::vector<ListNode> nodes = next_list();
+  Solution solution;
+
+  auto output = solution.middleNode(&nodes[0]);
+  printList(output);
+}
+
 void usage() {
   std::cerr << "usage: r N v[1] ... v[N]\n"
             << "       d N v[1] ... v[N] v[x] (where x < N)\n"
@@ -193,6 +201,7 @@ void usage() {
             << "       c N v[1] ... v[N] r[1] ... r[N] (where -1 == nullptr)\n"
             << "       l (h v)|(t v)|(i idx v)|(d idx v)|(p)\n"
             << "       R N v[1] ... v[N] k\n"
+            << "       m N v[1] ... v[N]\n"
             << std::flush;
 }
 
@@ -224,6 +233,9 @@ int main() {
       break;
     case 'R':
       runRemoveElements();
+      break;
+    case 'm':
+      runMiddleNode();
       break;
     default:
       usage();

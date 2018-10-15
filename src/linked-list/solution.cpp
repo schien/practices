@@ -6,6 +6,7 @@
 // https://leetcode.com/problems/copy-list-with-random-pointer/
 // https://leetcode.com/problems/design-linked-list/
 // https://leetcode.com/problems/remove-linked-list-elements/
+// https://leetcode.com/problems/middle-of-the-linked-list/
 
 #include <ostream>
 
@@ -316,6 +317,18 @@ public:
       head = head->next;
     }
     return dummy.next;
+  }
+  ListNode* middleNode(ListNode* head) {
+    ListNode* slow = head;
+    ListNode* fast = head;
+    while (fast) {
+      fast = fast->next;
+      if (fast) {
+        fast = fast->next;
+        slow = slow->next;
+      }
+    }
+    return slow;
   }
 };
 
