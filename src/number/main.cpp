@@ -15,6 +15,7 @@ int main() {
   auto squareSum= solution.judgeSquareSum(n);
   auto perfectNumber = solution.checkPerfectNumber(n);
   auto columnTitle = solution.convertToTitle(n);
+  auto complement = solution.findComplement(n);
 
   std::cout << "happy: " << happy << std::endl;
   std::cout << "digit: " << digit << std::endl;
@@ -24,6 +25,7 @@ int main() {
   std::cout << "judgeSquareSum:" << squareSum << std::endl;
   std::cout << "checkPerfectNumber:" << perfectNumber << std::endl;
   std::cout << "convertToTitle:" << columnTitle<< std::endl;
+  std::cout << "findComplement:" << complement << std::endl;
 
   int y;
   std::cin >> y;

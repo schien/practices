@@ -7,6 +7,7 @@
 // https://leetcode.com/problems/sum-of-square-numbers/
 // https://leetcode.com/problems/perfect-number/
 // https://leetcode.com/problems/excel-sheet-column-title/
+// https://leetcode.com/problems/number-complement/
 
 #include <unordered_set>
 #include <vector>
@@ -207,5 +208,14 @@ class Solution {
       }
       reverse(result.begin(), result.end());
       return result;
+    }
+    int findComplement(int num) {
+      int tail = num;
+      tail |= tail >> 1;
+      tail |= tail >> 2;
+      tail |= tail >> 4;
+      tail |= tail >> 8;
+      tail |= tail >> 16;
+      return (~num) & tail;
     }
 };

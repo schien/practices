@@ -195,4 +195,31 @@ TEST(ColumnTitleTest, example) {
   EXPECT_EQ("ZY", solution.convertToTitle(701));
 }
 
+TEST(ComplementTest, example) {
+  Solution solution;
+
+  vector<pair<int,int>> tests {
+    {1,0},
+      {2,1},
+      {3,0},
+      {4,3},
+      {5,2},
+      {6,1},
+      {7,0},
+      {8,7},
+      {9,6},
+      {10,5},
+      {11,4},
+      {12,3},
+      {13,2},
+      {14,1},
+      {15,0},
+      {INT_MAX,0},
+  };
+
+  for (auto& p : tests) {
+    EXPECT_EQ(p.second, solution.findComplement(p.first));
+  }
+}
+
 }
