@@ -7,6 +7,7 @@ void usage() {
   std::cout << "usage: math p x n\n"
             << "            d l r\n"
             << "            n x\n"
+            << "            c x\n"
             << std::flush;
 }
 
@@ -36,6 +37,16 @@ void runNthDigit() {
   std::cout << output << std::endl;
 }
 
+void runCountBits() {
+  Solution solution;
+  auto output = solution.countBits(next<int>());
+
+  for (auto n : output) {
+    std::cout << n << ' ';
+  }
+  std::cout << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -48,6 +59,9 @@ int main() {
       break;
     case 'n':
       runNthDigit();
+      break;
+    case 'c':
+      runCountBits();
       break;
     default:
       usage();

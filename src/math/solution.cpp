@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/powx-n/
 // https://leetcode.com/problems/self-dividing-numbers/
 // https://leetcode.com/problems/nth-digit
+// https://leetcode.com/problems/counting-bits/
 
 #include <cstdlib>
 #include <cstdint>
@@ -78,5 +79,16 @@ class Solution {
       int k = static_cast<int>(pow(10, d-1)) + ((n-1)/d);
       int i = d - ((n-1)%d);
       return (k% static_cast<int>(pow(10, i))) / static_cast<int>(pow(10, i-1));
+    }
+    vector<int> countBits(int num) {
+      vector<int> result(num+1);
+      int p2 = 1;
+      for (int i = 1; i <= num; ++i) {
+        result[i] = result[i^p2] + 1;
+        if (i == (p2<<1) - 1) {
+          p2 <<= 1;
+        }
+      }
+      return result;
     }
 };
