@@ -8,6 +8,7 @@
 // https://leetcode.com/problems/perfect-number/
 // https://leetcode.com/problems/excel-sheet-column-title/
 // https://leetcode.com/problems/number-complement/
+// https://leetcode.com/problems/binary-gap/
 
 #include <unordered_set>
 #include <vector>
@@ -217,5 +218,22 @@ class Solution {
       tail |= tail >> 8;
       tail |= tail >> 16;
       return (~num) & tail;
+    }
+    int binaryGap(int N) {
+      if (N <= 0) { return 0; }
+
+      // skip tailing 0's
+      --N;
+      while (N&1) { N >>= 1; }
+
+      int prev = 0;
+      int mx = 0;
+      for (int i = 0; N > 0; ++i, N>>=1) {
+        if (N&1) {
+          mx = max(mx, i-prev);
+          prev = i;
+        }
+      }
+      return mx;
     }
 };

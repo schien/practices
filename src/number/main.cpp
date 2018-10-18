@@ -16,6 +16,7 @@ int main() {
   auto perfectNumber = solution.checkPerfectNumber(n);
   auto columnTitle = solution.convertToTitle(n);
   auto complement = solution.findComplement(n);
+  auto binaryGap = solution.binaryGap(n);
 
   std::cout << "happy: " << happy << std::endl;
   std::cout << "digit: " << digit << std::endl;
@@ -26,6 +27,7 @@ int main() {
   std::cout << "checkPerfectNumber:" << perfectNumber << std::endl;
   std::cout << "convertToTitle:" << columnTitle<< std::endl;
   std::cout << "findComplement:" << complement << std::endl;
+  std::cout << "binaryGap:" << binaryGap << std::endl;
 
   int y;
   std::cin >> y;

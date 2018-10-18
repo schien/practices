@@ -222,4 +222,23 @@ TEST(ComplementTest, example) {
   }
 }
 
+TEST(BinaryGapTest, example) {
+  Solution solution;
+
+  EXPECT_EQ(0, solution.binaryGap(-1));
+  EXPECT_EQ(0, solution.binaryGap(0));
+
+  for (int i = 1; i > 0; i <<= 1) {
+    EXPECT_EQ(0, solution.binaryGap(i));
+  }
+
+  for (int i = 0; i < 31; ++i) {
+    EXPECT_EQ(i, solution.binaryGap((1<<i) | 0x1 ));
+  }
+
+
+  EXPECT_EQ(7, solution.binaryGap(1 | 1<<1 | 1<<3 | 1<<6 | 1<<10 | 1<<15 | 1<<21 | 1<<28));
+  EXPECT_EQ(7, solution.binaryGap(1 | 1<<7 | 1<<13 | 1<<18 | 1<<22 | 1<<25 | 1<<27 | 1<<28));
+}
+
 }
