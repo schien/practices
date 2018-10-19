@@ -1053,4 +1053,53 @@ TEST(MagicSquareInsideTest, example) {
   EXPECT_EQ(4, solution.numMagicSquaresInside(input));
 }
 
+TEST(IslandPerimeterTest, example) {
+  Solution solution;
+
+  vector<vector<int>> input;
+  EXPECT_EQ(0, solution.islandPerimeter(input));
+
+  input = {{0}};
+  EXPECT_EQ(0, solution.islandPerimeter(input));
+
+  input = {{1}};
+  EXPECT_EQ(4, solution.islandPerimeter(input));
+
+  input = {
+    {1,1},
+    {1,1}
+  };
+  EXPECT_EQ(8, solution.islandPerimeter(input));
+
+  input = {
+    {1,1,1},
+    {1,1,1},
+    {1,1,1},
+  };
+  EXPECT_EQ(12, solution.islandPerimeter(input));
+
+  input = {
+    {0,0,0},
+    {0,1,0},
+    {0,0,0},
+  };
+  EXPECT_EQ(4, solution.islandPerimeter(input));
+
+  input = {
+    {0,1,0},
+    {1,1,1},
+    {0,1,0},
+  };
+  EXPECT_EQ(12, solution.islandPerimeter(input));
+
+  input = {
+    {0,0,1,0,0},
+    {0,1,1,0,0},
+    {1,1,1,1,1},
+    {0,0,1,1,0},
+    {0,0,1,0,0},
+  };
+  EXPECT_EQ(20, solution.islandPerimeter(input));
+}
+
 }

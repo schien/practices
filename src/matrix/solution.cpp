@@ -11,6 +11,7 @@
 // https://leetcode.com/problems/flipping-an-image/
 // https://leetcode.com/problems/transpose-matrix/
 // https://leetcode.com/problems/magic-squares-in-grid/
+// https://leetcode.com/problems/island-perimeter/
 
 #include <vector>
 #include <queue>
@@ -518,5 +519,24 @@ class Solution {
         }
       }
       return count;
+    }
+    int islandPerimeter(vector<vector<int>>& grid) {
+      auto sides = [&grid](size_t i, size_t j) {
+        int side = 0;
+        if (i == 0 || !grid[i-1][j]) { ++side; }
+        if (i == grid.size()-1 || !grid[i+1][j]) { ++side; }
+        if (j == 0 || !grid[i][j-1]) { ++ side; }
+        if (j == grid[i].size()-1 || !grid[i][j+1]) { ++side; }
+        return side;
+      };
+      int perimeter = 0;
+      for (size_t i = 0; i < grid.size(); ++i) {
+        for (size_t j = 0; j < grid[i].size(); ++j) {
+          if (grid[i][j]) {
+            perimeter += sides(i,j);
+          }
+        }
+      }
+      return perimeter;
     }
 };
