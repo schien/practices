@@ -41,6 +41,7 @@ void usage() {
             << "        o {n x_1 ... x_n}\n"
             << "        n {n x_1 ... x_n}\n"
             << "        2 {n x_1 ... x_n}\n"
+            << "        = {n x_1 ... x_n}\n"
             << std::flush;
 }
 
@@ -344,6 +345,13 @@ void runSortArrayByParityII() {
   std::cout << std::endl;
 }
 
+void runPivotIndex() {
+  std::vector<int> nums = next_vector<int>();
+  Solution solution;
+  auto output = solution.pivotIndex(nums);
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -458,6 +466,9 @@ int main() {
       break;
     case '2':
       runSortArrayByParityII();
+      break;
+    case '=':
+      runPivotIndex();
       break;
     default:
       usage();

@@ -1443,4 +1443,33 @@ TEST(SortByParityIITest, example) {
   }
 }
 
+TEST(PivotIndexTest, example) {
+  Solution solution;
+
+  vector<int> input;
+  EXPECT_EQ(-1, solution.pivotIndex(input));
+
+  for (int i = -5; i < 5; ++i) {
+    input = {i};
+    EXPECT_EQ(0, solution.pivotIndex(input));
+  }
+
+  input = {1, 7, 3, 6, 5, 6};
+  EXPECT_EQ(3, solution.pivotIndex(input));
+
+  input = {1, 2, 3};
+  EXPECT_EQ(-1, solution.pivotIndex(input));
+
+  input = vector<int>(10001);
+  EXPECT_EQ(0, solution.pivotIndex(input));
+
+  for (int k = 0; k < 100; ++k) {
+    for (int i = 0; i < 5000; ++i) {
+      input[i] = input[i+5001] = static_cast<int>(2000*rand() - 1000);
+    }
+    input[5000] = static_cast<int>(2000*rand() - 1000);
+    EXPECT_EQ(5000, solution.pivotIndex(input));
+  }
+}
+
 }

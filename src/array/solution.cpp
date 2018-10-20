@@ -36,6 +36,7 @@
 // https://leetcode.com/problems/first-missing-positive/
 // https://leetcode.com/problems/monotonic-array/
 // https://leetcode.com/problems/sort-array-by-parity-ii/
+// https://leetcode.com/problems/find-pivot-index/
 
 #include <vector>
 #include <unordered_set>
@@ -891,6 +892,21 @@ class Solution {
         if (i < sz && j < sz) { swap(A[i], A[j]); }
       }
       return A;
+    }
+    int pivotIndex(vector<int>& nums) {
+      const int sz = nums.size();
+      int right_sum = 0;
+      for (int n : nums) {
+        right_sum += n;
+      }
+
+      int left_sum = 0;
+      for (int i = 0; i < sz; ++i) {
+        right_sum -= nums[i];
+        if (left_sum == right_sum) { return i; }
+        left_sum += nums[i];
+      }
+      return -1;
     }
 };
 
