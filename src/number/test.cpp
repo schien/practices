@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
 #include <numeric>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "solution.cpp"
 
@@ -239,6 +241,42 @@ TEST(BinaryGapTest, example) {
 
   EXPECT_EQ(7, solution.binaryGap(1 | 1<<1 | 1<<3 | 1<<6 | 1<<10 | 1<<15 | 1<<21 | 1<<28));
   EXPECT_EQ(7, solution.binaryGap(1 | 1<<7 | 1<<13 | 1<<18 | 1<<22 | 1<<25 | 1<<27 | 1<<28));
+}
+
+TEST(ReachNumberTest, example) {
+  Solution solution;
+
+  for (int i = 0, input = 0; i < 10000; input += ++i ) {
+    EXPECT_EQ(i, solution.reachNumber(input));
+    EXPECT_EQ(i, solution.reachNumber(-input));
+  }
+
+  unordered_map<int,int> tests;
+  unordered_set<int> q{0};
+  for (int i = 0; i < 100; ++i) {
+    unordered_set<int> next;
+    for (auto n : q) {
+      if (next.find(n+i) == next.end()) {
+        next.insert(n+i);
+        auto it = tests.find(n+i);
+        if (it == tests.end()) {
+          tests[n+i] = i;
+        }
+      }
+      if (next.find(n-i) == next.end()) {
+        next.insert(n-i);
+        auto it = tests.find(n-i);
+        if (it == tests.end()) {
+          tests[n-i] = i;
+        }
+      }
+    }
+    q.swap(next);
+  }
+
+  for (auto& test : tests) {
+    EXPECT_EQ(test.second, solution.reachNumber(test.first));
+  }
 }
 
 }

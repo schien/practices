@@ -9,6 +9,7 @@
 // https://leetcode.com/problems/excel-sheet-column-title/
 // https://leetcode.com/problems/number-complement/
 // https://leetcode.com/problems/binary-gap/
+// https://leetcode.com/problems/reach-a-number/
 
 #include <unordered_set>
 #include <vector>
@@ -235,5 +236,14 @@ class Solution {
         }
       }
       return mx;
+    }
+    int reachNumber(int target) {
+      if (target < 0) { target = -target; }
+      int step = 0;
+      int sum = 0;
+      while (sum < target) { sum += ++step; }
+      if (((sum-target)&1) == 0) { return step; }
+      if (step&1) { return step+2; }
+      return step+1;
     }
 };
