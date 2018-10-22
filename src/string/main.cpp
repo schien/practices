@@ -23,6 +23,7 @@ void usage() {
             << "       P str1\n"
             << "       D str1 str2\n"
             << "       B str1 str2\n"
+            << "       L str1\n"
             << std::flush;
 }
 
@@ -169,6 +170,11 @@ void runBuddyString() {
   std::cout << std::boolalpha << solution.buddyStrings(next<std::string>(), next<std::string>()) << std::endl;
 }
 
+void runReverseOnlyLetters() {
+  Solution solution;
+  std::cout << solution.reverseOnlyLetters(next<std::string>()) << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -230,6 +236,9 @@ int main() {
       break;
     case 'B':
       runBuddyString();
+      break;
+    case 'L':
+      runReverseOnlyLetters();
       break;
     default:
       usage();

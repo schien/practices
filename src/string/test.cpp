@@ -729,4 +729,19 @@ TEST(BuddyStringTest, example) {
   EXPECT_FALSE(solution.buddyStrings("oooaooobooox", "oooboooaoooy"));
 }
 
+TEST(ReverseOnlyLettersTest, example) {
+  Solution solution;
+
+  string s = "abcdefghijklmnopqrstuvwxyz";
+  string expect(s.rbegin(), s.rend());
+  EXPECT_EQ(expect, solution.reverseOnlyLetters(s));
+
+  char non_alpha[] = "!?@#$%^&*()-=+_[]{}\\|:;'\"<>,./~`1234567890";
+  for (int i = s.size(); i >= 0; --i) {
+    s.insert(i, non_alpha, i);
+    expect.insert(i, non_alpha, i);
+    EXPECT_EQ(expect, solution.reverseOnlyLetters(s));
+  }
+}
+
 }

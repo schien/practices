@@ -16,6 +16,7 @@
 // https://leetcode.com/problems/valid-palindrome-ii/
 // https://leetcode.com/problems/find-the-difference/
 // https://leetcode.com/problems/buddy-strings/
+// https://leetcode.com/problems/reverse-only-letters/
 
 #include <string>
 #include <array>
@@ -576,5 +577,15 @@ class Solution {
       int k = j+1;
       while (k < sz && A[k] == B[k]) { ++k; }
       return k == sz;
+    }
+    string reverseOnlyLetters(string S) {
+      int i = 0;
+      int j = S.size()-1;
+      while (i < j) {
+        if (!isalpha(S[i])) { ++i; continue; }
+        if (!isalpha(S[j])) { --j; continue; }
+        swap(S[i++], S[j--]);
+      }
+      return S;
     }
 };
