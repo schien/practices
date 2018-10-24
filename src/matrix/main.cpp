@@ -18,6 +18,7 @@ void usage() {
             << "       t n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m]\n"
             << "       m n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m]\n"
             << "       P n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m]\n"
+            << "       A n [m c_1_1 ... c_1_m] ... [m c_n_1 ... c_n_m]\n"
             << std::flush;
 }
 
@@ -256,6 +257,20 @@ void runIslandPerimeter() {
   std::cout << output << std::endl;
 }
 
+void runProjectionArea() {
+  const int n = next<int>();
+  vector<vector<int>> matrix;
+  for (int i = 0; i < n; ++i) {
+    vector<int> row = next_vector<int>();
+    matrix.push_back(row);
+  }
+
+  Solution solution;
+  auto output = solution.projectionArea(matrix);
+
+  std::cout << output << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -301,6 +316,9 @@ int main() {
       break;
     case 'P':
       runIslandPerimeter();
+      break;
+    case 'A':
+      runProjectionArea();
       break;
     default:
       usage();

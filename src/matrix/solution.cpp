@@ -12,6 +12,7 @@
 // https://leetcode.com/problems/transpose-matrix/
 // https://leetcode.com/problems/magic-squares-in-grid/
 // https://leetcode.com/problems/island-perimeter/
+// https://leetcode.com/problems/projection-area-of-3d-shapes/
 
 #include <vector>
 #include <queue>
@@ -538,5 +539,27 @@ class Solution {
         }
       }
       return perimeter;
+    }
+    int projectionArea(vector<vector<int>>& grid) {
+      const int sz = grid.size();
+
+      int xy = 0;
+      int yz = 0;
+      int zx = 0;
+
+      for (int i = 0; i < sz; ++i) {
+        int mx_x = 0;
+        int mx_y = 0;
+        for (int j = 0; j < sz; ++j) {
+          mx_x = max(mx_x, grid[i][j]);
+          mx_y = max(mx_y, grid[j][i]);
+          if (grid[i][j]) {
+            ++xy;
+          }
+        }
+        yz += mx_x;
+        zx += mx_y;
+      }
+      return xy + yz + zx;
     }
 };

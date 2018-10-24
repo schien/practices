@@ -1102,4 +1102,37 @@ TEST(IslandPerimeterTest, example) {
   EXPECT_EQ(20, solution.islandPerimeter(input));
 }
 
+TEST(ProjectionAreaTest, example) {
+  Solution solution;
+
+  vector<vector<int>> input;
+  EXPECT_EQ(0, solution.projectionArea(input));
+
+  input = vector<vector<int>>(50, vector<int>(50));
+  EXPECT_EQ(0, solution.projectionArea(input));
+
+  input = vector<vector<int>>(50, vector<int>(50,1));
+  EXPECT_EQ(50+50+50*50, solution.projectionArea(input));
+
+  for (int i = 0; i < 50; ++i) {
+    input[i][i] += 100;
+    EXPECT_EQ(50+50+50*50+200*(i+1), solution.projectionArea(input));
+  }
+
+  for (int i = 1; i < 50; ++i) {
+    input[i][i-1] = 50;
+    EXPECT_EQ(101*50+101*50+50*50, solution.projectionArea(input));
+  }
+
+  for (int i = 0; i < 50; ++i) {
+    input[0][i] = 200;
+  }
+  EXPECT_EQ((200+101*49)+(200*50)+(50*50), solution.projectionArea(input));
+
+  for (int i = 0; i < 50; ++i) {
+    input[i][49] = 300;
+  }
+  EXPECT_EQ((300*50)+(200*49+300)+(50*50), solution.projectionArea(input));
+}
+
 }
