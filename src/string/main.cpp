@@ -24,6 +24,7 @@ void usage() {
             << "       D str1 str2\n"
             << "       B str1 str2\n"
             << "       L str1\n"
+            << "       k str n word_1 ... word_n\n"
             << std::flush;
 }
 
@@ -175,6 +176,16 @@ void runReverseOnlyLetters() {
   std::cout << solution.reverseOnlyLetters(next<std::string>()) << std::endl;
 }
 
+void runKeyboardRow() {
+  std::vector<std::string> words = next_vector<std::string>();
+  Solution solution;
+  auto output = solution.findWords(words);
+  for (auto& s : output) {
+    std::cout << s << ' ';
+  }
+  std::cout << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -239,6 +250,9 @@ int main() {
       break;
     case 'L':
       runReverseOnlyLetters();
+      break;
+    case 'k':
+      runKeyboardRow();
       break;
     default:
       usage();

@@ -17,6 +17,7 @@
 // https://leetcode.com/problems/find-the-difference/
 // https://leetcode.com/problems/buddy-strings/
 // https://leetcode.com/problems/reverse-only-letters/
+// https://leetcode.com/problems/keyboard-row/
 
 #include <string>
 #include <array>
@@ -587,5 +588,29 @@ class Solution {
         swap(S[i++], S[j--]);
       }
       return S;
+    }
+    vector<string> findWords(vector<string>& words) {
+      auto same_row = [](const string& w) {
+        static int table[26] = {
+          2,3,3,2,1,2,2,2,1,2,2,2,3,3,1,1,1,1,2,1,1,3,1,3,1,3
+        };
+        if (w.empty()) { return true; }
+        const int row = table[tolower(w[0])-'a'];
+        for (char c : w) {
+          if (row != table[tolower(c)-'a']) {
+            return false;
+          }
+        }
+        return true;
+      };
+
+      vector<string> result;
+      result.reserve(words.size());
+      for (string& w : words) {
+        if (same_row(w)) {
+          result.emplace_back(w);
+        }
+      }
+      return result;
     }
 };

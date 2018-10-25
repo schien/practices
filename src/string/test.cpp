@@ -744,4 +744,31 @@ TEST(ReverseOnlyLettersTest, example) {
   }
 }
 
+TEST(KeyboardRowTest, example) {
+  Solution solution;
+
+  vector<string> input{
+    "qwertyuiopQWERTYUIOP",
+    "asdfghjklASDFGHJKL",
+    "zxcvbnmZXCVBNM",
+    "aq",
+    "sx",
+    "ce",
+    "vfr",
+    "tgb",
+    "hyn",
+    "jmu",
+    "ki",
+    "opl",
+    "",
+  };
+  vector<string> expect{
+    "qwertyuiopQWERTYUIOP",
+    "asdfghjklASDFGHJKL",
+    "zxcvbnmZXCVBNM",
+    "",
+  };
+  EXPECT_EQ(expect, solution.findWords(input));
+}
+
 }
