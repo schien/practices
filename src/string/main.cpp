@@ -25,6 +25,7 @@ void usage() {
             << "       B str1 str2\n"
             << "       L str1\n"
             << "       k str n word_1 ... word_n\n"
+            << "       u line1\n line2\n"
             << std::flush;
 }
 
@@ -186,6 +187,18 @@ void runKeyboardRow() {
   std::cout << std::endl;
 }
 
+void runUncommonWords() {
+  string line1, line2;
+  std::getline(std::cin, line1);
+  std::getline(std::cin, line2);
+  Solution solution;
+  auto output = solution.uncommonFromSentences(line1, line2);
+  for (auto& s : output) {
+    std::cout << s << ' ';
+  }
+  std::cout << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -253,6 +266,9 @@ int main() {
       break;
     case 'k':
       runKeyboardRow();
+      break;
+    case 'u':
+      runUncommonWords();
       break;
     default:
       usage();

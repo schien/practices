@@ -771,4 +771,12 @@ TEST(KeyboardRowTest, example) {
   EXPECT_EQ(expect, solution.findWords(input));
 }
 
+TEST(UncommonWordsTest, example) {
+  Solution solution;
+
+  EXPECT_EQ((vector<string>{"sweet","sour"}), solution.uncommonFromSentences("this apple is sweet", "this apple is sour"));
+  EXPECT_EQ((vector<string>{"banana"}), solution.uncommonFromSentences("apple apple", "banana"));
+  EXPECT_EQ((vector<string>{"banana", "apple"}), solution.uncommonFromSentences("apple", "banana"));
+}
+
 }

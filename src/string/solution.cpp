@@ -18,6 +18,7 @@
 // https://leetcode.com/problems/buddy-strings/
 // https://leetcode.com/problems/reverse-only-letters/
 // https://leetcode.com/problems/keyboard-row/
+// https://leetcode.com/problems/uncommon-words-from-two-sentences/
 
 #include <string>
 #include <array>
@@ -28,6 +29,7 @@
 #include <stack>
 #include <numeric>
 #include <unordered_set>
+#include <sstream>
 
 using namespace std;
 
@@ -609,6 +611,27 @@ class Solution {
       for (string& w : words) {
         if (same_row(w)) {
           result.emplace_back(w);
+        }
+      }
+      return result;
+    }
+    vector<string> uncommonFromSentences(string A, string B) {
+      unordered_map<string, int> counts;
+      auto count = [&counts](const string& str) {
+        stringstream ss(str);
+        while (ss.good()) {
+          string word;
+          ss >> word;
+          ++counts[word];
+        }
+      };
+      count(A);
+      count(B);
+
+      vector<string> result;
+      for (auto& entry: counts) {
+        if (entry.second == 1) {
+          result.emplace_back(entry.first);
         }
       }
       return result;
