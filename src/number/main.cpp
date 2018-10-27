@@ -18,6 +18,7 @@ int main() {
   auto complement = solution.findComplement(n);
   auto binaryGap = solution.binaryGap(n);
   auto reachNumber = solution.reachNumber(n);
+  auto alternatingBits = solution.hasAlternatingBits(n);
 
   std::cout << "happy: " << happy << std::endl;
   std::cout << "digit: " << digit << std::endl;
@@ -30,6 +31,7 @@ int main() {
   std::cout << "findComplement:" << complement << std::endl;
   std::cout << "binaryGap:" << binaryGap << std::endl;
   std::cout << "reachNumber:" << reachNumber << std::endl;
+  std::cout << "alternatingBits:" << alternatingBits << std::endl;
 
   int y;
   std::cin >> y;

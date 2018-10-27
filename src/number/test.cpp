@@ -279,4 +279,30 @@ TEST(ReachNumberTest, example) {
   }
 }
 
+TEST(AlternatingBitsTest, example) {
+  Solution solution;
+
+  unordered_set<int> alts {
+    0,
+    0x1, 0x5, 0x15, 0x55, 0x155, 0x555, 0x1555, 0x5555,
+    0x15555, 0x55555, 0x155555, 0x555555, 0x1555555, 0x5555555, 0x15555555, 0x55555555,
+    0x2, 0xA, 0x2A, 0xAA, 0x2AA, 0xAAA, 0x2AAA, 0xAAAA,
+    0x2AAAA, 0xAAAAA, 0x2AAAAA, 0xAAAAAA, 0x2AAAAAA, 0xAAAAAAA, 0x2AAAAAAA, static_cast<int>(0xAAAAAAAA),
+  };
+
+
+  for (auto n : alts) {
+    EXPECT_TRUE(solution.hasAlternatingBits(n));
+  }
+
+  for (int i = 0; i < 1000000; ++i) {
+    if (alts.find(i) == alts.end()) {
+      EXPECT_FALSE(solution.hasAlternatingBits(i));
+    }
+    if (alts.find(-i) == alts.end()) {
+      EXPECT_FALSE(solution.hasAlternatingBits(-i));
+    }
+  }
+}
+
 }

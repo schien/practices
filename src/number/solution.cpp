@@ -10,6 +10,7 @@
 // https://leetcode.com/problems/number-complement/
 // https://leetcode.com/problems/binary-gap/
 // https://leetcode.com/problems/reach-a-number/
+// https://leetcode.com/problems/binary-number-with-alternating-bits/
 
 #include <unordered_set>
 #include <vector>
@@ -245,5 +246,10 @@ class Solution {
       if (((sum-target)&1) == 0) { return step; }
       if (step&1) { return step+2; }
       return step+1;
+    }
+    bool hasAlternatingBits(int n) {
+      unsigned int b = static_cast<unsigned int>(n);
+      unsigned int x = b ^ (b>>1);
+      return 0 == (x & (x+1));
     }
 };
