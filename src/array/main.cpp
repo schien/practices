@@ -352,6 +352,17 @@ void runPivotIndex() {
   std::cout << output << std::endl;
 }
 
+void runFairCandySwap() {
+  std::vector<int> A = next_vector<int>();
+  std::vector<int> B = next_vector<int>();
+  Solution solution;
+  auto output = solution.fairCandySwap(A, B);
+  for (auto n : output) {
+    std::cout << n << ' ';
+  }
+  std::cout << std::endl;
+}
+
 int main() {
   char op = next<char>();
 
@@ -469,6 +480,9 @@ int main() {
       break;
     case '=':
       runPivotIndex();
+      break;
+    case 'W':
+      runFairCandySwap();
       break;
     default:
       usage();

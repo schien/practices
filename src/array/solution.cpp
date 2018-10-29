@@ -37,6 +37,7 @@
 // https://leetcode.com/problems/monotonic-array/
 // https://leetcode.com/problems/sort-array-by-parity-ii/
 // https://leetcode.com/problems/find-pivot-index/
+// https://leetcode.com/problems/fair-candy-swap/
 
 #include <vector>
 #include <unordered_set>
@@ -46,6 +47,7 @@
 #include <string>
 #include <array>
 #include <limits>
+#include <numeric>
 
 using namespace std;
 
@@ -582,14 +584,14 @@ class Solution {
       int result = 0;
       int current = 0;
       for (auto n : nums) {
-	if (!n) {
-	  if (current > result) {
-	    result = current;
-	  }
-	  current = 0;
-	} else {
-	  ++current;
-	}
+        if (!n) {
+          if (current > result) {
+            result = current;
+          }
+          current = 0;
+        } else {
+          ++current;
+        }
       }
       return max(result, current);
     }
@@ -874,11 +876,11 @@ class Solution {
       const int sz = A.size();
       bool increasing = (A.front() - A.back()) <= 0;
       for (int i = 1; i < sz; ++i) {
-	if (increasing) {
-	  if (A[i-1]-A[i] > 0) { return false; }
-	} else {
-	  if (A[i-1]-A[i] < 0) { return false; }
-	}
+        if (increasing) {
+          if (A[i-1]-A[i] > 0) { return false; }
+        } else {
+          if (A[i-1]-A[i] < 0) { return false; }
+        }
       }
       return true;
     }
@@ -907,6 +909,27 @@ class Solution {
         left_sum += nums[i];
       }
       return -1;
+    }
+    vector<int> fairCandySwap(vector<int>& A, vector<int>& B) {
+      const int sum_a = accumulate(A.begin(), A.end(), 0);
+      const int sum_b = accumulate(B.begin(), B.end(), 0);
+      const int diff = (sum_a - sum_b) / 2;
+
+      if ((sum_a - sum_b) % 2 != 0) {
+        return {};
+      }
+
+      vector<bool> set_a(100001);
+      for (auto a : A) {
+        set_a[a] = true;
+      }
+      for (auto b : B) {
+        int a = b+diff;
+        if (a >= 1 && a <= 100000 && set_a[a]) {
+          return {a, b};
+        }
+      }
+      return {};
     }
 };
 
