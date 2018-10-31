@@ -26,6 +26,7 @@ void usage() {
             << "       L str1\n"
             << "       k str n word_1 ... word_n\n"
             << "       u line1\n line2\n"
+            << "       S str1 c\n"
             << std::flush;
 }
 
@@ -199,6 +200,15 @@ void runUncommonWords() {
   std::cout << std::endl;
 }
 
+void runShortestToChar() {
+  Solution solution;
+  auto output = solution.shortestToChar(next<std::string>(), next<char>());
+  for (auto n : output) {
+    std::cout << n << ' ';
+  }
+  std::cout << std::endl;
+}
+
 int main() {
   char op;
   std::cin >> op;
@@ -269,6 +279,9 @@ int main() {
       break;
     case 'u':
       runUncommonWords();
+      break;
+    case 'S':
+      runShortestToChar();
       break;
     default:
       usage();

@@ -779,4 +779,38 @@ TEST(UncommonWordsTest, example) {
   EXPECT_EQ((vector<string>{"banana", "apple"}), solution.uncommonFromSentences("apple", "banana"));
 }
 
+TEST(ShortestToCharTest, example) {
+  Solution solution;
+
+  string input;
+  EXPECT_EQ((vector<int>{}), solution.shortestToChar(input, 'a'));
+
+  input = "a";
+  EXPECT_EQ((vector<int>{0}), solution.shortestToChar(input, 'a'));
+
+  input = "b";
+  EXPECT_EQ((vector<int>{INT_MAX}), solution.shortestToChar(input, 'a'));
+
+  input = "ab";
+  EXPECT_EQ((vector<int>{0,1}), solution.shortestToChar(input, 'a'));
+
+  input = "ba";
+  EXPECT_EQ((vector<int>{1,0}), solution.shortestToChar(input, 'a'));
+
+  input = "abba";
+  EXPECT_EQ((vector<int>{0,1,1,0}), solution.shortestToChar(input, 'a'));
+
+  input = "ababa";
+  EXPECT_EQ((vector<int>{0,1,0,1,0}), solution.shortestToChar(input, 'a'));
+
+  input = "abbba";
+  EXPECT_EQ((vector<int>{0,1,2,1,0}), solution.shortestToChar(input, 'a'));
+
+  input = "abbaba";
+  EXPECT_EQ((vector<int>{0,1,1,0,1,0}), solution.shortestToChar(input, 'a'));
+
+  input = "ababba";
+  EXPECT_EQ((vector<int>{0,1,0,1,1,0}), solution.shortestToChar(input, 'a'));
+}
+
 }

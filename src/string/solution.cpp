@@ -19,6 +19,7 @@
 // https://leetcode.com/problems/reverse-only-letters/
 // https://leetcode.com/problems/keyboard-row/
 // https://leetcode.com/problems/uncommon-words-from-two-sentences/
+// https://leetcode.com/problems/shortest-distance-to-a-character/
 
 #include <string>
 #include <array>
@@ -634,6 +635,30 @@ class Solution {
           result.emplace_back(entry.first);
         }
       }
+      return result;
+    }
+    vector<int> shortestToChar(string S, char C) {
+      const int sz = S.size();
+      vector<int> result(sz, INT_MAX);
+      int prev = -1;
+      for (int i = 0; i < sz; ++i) {
+        if (S[i] == C) {
+          result[i] = 0;
+          prev = i;
+        } else if (prev >= 0) {
+          result[i] = min(result[i], i-prev);
+        }
+      }
+
+      prev = -1;
+      for (int i = sz-1; i >= 0; --i) {
+        if (S[i] == C) {
+          prev = i;
+        } else if (prev >= 0) {
+          result[i] = min(result[i], prev-i);
+        }
+      }
+
       return result;
     }
 };
